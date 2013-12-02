@@ -1,7 +1,9 @@
 GATracking
 ==========
 
-GATracking is a Server-Side PHP Client to communicate to Google Analytics over the Google Measurement Protocol
+GATracking is a Server-Side PHP Client to communicate to Google Analytics over the Google Measurement Protocol API
+
+https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
 
 ### Features
 
