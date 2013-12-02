@@ -7,5 +7,3 @@ php:
 
 before_script:
   - composer install --dev
-
-script: php ./vendor/bin/phpunit
