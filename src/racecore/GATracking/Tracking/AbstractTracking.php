@@ -1,5 +1,5 @@
 <?php
-namespace GATracking\Tracking;
+namespace Racecore\GATracking\Tracking;
 
 /**
  * Google Analytics Measurement PHP Class
@@ -22,8 +22,6 @@ abstract class AbstractTracking
 
     /**
      * Get the transfer Paket from current Event
-     * @version 02.07.2013 - 15:39:08
-     * @author  Marco Rieger
      * @return array
      */
     abstract public function getPaket();

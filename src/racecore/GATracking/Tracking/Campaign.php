@@ -1,5 +1,5 @@
 <?php
-namespace GATracking\Tracking;
+namespace Racecore\GATracking\Tracking;
 
 /**
  * Google Analytics Measurement PHP Class
@@ -14,7 +14,7 @@ namespace GATracking\Tracking;
  * @git     https://github.com/ins0
  * @url     http://www.racecore.de
  */
-class CampaignTracking extends PageviewTracking
+class Campaign extends Pageview
 {
 
     /**
