@@ -8,7 +8,9 @@ namespace Racecore\GATracking\Tracking;
  * bundled with this package in the LICENSE file.  It is also available at
  * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
  * Google Documentation
+ *
  * https://developers.google.com/analytics/devguides/collection/protocol/v1/
+ *
  * @author  Marco Rieger
  * @email   Rieger(at)racecore.de
  * @git     https://github.com/ins0
@@ -74,6 +76,23 @@ class Pageview extends AbstractTracking
     }
 
     /**
+     * @param string $host
+     */
+    public function setDocumentHost($host)
+    {
+        $this->host = $host;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDocumentHost()
+    {
+        return $this->host;
+    }
+
+    /**
      * Returns the Google Paket for Campaign Tracking
      *
      * @author  Marco Rieger
@@ -81,14 +100,12 @@ class Pageview extends AbstractTracking
      */
     public function getPaket()
     {
-
         return array(
             't' => 'pageview',
-            'dh' => $this->host,
+            'dh' => $this->getDocumentHost(),
             'dp' => $this->getDocumentPath(),
             'dt' => $this->getDocumentTitle()
         );
     }
-
 
 }
