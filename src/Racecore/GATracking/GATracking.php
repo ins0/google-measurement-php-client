@@ -1,5 +1,6 @@
 <?php
 namespace Racecore\GATracking;
+use Racecore\GATracking\Tracking\AbstractTracking;
 
 /**
  * Google Analytics Measurement PHP Class
@@ -58,7 +59,14 @@ class GATracking
      *
      * @var string
      */
-    private $last_response = array();
+    private $last_response = null;
+
+    /**
+     * Holds all Responses from GA Server
+     *
+     * @var array
+     */
+    private $last_response_stack = array();
 
     /**
      * Sets the Analytics Account ID
@@ -101,16 +109,20 @@ class GATracking
     }
 
     /**
-     * Returns the last Response from Google Analytics Server
-     *
-     * @author  Marco Rieger
-     * @return string
+     * @return array
      */
-    public function getLastResponse()
+    public function getEvents()
     {
-        return $this->last_response;
+        return $this->event_holder;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAccountID()
+    {
+        return $this->accountID;
+    }
 
     /**
      * Create a GUID on Client specific values
@@ -148,6 +160,9 @@ class GATracking
      */
     public function send()
     {
+        // clear response logs
+        $this->last_response_stack = array();
+        $this->last_response = null;
 
         /** @var AbstractTracking $event */
         foreach ($this->event_holder as $event) {
@@ -193,7 +208,7 @@ class GATracking
      * @author  Marco Rieger
      * @param AbstractTracking $event
      */
-    private function sendEvent(AbstractTracking $event)
+    public function sendEvent(AbstractTracking $event)
     {
 
         // get packet
@@ -253,12 +268,48 @@ class GATracking
         $responseContainer[0] = explode("\r\n", $responseContainer[0]);
 
         // save last response
-        $this->last_response[] = $responseContainer;
+        $this->addResponse( $responseContainer );
 
         // connection close
         fclose($connection);
 
         return true;
+    }
+
+    /**
+     * Add a Response to the Stack
+     *
+     * @author  Marco Rieger
+     * @param $response
+     * @return bool
+     */
+    public function addResponse( $response )
+    {
+        $this->last_response_stack[] = $response;
+        $this->last_response = $response;
+        return true;
+    }
+
+    /**
+     * Returns the last Response from Google Analytics Server
+     *
+     * @author  Marco Rieger
+     * @return string
+     */
+    public function getLastResponse()
+    {
+        return $this->last_response;
+    }
+
+    /**
+     * Returns all Responses since the last Send Method Call
+     *
+     * @author  Marco Rieger
+     * @return array
+     */
+    public function getLastResponseStack()
+    {
+        return $this->last_response_stack;
     }
 
     /**
@@ -270,7 +321,6 @@ class GATracking
      */
     public function addTracking($event)
     {
-
         if ($event instanceof AbstractTracking) {
 
             $this->event_holder[] = $event;
