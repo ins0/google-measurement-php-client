@@ -7,12 +7,15 @@ namespace Racecore\GATracking\Tracking;
  * This source file is subject to the 3-clause BSD License that is
  * bundled with this package in the LICENSE file.  It is also available at
  * the following URL: http://www.opensource.org/licenses/BSD-3-Clause
+ *
  * Google Documentation
  * https://developers.google.com/analytics/devguides/collection/protocol/v1/
+ *
  * @author  Marco Rieger
  * @email   Rieger(at)racecore.de
  * @git     https://github.com/ins0
  * @url     http://www.racecore.de
+ * @package Racecore\GATracking\Tracking
  */
 class Campaign extends Pageview
 {
@@ -202,6 +205,7 @@ class Campaign extends Pageview
      *
      * @author  Marco Rieger
      * @return array
+     * @throws Exception
      */
     public function getPaket()
     {
@@ -209,15 +213,15 @@ class Campaign extends Pageview
         $packet = parent::getPaket();
 
         if (!$this->getCampaignName()) {
-            throw new Exception('Campaign Name musst be set');
+            throw new \Exception('Campaign Name musst be set');
         }
 
         if (!$this->getCampaignMedium()) {
-            throw new Exception('Campaign Medium musst be set');
+            throw new \Exception('Campaign Medium musst be set');
         }
 
         if (!$this->getCampaignSource()) {
-            throw new Exception('Campaign Source musst be set');
+            throw new \Exception('Campaign Source musst be set');
         }
 
         return array_merge($packet, array(

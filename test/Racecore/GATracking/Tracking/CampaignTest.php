@@ -52,20 +52,5 @@ class CampaignTest extends \PHPUnit_Framework_TestCase {
         );
     }
 
-    public function _testGetterSetter()
-    {
-        /** @var Pageview $pageview */
-        $pageview = $this->pageview;
-
-        $pageview->setDocumentHost('foo');
-        $this->assertEquals('foo', $pageview->getDocumentHost() );
-
-        $pageview->setDocumentPath('bar');
-        $this->assertEquals('bar', $pageview->getDocumentPath() );
-
-        $pageview->setDocumentTitle('baz');
-        $this->assertEquals('baz', $pageview->getDocumentTitle() );
-    }
-
 }
  

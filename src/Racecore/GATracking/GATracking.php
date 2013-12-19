@@ -16,6 +16,7 @@ use Racecore\GATracking\Tracking\AbstractTracking;
  * @email   Rieger(at)racecore.de
  * @git     https://github.com/ins0
  * @url     http://www.racecore.de
+ * @package Racecore\GATracking\Tracking
  */
 class GATracking
 {
@@ -178,7 +179,7 @@ class GATracking
      * The last octect of the IP address is removed to anonymize the user
      *
      * @author  Marco Rieger
-     * @param $remoteAddress
+     * @param string $address
      * @return string
      */
     function getClientIP($address = '')
@@ -203,10 +204,12 @@ class GATracking
     }
 
     /**
-     * Send the Event to GA
+     * Send an Event to Google Analytics
      *
      * @author  Marco Rieger
      * @param AbstractTracking $event
+     * @return bool
+     * @throws Exception
      */
     public function sendEvent(AbstractTracking $event)
     {

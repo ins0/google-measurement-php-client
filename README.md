@@ -19,7 +19,7 @@ In the `require` key of `composer.json` file add the following
 
     "ins0/google-measurement-php-client": "dev-master"
 
-Run the Composer update comand
+Run the Composer update command
 
     $ composer update
 
