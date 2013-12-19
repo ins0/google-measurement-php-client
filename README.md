@@ -1,6 +1,8 @@
 GATracking
 ==========
 
+![Build Status](https://travis-ci.org/ins0/google-measurement-php-client.png?branch=master)
+
 GATracking is a Server-Side PHP Client to communicate to Google Analytics over the Google Measurement Protocol API
 
 https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
