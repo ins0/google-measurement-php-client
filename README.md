@@ -28,6 +28,8 @@ Run the Composer update command
 
 PHP >= 5.3.3
 
+Google Analytics Universal Account (more information available here https://support.google.com/analytics/answer/2817075?hl=en)
+
 #Example#
 
     // init tracking
