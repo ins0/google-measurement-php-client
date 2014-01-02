@@ -46,7 +46,7 @@ class GATracking
      *
      * @var string
      */
-    private $analytics_endpoint = 'http://google-analytics.com/collect';
+    private $analytics_endpoint = 'http://www.google-analytics.com/collect';
 
     /**
      * Tacking Holder
@@ -136,22 +136,47 @@ class GATracking
         //$uid = uniqid('', true);
 
         // collect user specific data
-        if (isset($_COOKIE['__utma']) && $_COOKIE['__utma']) {
+        if (isset($_COOKIE['_ga'])) {
 
-            $gaCookie = explode('.', $_COOKIE['__utma']);
-            $clientId = (int)$gaCookie[1];
-
+           list($version,$domainDepth, $cid1, $cid2) = split('[\.]', $_COOKIE["_ga"],4);
+           $contents = array('version' => $version, 'domainDepth' => $domainDepth, 'cid' => $cid1.'.'.$cid2);
+           $clientId = (int)$contents['cid'];
         } else {
 
-            // some user specific values if no user client id is set
-            $data = $_SERVER['REMOTE_ADDR'];
-            //$data .= $_SERVER['HTTP_USER_AGENT'];
-
-            $clientId = sprintf('%u', crc32($data));
+            $clientId = generateUUID();
         }
 
         // return client id
         return $clientId;
+    }
+
+    /**
+     * Generate UUID v4 function - needed to generate a CID when one isn't available
+     *
+     * @author  Enea Berti
+     * @return string
+     */
+
+    private function generateUUID() {
+        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            // 32 bits for "time_low"
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+
+            // 16 bits for "time_mid"
+            mt_rand( 0, 0xffff ),
+
+            // 16 bits for "time_hi_and_version",
+            // four most significant bits holds version number 4
+            mt_rand( 0, 0x0fff ) | 0x4000,
+
+            // 16 bits, 8 bits for "clk_seq_hi_res",
+            // 8 bits for "clk_seq_low",
+            // two most significant bits holds zero and one for variant DCE1.1
+            mt_rand( 0, 0x3fff ) | 0x8000,
+
+            // 48 bits for "node"
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+        );
     }
 
     /**
@@ -257,6 +282,8 @@ class GATracking
         // frwite data
         fwrite($connection, $header);
         fwrite($connection, $content);
+        //dpm($header);
+        dpm($content);
 
         // response
         $response = '';
