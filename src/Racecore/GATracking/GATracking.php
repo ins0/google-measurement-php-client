@@ -282,8 +282,6 @@ class GATracking
         // frwite data
         fwrite($connection, $header);
         fwrite($connection, $content);
-        //dpm($header);
-        dpm($content);
 
         // response
         $response = '';
