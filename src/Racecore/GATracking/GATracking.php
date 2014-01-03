@@ -139,7 +139,7 @@ class GATracking
         if (isset($_COOKIE['_ga'])) {
 
             $gaCookie = explode('.', $_COOKIE['_ga']);
-            $clientId = $gaCookie[2] . $gaCookie[3];
+            $clientId = $gaCookie[2] . '.' . $gaCookie[3];
         } else {
 
             $clientId = $this->generateUUID();

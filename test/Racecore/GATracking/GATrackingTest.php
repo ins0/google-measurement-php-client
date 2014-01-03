@@ -37,7 +37,7 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
 
         $events = $tracking->getEvents();
 
-        $this->assertEquals( 2, count($events));
+        $this->assertEquals( 4, count($events));
         $this->assertEquals($eventPageview, $events[0] );
         $this->assertEquals($eventCampaign, $events[1] );
         $this->assertEquals($eventTransaction, $events[2] );
