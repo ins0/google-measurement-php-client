@@ -43,6 +43,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
                 'ip' => 123.45,
                 'iq' => 1,
                 'ic' => 'product_sku',
+                'iv' => 'Category',
                 'dh' => 'www.domain.tld',
                 'cu' => 'EUR'
             ),
