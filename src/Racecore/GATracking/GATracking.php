@@ -138,9 +138,8 @@ class GATracking
         // collect user specific data
         if (isset($_COOKIE['_ga'])) {
 
-           list($version,$domainDepth, $cid1, $cid2) = explode('[\.]', $_COOKIE["_ga"],4);
-           $contents = array('version' => $version, 'domainDepth' => $domainDepth, 'cid' => $cid1.'.'.$cid2);
-           $clientId = $contents['cid'];
+            $gaCookie = explode('.', $_COOKIE['_ga']);
+            $clientId = $gaCookie[2] . $gaCookie[3];
         } else {
 
             $clientId = $this->generateUUID();
