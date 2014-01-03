@@ -140,7 +140,7 @@ class GATracking
 
            list($version,$domainDepth, $cid1, $cid2) = split('[\.]', $_COOKIE["_ga"],4);
            $contents = array('version' => $version, 'domainDepth' => $domainDepth, 'cid' => $cid1.'.'.$cid2);
-           $clientId = (int)$contents['cid'];
+           $clientId = $contents['cid'];
         } else {
 
             $clientId = generateUUID();
