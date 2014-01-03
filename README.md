@@ -11,6 +11,8 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
 
 - Campaign Tracking
 - Pageview Tracking
+- Ecommerce Transaction Tracking
+- Ecommerce Item Tracking
 
 ## Quick start
 
@@ -48,6 +50,35 @@ Google Analytics Universal Account (more information available here https://supp
 
     // add to stack
     $tracking->addTracking($campain);
+
+
+    // Ecommerce Transaction Tracking
+    $transaction = new Transaction();
+    $transaction->setID('1234');
+    $transaction->setAffiliation('Affiliation name');
+    $transaction->setRevenue(123.45);
+    $transaction->setShipping(12.34);
+    $transaction->setTax(12.34);
+    $transaction->setCurrency('EUR');
+    $transaction->setTransactionHost('www.domain.tld');
+
+    // add to stack
+    $tracking->addTracking($transaction);
+
+    // Ecommerce Item Tracking
+
+    $item = new Item();
+    $item->setTransactionID('1234'); // the one used above
+    $item->setName('Product name');
+    $item->setPrice(123.45);
+    $item->setQuantity(1);
+    $item->setSku('product_sku');
+    $item->setCategory('Category');
+    $item->setCurrency('EUR');
+    $item->setTransactionHost('www.domain.tld');  // the one used above
+
+    // add to stack
+    $tracking->addTracking($item);
 
     // [...] more tracking
     // Pageview Tacking
