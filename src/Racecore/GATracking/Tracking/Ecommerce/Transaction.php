@@ -171,6 +171,8 @@ class Transaction extends AbstractTracking
     }
 
     /**
+     * Returns the Transaction Host
+     *
      * @return string
      */
     public function getTransactionHost()
