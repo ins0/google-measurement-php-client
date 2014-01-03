@@ -153,7 +153,7 @@ class GATracking
     /**
      * Generate UUID v4 function - needed to generate a CID when one isn't available
      *
-     * @author  Andrew Moore http://www.php.net/manual/en/function.uniqid.php#94959
+     * @author Andrew Moore http://www.php.net/manual/en/function.uniqid.php#94959
      * @return string
      */
 

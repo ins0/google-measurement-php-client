@@ -44,16 +44,6 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($eventItem, $events[3] );
     }
 
-    public function testClientIDisGeneratedFromRemoteAddress(){
-
-        $tracking = $this->tracking;
-
-        $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-        $clientID = $tracking->getClientID();
-
-        $this->assertEquals('3619153832', $clientID);
-    }
-
     public function testClientIDisGeneratedFromGoogleCookie(){
 
         $tracking = $this->tracking;
