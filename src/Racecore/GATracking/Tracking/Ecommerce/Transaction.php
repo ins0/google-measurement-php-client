@@ -1,5 +1,7 @@
 <?php
-namespace Racecore\GATracking\Tracking;
+namespace Racecore\GATracking\Tracking\Ecommerce;
+
+use Racecore\GATracking\Tracking\AbstractTracking;
 
 /**
  * Google Analytics Measurement PHP Class
@@ -31,7 +33,6 @@ class Transaction extends AbstractTracking
     /**
      * Set the Transaction ID
      *
-     * @author  Enea Berti
      * @param $id
      */
     public function setID($id)
@@ -43,7 +44,6 @@ class Transaction extends AbstractTracking
     /**
      * Returns the Transaction ID
      *
-     * @author  Enea Berti
      * @return integer
      */
     public function getID()
@@ -59,7 +59,6 @@ class Transaction extends AbstractTracking
     /**
      * Sets the Affiliation
      *
-     * @author  Enea Berti
      * @param $affiliation
      */
     public function setAffiliation($affiliation)
@@ -71,7 +70,6 @@ class Transaction extends AbstractTracking
     /**
      * Return Affiliation
      *
-     * @author  Enea Berti
      * @return string
      */
     public function getAffiliation()
@@ -83,7 +81,6 @@ class Transaction extends AbstractTracking
     /**
      * Sets the Revenue
      *
-     * @author  Enea Berti
      * @param $revenue
      */
     public function setRevenue($revenue)
@@ -104,7 +101,6 @@ class Transaction extends AbstractTracking
     /**
      * Sets the Shipping
      *
-     * @author  Enea Berti
      * @param $shipping
      */
     public function setShipping($shipping)
@@ -125,7 +121,6 @@ class Transaction extends AbstractTracking
     /**
      * Sets the Tax
      *
-     * @author  Enea Berti
      * @param $tax
      */
     public function setTax($tax)
@@ -146,7 +141,6 @@ class Transaction extends AbstractTracking
     /**
      * Sets the Currency
      *
-     * @author  Enea Berti
      * @param $currency
      */
     public function setCurrency($currency)
@@ -167,7 +161,6 @@ class Transaction extends AbstractTracking
     /**
      * Return the Transaction Host Address
      *
-     * @author  Enea Berti
      * @param $host
      * @return $this
      */
@@ -188,20 +181,10 @@ class Transaction extends AbstractTracking
     /**
      * Returns the Google Paket for Transaction Tracking
      *
-     * @author  Enea Berti
      * @return array
      */
     public function getPaket()
     {
-        /*
-        &t=transaction   // Transaction hit type.
-        &ti=12345        // transaction ID. Required.
-        &ta=westernWear  // Transaction affiliation.
-        &tr=50.00        // Transaction revenue.
-        &ts=32.00        // Transaction shipping.
-        &tt=12.00        // Transaction tax.
-        &cu=EUR          // Currency code.
-        */
         return array(
             't' => 'transaction',
             'ti' => $this->getID(),

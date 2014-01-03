@@ -27,7 +27,6 @@ class Pageview extends AbstractTracking
     /**
      * Set the Request Document Path
      *
-     * @author  Marco Rieger
      * @param $path
      */
     public function setDocumentPath($path)
@@ -39,7 +38,6 @@ class Pageview extends AbstractTracking
     /**
      * Returns the Request Document Path
      *
-     * @author  Marco Rieger
      * @return string
      */
     public function getDocumentPath()
@@ -55,7 +53,6 @@ class Pageview extends AbstractTracking
     /**
      * Sets the Document Title in Analytics Report
      *
-     * @author  Marco Rieger
      * @param $title
      */
     public function setDocumentTitle($title)
@@ -67,7 +64,6 @@ class Pageview extends AbstractTracking
     /**
      * Return Document Title
      *
-     * @author  Marco Rieger
      * @return string
      */
     public function getDocumentTitle()
@@ -79,7 +75,6 @@ class Pageview extends AbstractTracking
     /**
      * Return the Document Host Adress
      *
-     * @author  Marco Rieger
      * @param $host
      * @return $this
      */
@@ -90,6 +85,8 @@ class Pageview extends AbstractTracking
     }
 
     /**
+     * Return Document Host
+     *
      * @return string
      */
     public function getDocumentHost()
@@ -100,7 +97,6 @@ class Pageview extends AbstractTracking
     /**
      * Returns the Google Paket for Campaign Tracking
      *
-     * @author  Marco Rieger
      * @return array
      */
     public function getPaket()

@@ -39,7 +39,6 @@ class Autoloader
     /**
      * Handel autoloading of classes
      *
-     * @author  Marco Rieger
      * @param $class
      * @return bool|mixed
      */
@@ -58,7 +57,6 @@ class Autoloader
     /**
      * Register SPL Autoload
      *
-     * @author  Marco Rieger
      * @param null $folder
      * @return bool
      */

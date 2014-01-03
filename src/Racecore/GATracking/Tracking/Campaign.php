@@ -22,36 +22,42 @@ class Campaign extends Pageview
 
     /**
      * Campaign Name
+     *
      * @var string
      */
     private $name;
 
     /**
      * Campaign Source
+     *
      * @var string
      */
     private $source;
 
     /**
      * Campaign Medium
+     *
      * @var string
      */
     private $medium;
 
     /**
      * Campaign Keywords
+     *
      * @var array
      */
     private $keywords = array();
 
     /**
      * Campaign Content
+     *
      * @var string
      */
     private $content;
 
     /**
      * Campaign ID
+     *
      * @var integer
      */
     private $cid;
@@ -59,7 +65,6 @@ class Campaign extends Pageview
     /**
      * Sets the Campaign ID
      *
-     * @author  Marco Rieger
      * @param $cid
      * @return $this
      */
@@ -72,7 +77,6 @@ class Campaign extends Pageview
     /**
      * Returns the Campaign ID
      *
-     * @author  Marco Rieger
      * @return int
      */
     public function getCampaignID()
@@ -83,7 +87,6 @@ class Campaign extends Pageview
     /**
      * Sets the Campaign Content Description
      *
-     * @author  Marco Rieger
      * @param $content
      * @return $this
      */
@@ -96,7 +99,6 @@ class Campaign extends Pageview
     /**
      * Gets the Campaign Content Description
      *
-     * @author  Marco Rieger
      * @return string
      */
     public function getCampaignContent()
@@ -107,7 +109,6 @@ class Campaign extends Pageview
     /**
      * Sets the Campaign Keywords
      *
-     * @author  Marco Rieger
      * @param $keywords
      * @return $this
      */
@@ -120,7 +121,6 @@ class Campaign extends Pageview
     /**
      * Return the Campaign Keywords
      *
-     * @author  Marco Rieger
      * @return array
      */
     public function getCampaignKeywords()
@@ -131,7 +131,6 @@ class Campaign extends Pageview
     /**
      * Sets the Campaign Medium
      *
-     * @author  Marco Rieger
      * @param $medium
      * @return $this
      */
@@ -144,7 +143,6 @@ class Campaign extends Pageview
     /**
      * Gets the Campaign Medium
      *
-     * @author  Marco Rieger
      * @return string
      */
     public function getCampaignMedium()
@@ -155,7 +153,6 @@ class Campaign extends Pageview
     /**
      * Sets the Campaign Name
      *
-     * @author  Marco Rieger
      * @param $name
      * @return $this
      */
@@ -168,7 +165,6 @@ class Campaign extends Pageview
     /**
      * Get the Campaign Name
      *
-     * @author  Marco Rieger
      * @return string
      */
     public function getCampaignName()
@@ -179,7 +175,6 @@ class Campaign extends Pageview
     /**
      * Sets the Campaign Source
      *
-     * @author  Marco Rieger
      * @param $source
      * @return $this
      */
@@ -192,7 +187,6 @@ class Campaign extends Pageview
     /**
      * Get the Campaign Source
      *
-     * @author  Marco Rieger
      * @return string
      */
     public function getCampaignSource()
@@ -203,7 +197,6 @@ class Campaign extends Pageview
     /**
      * Returns the POST Vars
      *
-     * @author  Marco Rieger
      * @return array
      * @throws Exception
      */

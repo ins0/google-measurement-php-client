@@ -1,5 +1,7 @@
 <?php
-namespace Racecore\GATracking\Tracking;
+namespace Racecore\GATracking\Tracking\Ecommerce;
+
+use Racecore\GATracking\Tracking\AbstractTracking;
 
 /**
  * Google Analytics Measurement PHP Class
@@ -31,7 +33,6 @@ class Item extends AbstractTracking
     /**
      * Set the Transaction ID
      *
-     * @author  Enea Berti
      * @param $id
      */
     public function setTransactionID($tid)
@@ -43,7 +44,6 @@ class Item extends AbstractTracking
     /**
      * Returns the Transaction ID
      *
-     * @author  Enea Berti
      * @return integer
      */
     public function getTransactionID()
@@ -59,7 +59,6 @@ class Item extends AbstractTracking
     /**
      * Sets the Item Name
      *
-     * @author  Enea Berti
      * @param $name
      */
     public function setName($name)
@@ -71,7 +70,6 @@ class Item extends AbstractTracking
     /**
      * Return Name
      *
-     * @author  Enea Berti
      * @return string
      */
     public function getName()
@@ -87,7 +85,6 @@ class Item extends AbstractTracking
     /**
      * Sets the Item Price
      *
-     * @author  Enea Berti
      * @param $price
      */
     public function setPrice($price)
@@ -108,7 +105,6 @@ class Item extends AbstractTracking
     /**
      * Sets the Quantity
      *
-     * @author  Enea Berti
      * @param $quantity
      */
     public function setQuantity($quantity)
@@ -129,7 +125,6 @@ class Item extends AbstractTracking
     /**
      * Sets the Sku
      *
-     * @author  Enea Berti
      * @param $sku
      */
     public function setSku($sku)
@@ -150,7 +145,6 @@ class Item extends AbstractTracking
     /**
      * Sets the Category
      *
-     * @author  Enea Berti
      * @param $category
      */
     public function setCategory($category)
@@ -171,7 +165,6 @@ class Item extends AbstractTracking
     /**
      * Sets the Currency
      *
-     * @author  Enea Berti
      * @param $currency
      */
     public function setCurrency($currency)
@@ -189,13 +182,6 @@ class Item extends AbstractTracking
         return $this->currency;
     }
 
-    /**
-     * Return the Transaction Host Address
-     *
-     * @author  Enea Berti
-     * @param $host
-     * @return $this
-     */
     public function setTransactionHost($host)
     {
         $this->host = $host;
@@ -213,21 +199,10 @@ class Item extends AbstractTracking
     /**
      * Returns the Google Paket for Item Tracking
      *
-     * @author  Enea Berti
      * @return array
      */
     public function getPaket()
     {
-        /*
-        &t=item          // Item hit type.
-        &ti=12345        // Transaction ID. Required.
-        &in=sofa         // Item name. Required.
-        &ip=300          // Item price.
-        &iq=2            // Item quantity.
-        &ic=u3eqds43     // Item code / SKU.
-        &iv=furniture    // Item variation / category.
-        &cu=EUR          // Currency code.
-        */
         return array(
             't' => 'item',
             'ti' => $this->getTransactionID(),

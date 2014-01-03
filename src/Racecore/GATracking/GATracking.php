@@ -72,7 +72,6 @@ class GATracking
     /**
      * Sets the Analytics Account ID
      *
-     * @author  Marco Rieger
      * @param $account
      */
     public function setAccountID($account)
@@ -84,7 +83,6 @@ class GATracking
     /**
      * Set the current Client ID
      *
-     * @author  Marco Rieger
      * @param $clientID
      * @return $this
      */
@@ -97,7 +95,6 @@ class GATracking
     /**
      * Returns the current Client ID
      *
-     * @author  Marco Rieger
      * @return string
      */
     public function getClientID()
@@ -110,6 +107,8 @@ class GATracking
     }
 
     /**
+     * Return all registered Events
+     *
      * @return array
      */
     public function getEvents()
@@ -118,6 +117,8 @@ class GATracking
     }
 
     /**
+     * Returns current Google Account ID
+     *
      * @return mixed
      */
     public function getAccountID()
@@ -128,13 +129,10 @@ class GATracking
     /**
      * Create a GUID on Client specific values
      *
-     * @author  Marco Rieger
      * @return string
      */
     private function createClientID()
     {
-        //$uid = uniqid('', true);
-
         // collect user specific data
         if (isset($_COOKIE['_ga'])) {
 
@@ -155,7 +153,6 @@ class GATracking
      * @author Andrew Moore http://www.php.net/manual/en/function.uniqid.php#94959
      * @return string
      */
-
     private function generateUUID() {
         return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             // 32 bits for "time_low"
@@ -181,7 +178,7 @@ class GATracking
     /**
      * Send all captured Events to Analytics Server
      *
-     * @author  Marco Rieger
+     * @return bool
      */
     public function send()
     {
@@ -202,7 +199,6 @@ class GATracking
      * Returns the Client IP
      * The last octect of the IP address is removed to anonymize the user
      *
-     * @author  Marco Rieger
      * @param string $address
      * @return string
      */
@@ -230,7 +226,6 @@ class GATracking
     /**
      * Send an Event to Google Analytics
      *
-     * @author  Marco Rieger
      * @param AbstractTracking $event
      * @return bool
      * @throws Exception
@@ -245,13 +240,8 @@ class GATracking
         $eventPacket['v'] = $this->protocol; // protocol version
         $eventPacket['tid'] = $this->accountID; // account id
         $eventPacket['cid'] = $this->getClientID(); // client id
-        //$eventPacket['vid'] = $this->getClientID(); // visitor id
-        //$eventPacket['ip'] = $this->getClientIP(); // client ip
 
         $eventPacket = array_reverse($eventPacket);
-
-        // anti cache
-        //$eventPacket['z'] = uniqid('cache_buster');
 
         // build query
         $content = http_build_query($eventPacket);
@@ -263,18 +253,18 @@ class GATracking
         $port = ($endpoint['scheme'] == 'https' ? 443 : 80);
 
         // connect
-        $connection = @fsockopen($endpoint['scheme'] == 'https' ? 'ssl://' : '' . $endpoint['host'], $port, $error, $errorstr, 10);
+        $connection = @fsockopen($endpoint['scheme'] == 'https' ? 'ssl://' : $endpoint['host'], $port, $error, $errorstr, 10);
 
         if (!$connection) {
             throw new Exception('Analytics Host not reachable!');
         }
 
-        $header = 'POST ' . $endpoint['path'] . ' HTTP/1.1' . "\r\n" .
-            'Host: ' . $endpoint['host'] . "\r\n" .
-            'User-Agent: ' . $_SERVER['HTTP_USER_AGENT'] . "\r\n" .
-            'Content-Type: application/x-www-form-urlencoded' . "\r\n" .
-            'Content-Length: ' . strlen($content) . "\r\n" .
-            'Connection: Close' . "\r\n\r\n";
+        $header =   'POST ' . $endpoint['path'] . ' HTTP/1.1' . "\r\n" .
+                    'Host: ' . $endpoint['host'] . "\r\n" .
+                    'User-Agent: Google-Measurement-PHP-Client' . "\r\n" .
+                    'Content-Type: application/x-www-form-urlencoded' . "\r\n" .
+                    'Content-Length: ' . strlen($content) . "\r\n" .
+                    'Connection: Close' . "\r\n\r\n";
 
         $this->last_response = '';
 

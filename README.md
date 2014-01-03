@@ -53,7 +53,7 @@ Google Analytics Universal Account (more information available here https://supp
 
 
     // Ecommerce Transaction Tracking
-    $transaction = new Transaction();
+    $transaction = new Ecommerce\Transaction();
     $transaction->setID('1234');
     $transaction->setAffiliation('Affiliation name');
     $transaction->setRevenue(123.45);
@@ -67,7 +67,7 @@ Google Analytics Universal Account (more information available here https://supp
 
     // Ecommerce Item Tracking
 
-    $item = new Item();
+    $item = new Ecommerce\Item();
     $item->setTransactionID('1234'); // the one used above
     $item->setName('Product name');
     $item->setPrice(123.45);

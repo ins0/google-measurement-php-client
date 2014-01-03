@@ -1,9 +1,9 @@
 <?php
 namespace Racecore\GATracking;
-use Racecore\GATracking\Tracking\Campaign;
+
+use Racecore\GATracking\Tracking\Ecommerce as Ecommerce;
 use Racecore\GATracking\Tracking\Pageview;
-use Racecore\GATracking\Tracking\Transaction;
-use Racecore\GATracking\Tracking\Item;
+use Racecore\GATracking\Tracking\Campaign;
 
 /**
  * Class GATrackingTest
@@ -27,8 +27,8 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
 
         $eventPageview = new Pageview();
         $eventCampaign = new Campaign();
-        $eventTransaction = new Transaction();
-        $eventItem = new Item();
+        $eventTransaction = new Ecommerce\Transaction();
+        $eventItem = new Ecommerce\Item();
 
         $tracking->addTracking( $eventPageview );
         $tracking->addTracking( $eventCampaign );

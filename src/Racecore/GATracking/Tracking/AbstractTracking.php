@@ -22,6 +22,7 @@ abstract class AbstractTracking
 
     /**
      * Get the transfer Paket from current Event
+     *
      * @return array
      */
     abstract public function getPaket();
