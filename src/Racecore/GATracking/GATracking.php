@@ -146,8 +146,6 @@ class GATracking
             $clientId = generateUUID();
         }
 
-
-
         // return client id
         return $clientId;
     }
