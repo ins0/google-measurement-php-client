@@ -48,6 +48,9 @@ Google Analytics Universal Account (more information available here https://supp
     $campain->setCampaignContent('Test Content');
     $campain->setCampaignKeywords(array('test keyword'));
 
+    // add to stack
+    $tracking->addTracking($campain);
+
 
     // Ecommerce Transaction Tracking
     $transaction = new Transaction();

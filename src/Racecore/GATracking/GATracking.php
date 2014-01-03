@@ -138,12 +138,12 @@ class GATracking
         // collect user specific data
         if (isset($_COOKIE['_ga'])) {
 
-           list($version,$domainDepth, $cid1, $cid2) = split('[\.]', $_COOKIE["_ga"],4);
+           list($version,$domainDepth, $cid1, $cid2) = explode('[\.]', $_COOKIE["_ga"],4);
            $contents = array('version' => $version, 'domainDepth' => $domainDepth, 'cid' => $cid1.'.'.$cid2);
            $clientId = $contents['cid'];
         } else {
 
-            $clientId = generateUUID();
+            $clientId = $this->generateUUID();
         }
 
         // return client id
@@ -153,7 +153,7 @@ class GATracking
     /**
      * Generate UUID v4 function - needed to generate a CID when one isn't available
      *
-     * @author  Enea Berti
+     * @author  Andrew Moore http://www.php.net/manual/en/function.uniqid.php#94959
      * @return string
      */
 
