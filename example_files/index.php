@@ -48,12 +48,12 @@ $item->setTransactionHost('www.domain.tld');  // the one used above
 $tracking->addTracking($item);
 
 // Pageview Tacking
-$pageview = new \Racecore\GATracking\Tracking\Pagev();
-$pageview->setDocumentPath('/test/pageview/blub.jpg');
-$pageview->setDocumentTitle('Test Image Title');
+$page = new \Racecore\GATracking\Tracking\Page();
+$page->setDocumentPath('/test/pageview/blub.jpg');
+$page->setDocumentTitle('Test Image Title');
 
 // add to stack
-$tracking->addTracking($pageview);
+$tracking->addTracking($page);
 
 // [...] more tracking
 
