@@ -75,6 +75,17 @@ $event->setEventAction('Test Action');
 $tracking->addTracking($event);
 /************ *************/
 
+/**
+ * Social Tacking
+ */
+$social = new \Racecore\GATracking\Tracking\Social();
+$social->setSocialAction('Test Action');
+$social->setSocialNetwork('Test Network');
+$social->setSocialTarget('/test-target');
+
+$social->addTracking($social);
+/************ *************/
+
 // [...] more tracking
 
 // Do the Job!

@@ -11,6 +11,7 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
 
 - Page Tracking
 - Event Tracking
+- Social Tracking
 - Campaign Tracking
 - Ecommerce Transaction Tracking
 - Ecommerce Item Tracking
