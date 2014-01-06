@@ -9,22 +9,22 @@ namespace Racecore\GATracking\Tracking;
  */
 class PageTest extends \PHPUnit_Framework_TestCase {
 
-    private $pageview;
+    private $page;
 
     public function setUp()
     {
-        $this->pageview  = new Page();
+        $this->page  = new Page();
     }
 
     public function testPaketEqualsSpecification()
     {
-        /** @var Pageview $pageview */
-        $pageview = $this->pageview;
-        $pageview->setDocumentPath('foo');
-        $pageview->setDocumentTitle('bar');
-        $pageview->setDocumentHost('baz');
+        /** @var Page $page */
+        $page = $this->page;
+        $page->setDocumentPath('foo');
+        $page->setDocumentTitle('bar');
+        $page->setDocumentHost('baz');
 
-        $packet = $pageview->getPaket();
+        $packet = $page->getPaket();
         $this->assertSame(
             array(
                 't'     =>  'pageview',
@@ -38,17 +38,17 @@ class PageTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetterSetter()
     {
-        /** @var Pageview $pageview */
-        $pageview = $this->pageview;
+        /** @var Page $page */
+        $page = $this->page;
 
-        $pageview->setDocumentHost('foo');
-        $this->assertEquals('foo', $pageview->getDocumentHost() );
+        $page->setDocumentHost('foo');
+        $this->assertEquals('foo', $page->getDocumentHost() );
 
-        $pageview->setDocumentPath('bar');
-        $this->assertEquals('bar', $pageview->getDocumentPath() );
+        $page->setDocumentPath('bar');
+        $this->assertEquals('bar', $page->getDocumentPath() );
 
-        $pageview->setDocumentTitle('baz');
-        $this->assertEquals('baz', $pageview->getDocumentTitle() );
+        $page->setDocumentTitle('baz');
+        $this->assertEquals('baz', $page->getDocumentTitle() );
     }
 
 }
