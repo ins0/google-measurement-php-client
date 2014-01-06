@@ -306,7 +306,6 @@ class GATracking
     /**
      * Add a Response to the Stack
      *
-     * @author  Marco Rieger
      * @param $response
      * @return bool
      */
@@ -331,7 +330,6 @@ class GATracking
     /**
      * Returns all Responses since the last Send Method Call
      *
-     * @author  Marco Rieger
      * @return array
      */
     public function getLastResponseStack()
@@ -342,7 +340,6 @@ class GATracking
     /**
      * Add Tracking Event
      *
-     * @author  Marco Rieger
      * @param $event
      * @return $this
      */
