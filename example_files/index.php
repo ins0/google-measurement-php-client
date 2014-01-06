@@ -89,7 +89,7 @@ $tracking->addTracking($social);
 /**
  * Exception Tacking
  */
-$exception = new \Racecore\GATracking\Tracking\Social();
+$exception = new \Racecore\GATracking\Tracking\Exception();
 $exception->setExceptionDescription('Test Description');
 $exception->setExceptionFatal(true);
 
