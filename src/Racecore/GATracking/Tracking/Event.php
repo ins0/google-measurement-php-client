@@ -119,10 +119,8 @@ class Event extends AbstractTracking
         return $this->eventValue;
     }
 
-
-
     /**
-     * Returns the Google Paket for Campaign Tracking
+     * Returns the Google Paket for Event Tracking
      *
      * @return array
      */
