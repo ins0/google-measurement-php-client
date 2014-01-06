@@ -2,7 +2,7 @@
 namespace Racecore\GATracking;
 
 use Racecore\GATracking\Tracking\Ecommerce as Ecommerce;
-use Racecore\GATracking\Tracking\Pageview;
+use Racecore\GATracking\Tracking\Page;
 use Racecore\GATracking\Tracking\Campaign;
 
 /**
