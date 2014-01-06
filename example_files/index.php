@@ -83,7 +83,7 @@ $social->setSocialAction('Test Action');
 $social->setSocialNetwork('Test Network');
 $social->setSocialTarget('/test-target');
 
-$social->addTracking($social);
+$tracking->addTracking($social);
 /************ *************/
 
 /**
