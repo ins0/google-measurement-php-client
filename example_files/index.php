@@ -48,7 +48,7 @@ $item->setTransactionHost('www.domain.tld');  // the one used above
 $tracking->addTracking($item);
 
 // Pageview Tacking
-$pageview = new \Racecore\GATracking\Tracking\Pageview();
+$pageview = new \Racecore\GATracking\Tracking\Pagev();
 $pageview->setDocumentPath('/test/pageview/blub.jpg');
 $pageview->setDocumentTitle('Test Image Title');
 
