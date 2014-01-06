@@ -7,7 +7,9 @@ Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
 $tracking = new \Racecore\GATracking\GATracking();
 $tracking->setAccountID('UA-XXXXXXXX-X');
 
-// Campaign Tracking
+/**
+ * Campaign Tracking
+ */
 $campain = new \Racecore\GATracking\Tracking\Campaign();
 $campain->setDocumentPath('/test/path2');
 $campain->setDocumentTitle('Test Title');
@@ -17,10 +19,12 @@ $campain->setCampaignMedium('Test Medium');
 $campain->setCampaignContent('Test Content');
 $campain->setCampaignKeywords(array('test keyword'));
 
-// add to stack
 $tracking->addTracking($campain);
+/************ *************/
 
-// Ecommerce Transaction Tracking
+/**
+ * Ecommerce Transaction Tracking
+ */
 $transaction = new \Racecore\GATracking\Tracking\Ecommerce\Transaction();
 $transaction->setID('1234');
 $transaction->setAffiliation('Affiliation name');
@@ -30,10 +34,12 @@ $transaction->setTax(12.34);
 $transaction->setCurrency('EUR');
 $transaction->setTransactionHost('www.domain.tld');
 
-// add to stack
 $tracking->addTracking($transaction);
+/************ *************/
 
-// Ecommerce Item Tracking
+/**
+ * Ecommerce Item Tracking
+ */
 $item = new \Racecore\GATracking\Tracking\Ecommerce\Item();
 $item->setTransactionID('1234'); // the one used above
 $item->setName('Product name');
@@ -44,16 +50,30 @@ $item->setCategory('Category');
 $item->setCurrency('EUR');
 $item->setTransactionHost('www.domain.tld');  // the one used above
 
-// add to stack
 $tracking->addTracking($item);
+/************ *************/
 
-// Pageview Tacking
+/**
+ * Page Tacking
+ */
 $page = new \Racecore\GATracking\Tracking\Page();
 $page->setDocumentPath('/test/pageview/blub.jpg');
 $page->setDocumentTitle('Test Image Title');
 
-// add to stack
 $tracking->addTracking($page);
+/************ *************/
+
+/**
+ * Page Tacking
+ */
+$event = new \Racecore\GATracking\Tracking\Event();
+$event->setEventCategory('Test Category');
+$event->setEventValue('Test Value');
+$event->setEventLabel('Test Label');
+$event->setEventAction('Test Action');
+
+$tracking->addTracking($event);
+/************ *************/
 
 // [...] more tracking
 

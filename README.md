@@ -10,6 +10,7 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
 ### Features
 
 - Page Tracking
+- Event Tracking
 - Campaign Tracking
 - Ecommerce Transaction Tracking
 - Ecommerce Item Tracking
