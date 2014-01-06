@@ -224,15 +224,13 @@ class GATracking
     }
 
     /**
-     * Send an Event to Google Analytics
+     * Build the POST Packet
      *
      * @param AbstractTracking $event
-     * @return bool
-     * @throws Exception
+     * @return string
      */
-    public function sendEvent(AbstractTracking $event)
+    private function buildPacket( AbstractTracking $event )
     {
-
         // get packet
         $eventPacket = $event->getPaket();
 
@@ -244,7 +242,19 @@ class GATracking
         $eventPacket = array_reverse($eventPacket);
 
         // build query
-        $content = http_build_query($eventPacket);
+        return http_build_query($eventPacket);
+    }
+
+    /**
+     * Send an Event to Google Analytics
+     *
+     * @param AbstractTracking $event
+     * @return bool
+     * @throws Exception
+     */
+    public function sendEvent(AbstractTracking $event)
+    {
+        $eventPacket = $this->buildPacket( $event );
 
         // get endpoint
         $endpoint = parse_url($this->analytics_endpoint);
@@ -263,14 +273,14 @@ class GATracking
                     'Host: ' . $endpoint['host'] . "\r\n" .
                     'User-Agent: Google-Measurement-PHP-Client' . "\r\n" .
                     'Content-Type: application/x-www-form-urlencoded' . "\r\n" .
-                    'Content-Length: ' . strlen($content) . "\r\n" .
+                    'Content-Length: ' . strlen($eventPacket) . "\r\n" .
                     'Connection: Close' . "\r\n\r\n";
 
         $this->last_response = '';
 
         // frwite data
         fwrite($connection, $header);
-        fwrite($connection, $content);
+        fwrite($connection, $eventPacket);
 
         // response
         $response = '';
