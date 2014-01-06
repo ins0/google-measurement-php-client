@@ -86,6 +86,16 @@ $social->setSocialTarget('/test-target');
 $social->addTracking($social);
 /************ *************/
 
+/**
+ * Exception Tacking
+ */
+$exception = new \Racecore\GATracking\Tracking\Social();
+$exception->setExceptionDescription('Test Description');
+$exception->setExceptionFatal(true);
+
+$tracking->addTracking($exception);
+/************ *************/
+
 // [...] more tracking
 
 // Do the Job!
