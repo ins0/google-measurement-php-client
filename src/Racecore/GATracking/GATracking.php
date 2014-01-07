@@ -385,18 +385,4 @@ class GATracking
 
         return $this;
     }
-
-    /**
-     * Add Tracking Event
-     *
-     * @param AbstractTracking $tracking
-     * @return $this
-     * @deprecated Use addTracking
-     */
-    public function addEvent($tracking)
-    {
-        return $this->addTracking( $tracking );
-    }
-
-
 }
