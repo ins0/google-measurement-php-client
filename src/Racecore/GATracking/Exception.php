@@ -15,7 +15,7 @@ namespace Racecore\GATracking;
  * @email   Rieger(at)racecore.de
  * @git     https://github.com/ins0
  * @url     http://www.racecore.de
- * @package Racecore\GATracking\Tracking
+ * @package Racecore\GATracking
  */
 class Exception extends \UnexpectedValueException
 {

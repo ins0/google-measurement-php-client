@@ -4,8 +4,8 @@ require_once( dirname(__FILE__) . '/../src/Racecore/GATracking/Autoloader.php');
 Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
 
 // init tracking
-$tracking = new \Racecore\GATracking\GATracking();
-//$tracking->setAccountID('UA-XXXXXXXX-X');
+$tracking = new \Racecore\GATracking\GATracking('UA-XXXXXXXX-X');
+// or $tracking->setAccountID('UA-XXXXXXXX-X');
 
 /**
  * Campaign Tracking
