@@ -5,7 +5,7 @@ Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
 
 // init tracking
 $tracking = new \Racecore\GATracking\GATracking();
-$tracking->setAccountID('UA-XXXXXXXX-X');
+//$tracking->setAccountID('UA-XXXXXXXX-X');
 
 /**
  * Campaign Tracking
@@ -87,6 +87,45 @@ $tracking->addTracking($social);
 /************ *************/
 
 /**
+ * App Event Tacking
+ */
+$appEvent = new \Racecore\GATracking\Tracking\App\Event();
+$appEvent->setEventCategory('App Category');
+$appEvent->setEventAction('App Action');
+$appEvent->setAppName('Application Name');
+
+$tracking->addTracking($appEvent);
+/************ *************/
+
+/**
+ * App Screen Tacking
+ */
+$appScreen = new \Racecore\GATracking\Tracking\App\Screen();
+$appScreen->setAppName('Application Name');
+$appScreen->setAppVersion('1.0');
+$appScreen->setContentDescription('Description');
+
+$tracking->addTracking($appScreen);
+/************ *************/
+
+/**
+ * User Timing Tacking
+ */
+$userTiming = new \Racecore\GATracking\Tracking\User\Timing();
+$userTiming->setTimingLabel('Label');
+$userTiming->setTimingCategory('Category');
+$userTiming->setTimingVariable('Variable');
+$userTiming->setTimingTime(500);
+$userTiming->setBrowserTcpConnectTime(100);
+$userTiming->setBrowserServerResponseTime(50);
+$userTiming->setBrowserRedirectTime(10);
+$userTiming->setBrowserPageDownloadTime(400);
+$userTiming->setBrowserDnsLoadTime(1000);
+
+$tracking->addTracking($userTiming);
+/************ *************/
+
+/**
  * Exception Tacking
  */
 $exception = new \Racecore\GATracking\Tracking\Exception();
@@ -104,7 +143,7 @@ Try {
     echo 'success';
 
 } Catch (Exception $e) {
-
-    echo 'Error: ' . $e->getMessage();
+    echo 'Error: ' . $e->getMessage() . '<br />' . "\r\n";
+    echo 'Type: ' . get_class($e);
 }
 
