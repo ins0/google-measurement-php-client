@@ -56,7 +56,7 @@ class GATracking
      *
      * @var array
      */
-    private $event_holder = array();
+    private $tracking_holder = array();
 
     /**
      * Holds the last Response from Google Analytics Server
@@ -116,7 +116,7 @@ class GATracking
      */
     public function getEvents()
     {
-        return $this->event_holder;
+        return $this->tracking_holder;
     }
 
     /**
@@ -191,7 +191,8 @@ class GATracking
     }
 
     /**
-     * Send all captured Events to Analytics Server
+     * Send all captured Trackings to Analytics Server
+     * Flush all prev. captured tracking responses
      *
      * @return bool
      */
@@ -202,9 +203,8 @@ class GATracking
         $this->last_response = null;
 
         /** @var AbstractTracking $event */
-        foreach ($this->event_holder as $event) {
-
-            $this->sendEvent($event);
+        foreach ($this->tracking_holder as $tracking) {
+            $this->sendTracking($tracking);
         }
 
         return true;
@@ -268,12 +268,26 @@ class GATracking
 
     /**
      * Send an Event to Google Analytics
+     * Will be removed
+     *
+     * @param AbstractTracking $tracking
+     * @return bool
+     * @throws Exception\EndpointServerException
+     * @deprecated Use sendTracking
+     */
+    public function sendEvent(AbstractTracking $tracking)
+    {
+        return $this->sendTracking($tracking);
+    }
+
+    /**
+     * Send an Event to Google Analytics
      *
      * @param AbstractTracking $event
      * @return bool
      * @throws Exception\EndpointServerException
      */
-    public function sendEvent(AbstractTracking $event)
+    public function sendTracking(AbstractTracking $event)
     {
         // get packet
         $eventPacket = $this->buildPacket( $event );
@@ -362,17 +376,26 @@ class GATracking
     /**
      * Add Tracking Event
      *
-     * @param $event
+     * @param AbstractTracking $tracking
      * @return $this
      */
-    public function addTracking($event)
+    public function addTracking(AbstractTracking $tracking)
     {
-        if ($event instanceof AbstractTracking) {
-
-            $this->event_holder[] = $event;
-        }
+        $this->tracking_holder[] = $tracking;
 
         return $this;
+    }
+
+    /**
+     * Add Tracking Event
+     *
+     * @param AbstractTracking $tracking
+     * @return $this
+     * @deprecated Use addTracking
+     */
+    public function addEvent($tracking)
+    {
+        return $this->addTracking( $tracking );
     }
 
 
