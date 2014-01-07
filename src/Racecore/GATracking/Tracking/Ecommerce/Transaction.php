@@ -185,10 +185,11 @@ class Transaction extends AbstractTracking
      * Returns the Google Paket for Transaction Tracking
      *
      * @return array
+     * @throws \Racecore\GATracking\Exception\MissingTrackingParameterException
      */
     public function getPaket()
     {
-        if( !$this->getTransactionID() )
+        if( !$this->getID() )
         {
             throw new MissingTrackingParameterException('transaction id is missing');
         }
