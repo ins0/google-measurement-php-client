@@ -17,6 +17,12 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
 - Social Tracking
 - Exception Tracking
 - Campaign Tracking
+
+- App Event Tracking
+- App Screen Tracking
+
+- User Timing Tracking
+
 - Ecommerce Transaction Tracking
 - Ecommerce Item Tracking
 
