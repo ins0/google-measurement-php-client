@@ -1,5 +1,6 @@
 <?php
 namespace Racecore\GATracking;
+
 use Racecore\GATracking\Tracking\AbstractTracking;
 
 /**
@@ -256,7 +257,7 @@ class GATracking
         $connection = @fsockopen($endpoint['scheme'] == 'https' ? 'ssl://' : $endpoint['host'], $port, $error, $errorstr, 10);
 
         if (!$connection) {
-            throw new Exception('Analytics Host not reachable!');
+            throw new \Exception('Analytics Host not reachable!');
         }
 
         $header =   'POST ' . $endpoint['path'] . ' HTTP/1.1' . "\r\n" .
