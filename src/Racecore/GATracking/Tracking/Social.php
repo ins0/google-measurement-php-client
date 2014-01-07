@@ -1,5 +1,6 @@
 <?php
 namespace Racecore\GATracking\Tracking;
+use Racecore\GATracking\Exception\MissingTrackingParameterException;
 
 /**
  * Google Analytics Measurement PHP Class
@@ -98,19 +99,20 @@ class Social extends AbstractTracking
      * Returns the Google Paket for Social Tracking
      *
      * @return array
+     * @throws \Racecore\GATracking\Exception\MissingTrackingParameterException
      */
     public function getPaket()
     {
         if (!$this->getSocialAction()) {
-            throw new \Exception('social action musst be set');
+            throw new MissingTrackingParameterException('social action musst be set');
         }
 
         if (!$this->getSocialNetwork()) {
-            throw new \Exception('social network musst be set');
+            throw new MissingTrackingParameterException('social network musst be set');
         }
 
         if (!$this->getSocialTarget()) {
-            throw new \Exception('social target musst be set');
+            throw new MissingTrackingParameterException('social target musst be set');
         }
 
         return array(

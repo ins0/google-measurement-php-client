@@ -1,6 +1,7 @@
 <?php
 namespace Racecore\GATracking\Tracking\Ecommerce;
 
+use Racecore\GATracking\Exception\MissingTrackingParameterException;
 use Racecore\GATracking\Tracking\AbstractTracking;
 
 /**
@@ -187,6 +188,11 @@ class Transaction extends AbstractTracking
      */
     public function getPaket()
     {
+        if( !$this->getTransactionID() )
+        {
+            throw new MissingTrackingParameterException('transaction id is missing');
+        }
+
         return array(
             't' => 'transaction',
             'ti' => $this->getID(),

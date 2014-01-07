@@ -1,6 +1,8 @@
 <?php
 namespace Racecore\GATracking;
 
+use Racecore\GATracking\Exception\EndpointServerException;
+use Racecore\GATracking\Exception\MissingConfigurationException;
 use Racecore\GATracking\Tracking\AbstractTracking;
 
 /**
@@ -128,6 +130,18 @@ class GATracking
     }
 
     /**
+     * Constructor
+     *
+     * @param string $accountID
+     */
+    public function __construct( $accountID = null )
+    {
+        $this->setAccountID( $accountID );
+
+        return $this;
+    }
+
+    /**
      * Create a GUID on Client specific values
      *
      * @return string
@@ -229,15 +243,21 @@ class GATracking
      *
      * @param AbstractTracking $event
      * @return string
+     * @throws Exception\MissingConfigurationException
      */
     private function buildPacket( AbstractTracking $event )
     {
         // get packet
         $eventPacket = $event->getPaket();
 
+        if( ! $this->getAccountID() )
+        {
+            throw new MissingConfigurationException('Google Account ID is missing');
+        }
+
         // Add Protocol
         $eventPacket['v'] = $this->protocol; // protocol version
-        $eventPacket['tid'] = $this->accountID; // account id
+        $eventPacket['tid'] = $this->getAccountID(); // account id
         $eventPacket['cid'] = $this->getClientID(); // client id
 
         $eventPacket = array_reverse($eventPacket);
@@ -251,10 +271,11 @@ class GATracking
      *
      * @param AbstractTracking $event
      * @return bool
-     * @throws Exception
+     * @throws Exception\EndpointServerException
      */
     public function sendEvent(AbstractTracking $event)
     {
+        // get packet
         $eventPacket = $this->buildPacket( $event );
 
         // get endpoint
@@ -267,7 +288,7 @@ class GATracking
         $connection = @fsockopen($endpoint['scheme'] == 'https' ? 'ssl://' : $endpoint['host'], $port, $error, $errorstr, 10);
 
         if (!$connection) {
-            throw new \Exception('Analytics Host not reachable!');
+            throw new EndpointServerException('Analytics Host not reachable!');
         }
 
         $header =   'POST ' . $endpoint['path'] . ' HTTP/1.1' . "\r\n" .

@@ -1,6 +1,8 @@
 <?php
 namespace Racecore\GATracking\Tracking;
 
+use Racecore\GATracking\Exception\MissingTrackingParameterException;
+
 /**
  * Google Analytics Measurement PHP Class
  * Licensed under the 3-clause BSD License.
@@ -195,10 +197,10 @@ class Campaign extends Page
     }
 
     /**
-     * Returns the POST Vars
+     * Returns the Paket for Campaign Tracking
      *
      * @return array
-     * @throws Exception
+     * @throws \Racecore\GATracking\Exception\MissingTrackingParameterException
      */
     public function getPaket()
     {
@@ -206,15 +208,15 @@ class Campaign extends Page
         $packet = parent::getPaket();
 
         if (!$this->getCampaignName()) {
-            throw new \Exception('Campaign Name musst be set');
+            throw new MissingTrackingParameterException('Campaign Name musst be set');
         }
 
         if (!$this->getCampaignMedium()) {
-            throw new \Exception('Campaign Medium musst be set');
+            throw new MissingTrackingParameterException('Campaign Medium musst be set');
         }
 
         if (!$this->getCampaignSource()) {
-            throw new \Exception('Campaign Source musst be set');
+            throw new MissingTrackingParameterException('Campaign Source musst be set');
         }
 
         return array_merge($packet, array(

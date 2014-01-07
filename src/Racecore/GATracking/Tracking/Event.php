@@ -1,6 +1,8 @@
 <?php
 namespace Racecore\GATracking\Tracking;
 
+use Racecore\GATracking\Exception\MissingTrackingParameterException;
+
 /**
  * Google Analytics Measurement PHP Class
  * Licensed under the 3-clause BSD License.
@@ -120,18 +122,19 @@ class Event extends AbstractTracking
     }
 
     /**
-     * Returns the Google Paket for Event Tracking
+     * Returns the Paket for Event Tracking
      *
      * @return array
+     * @throws \Racecore\GATracking\Exception\MissingTrackingParameterException
      */
     public function getPaket()
     {
         if (!$this->getEventCategory()) {
-            throw new \Exception('event category musst be set');
+            throw new MissingTrackingParameterException('event category musst be set');
         }
 
         if (!$this->getEventAction()) {
-            throw new \Exception('event action musst be set');
+            throw new MissingTrackingParameterException('event action musst be set');
         }
 
         return array(
