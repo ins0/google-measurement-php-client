@@ -15,7 +15,7 @@ namespace Racecore\GATracking\Tracking;
  * @email   Rieger(at)racecore.de
  * @git     https://github.com/ins0
  * @url     http://www.racecore.de
- * @package Racecore\GATracking
+ * @package Racecore\GATracking\Tracking
  */
 class Exception extends AbstractTracking
 {
