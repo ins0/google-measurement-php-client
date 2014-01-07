@@ -1,6 +1,9 @@
 GATracking
 ==========
 
+Master:
+![Build Status](https://travis-ci.org/ins0/google-measurement-php-client.png?branch=master)
+Develop:
 ![Build Status](https://travis-ci.org/ins0/google-measurement-php-client.png?branch=develop)
 
 GATracking is a Server-Side PHP Client to communicate to Google Analytics over the Google Measurement Protocol API
@@ -9,8 +12,11 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
 
 ### Features
 
+- Page Tracking
+- Event Tracking
+- Social Tracking
+- Exception Tracking
 - Campaign Tracking
-- Pageview Tracking
 - Ecommerce Transaction Tracking
 - Ecommerce Item Tracking
 

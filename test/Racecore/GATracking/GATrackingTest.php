@@ -2,7 +2,7 @@
 namespace Racecore\GATracking;
 
 use Racecore\GATracking\Tracking\Ecommerce as Ecommerce;
-use Racecore\GATracking\Tracking\Pageview;
+use Racecore\GATracking\Tracking\Page;
 use Racecore\GATracking\Tracking\Campaign;
 
 /**
@@ -25,12 +25,12 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
     {
         $tracking = $this->tracking;
 
-        $eventPageview = new Pageview();
+        $eventPage = new Page();
         $eventCampaign = new Campaign();
         $eventTransaction = new Ecommerce\Transaction();
         $eventItem = new Ecommerce\Item();
 
-        $tracking->addTracking( $eventPageview );
+        $tracking->addTracking( $eventPage );
         $tracking->addTracking( $eventCampaign );
         $tracking->addTracking( $eventTransaction );
         $tracking->addTracking( $eventItem );
@@ -38,7 +38,7 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
         $events = $tracking->getEvents();
 
         $this->assertEquals( 4, count($events));
-        $this->assertEquals($eventPageview, $events[0] );
+        $this->assertEquals($eventPage, $events[0] );
         $this->assertEquals($eventCampaign, $events[1] );
         $this->assertEquals($eventTransaction, $events[2] );
         $this->assertEquals($eventItem, $events[3] );

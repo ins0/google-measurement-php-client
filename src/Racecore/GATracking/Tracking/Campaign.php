@@ -17,7 +17,7 @@ namespace Racecore\GATracking\Tracking;
  * @url     http://www.racecore.de
  * @package Racecore\GATracking\Tracking
  */
-class Campaign extends Pageview
+class Campaign extends Page
 {
 
     /**
