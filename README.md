@@ -10,21 +10,25 @@ GATracking is a Server-Side PHP Client to communicate to Google Analytics over t
 
 https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
 
-### Features
+### Tracking Features
 
-- Page Tracking
-- Event Tracking
-- Social Tracking
-- Exception Tracking
-- Campaign Tracking
-
-- App Event Tracking
-- App Screen Tracking
-
-- User Timing Tracking
-
-- Ecommerce Transaction Tracking
-- Ecommerce Item Tracking
+- Simple
+    - Page Tracking
+    - Event Tracking
+- Social
+    - Social Tracking
+- Exception
+    - Exception Tracking
+- Campaign
+    - Campaign Tracking
+- App
+    - App Event Tracking
+    - App Screen Tracking
+- User
+    - User Timing Tracking
+- Ecommerce
+    - Ecommerce Transaction Tracking
+    - Ecommerce Item Tracking
 
 ## Quick start
 
