@@ -54,6 +54,16 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('123456789.1234567890', $clientID);
     }
 
+    public function testCustomUuidClientIDfromGoogleCookie(){
+
+        $tracking = $this->tracking;
+
+        $_COOKIE['_ga'] = 'GA1.3.35009a79-1a05-49d7-b876-2b884d0f825b';
+        $clientID = $tracking->getClientID();
+
+        $this->assertEquals('35009a79-1a05-49d7-b876-2b884d0f825b', $clientID);
+    }
+
     public function testAccountIDcanSet()
     {
         $tracking = $this->tracking;

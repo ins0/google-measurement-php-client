@@ -152,14 +152,36 @@ class GATracking
         if (isset($_COOKIE['_ga'])) {
 
             $gaCookie = explode('.', $_COOKIE['_ga']);
-            $clientId = $gaCookie[2] . '.' . $gaCookie[3];
-        } else {
-
-            $clientId = $this->generateUUID();
+            if( isset($gaCookie[2] ) )
+            {
+                // check if uuid
+                if( $this->checkUUID( $gaCookie[2] ) )
+                {
+                    // uuid set in cookie
+                    return $gaCookie[2];
+                }
+                elseif( isset($gaCookie[2]) && isset($gaCookie[3]) )
+                {
+                    // google default client id
+                    return $gaCookie[2] . '.' . $gaCookie[3];
+                }
+            }
         }
 
-        // return client id
-        return $clientId;
+        // nothing found - return random uuid client id
+        return $this->generateUUID();
+    }
+
+    /**
+     * Check if is a valid UUID v4
+     *
+     * @param $uuid
+     * @return int
+     */
+    private function checkUUID( $uuid )
+    {
+        $uuid = strtoupper( $uuid );
+        return preg_match('#^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$#i', $uuid );
     }
 
     /**
