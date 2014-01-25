@@ -283,6 +283,9 @@ class GATracking
 
         $eventPacket = array_reverse($eventPacket);
 
+        // remove all unused
+        $eventPacket = array_filter($eventPacket);
+
         // build query
         return http_build_query($eventPacket);
     }
