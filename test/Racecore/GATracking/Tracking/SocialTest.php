@@ -24,7 +24,7 @@ class SocialTest extends \PHPUnit_Framework_TestCase {
         $social->setSocialNetwork('Test Network');
         $social->setSocialTarget('/test-target');
 
-        $packet = $social->getPaket();
+        $packet = $social->getPackage();
         $this->assertSame(
             array(
                 't'     =>  'social',

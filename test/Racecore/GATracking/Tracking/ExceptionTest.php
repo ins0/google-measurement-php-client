@@ -23,7 +23,7 @@ class ExceptionTest extends \PHPUnit_Framework_TestCase {
         $exception->setExceptionDescription('Test Description');
         $exception->setExceptionFatal(true);
 
-        $packet = $exception->getPaket();
+        $packet = $exception->getPackage();
         $this->assertSame(
             array(
                 't'     =>  'exception',

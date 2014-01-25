@@ -25,7 +25,7 @@ class EventTest extends \PHPUnit_Framework_TestCase {
         $event->setEventLabel('baz');
         $event->setEventValue('val');
 
-        $packet = $event->getPaket();
+        $packet = $event->getPackage();
         $this->assertSame(
             array(
                 't'     =>  'event',

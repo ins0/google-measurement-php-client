@@ -10,13 +10,13 @@ namespace Racecore\GATracking\Tracking;
 class CampaignTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Campaign
+     * @var Page
      */
     private $campaign;
 
     public function setUp()
     {
-        $this->campaign  = new Campaign();
+        $this->campaign  = new Page();
     }
 
     public function testPaketEqualsSpecification()
@@ -30,23 +30,23 @@ class CampaignTest extends \PHPUnit_Framework_TestCase {
         $campaign->setCampaignID('123456');
         $campaign->setCampaignName('Foo Bar');
         $campaign->setCampaignContent('lorem ipsum');
-        $campaign->setCampaignKeywords(array('keyword1','keyword2'));
+        $campaign->setCampaignKeyword('keyword1');
         $campaign->setCampaignMedium('Foo Medium');
         $campaign->setCampaignSource('Bar Source');
 
-        $packet = $campaign->getPaket();
+        $packet = $campaign->getPackage();
         $this->assertSame(
             array(
                 't' => 'pageview',
-                'dh' => 'hostserver.name',
-                'dp' => '/foo/',
-                'dt' => 'Foo Bar Baz',
                 'cn' => 'Foo Bar',
                 'cs' => 'Bar Source',
                 'cm' => 'Foo Medium',
-                'ck' => 'keyword1;keyword2',
+                'ck' => 'keyword1',
                 'cc' => 'lorem ipsum',
-                'ci' => '123456'
+                'ci' => '123456',
+                'dh' => 'hostserver.name',
+                'dp' => '/foo/',
+                'dt' => 'Foo Bar Baz',
             ),
             $packet
         );
