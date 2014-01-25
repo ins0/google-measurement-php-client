@@ -12,29 +12,29 @@ class CampaignTest extends \PHPUnit_Framework_TestCase {
     /**
      * @var Page
      */
-    private $campaign;
+    private $page;
 
     public function setUp()
     {
-        $this->campaign  = new Page();
+        $this->page  = new Page();
     }
 
     public function testPaketEqualsSpecification()
     {
-        $campaign = $this->campaign;
+        $page = $this->page;
 
-        $campaign->setDocumentTitle('Foo Bar Baz');
-        $campaign->setDocumentPath('/foo/');
-        $campaign->setDocumentHost('hostserver.name');
+        $page->setDocumentTitle('Foo Bar Baz');
+        $page->setDocumentPath('/foo/');
+        $page->setDocumentHost('hostserver.name');
 
-        $campaign->setCampaignID('123456');
-        $campaign->setCampaignName('Foo Bar');
-        $campaign->setCampaignContent('lorem ipsum');
-        $campaign->setCampaignKeyword('keyword1');
-        $campaign->setCampaignMedium('Foo Medium');
-        $campaign->setCampaignSource('Bar Source');
+        $page->setCampaignID('123456');
+        $page->setCampaignName('Foo Bar');
+        $page->setCampaignContent('lorem ipsum');
+        $page->setCampaignKeyword('keyword1');
+        $page->setCampaignMedium('Foo Medium');
+        $page->setCampaignSource('Bar Source');
 
-        $packet = $campaign->getPackage();
+        $packet = $page->getPackage();
         $this->assertSame(
             array(
                 't' => 'pageview',
