@@ -266,10 +266,10 @@ class GATracking
      * @return string
      * @throws Exception\MissingConfigurationException
      */
-    private function buildPacket( AbstractTracking $event )
+    private function buildPackage( AbstractTracking $event )
     {
         // get packet
-        $eventPacket = $event->getPaket();
+        $eventPacket = $event->getPackage();
 
         if( ! $this->getAccountID() )
         {
@@ -282,9 +282,6 @@ class GATracking
         $eventPacket['cid'] = $this->getClientID(); // client id
 
         $eventPacket = array_reverse($eventPacket);
-
-        // remove all unused
-        $eventPacket = array_filter($eventPacket);
 
         // build query
         return http_build_query($eventPacket);
@@ -314,7 +311,7 @@ class GATracking
     public function sendTracking(AbstractTracking $event)
     {
         // get packet
-        $eventPacket = $this->buildPacket( $event );
+        $eventPacket = $this->buildPackage( $event );
 
         // get endpoint
         $endpoint = parse_url($this->analytics_endpoint);
