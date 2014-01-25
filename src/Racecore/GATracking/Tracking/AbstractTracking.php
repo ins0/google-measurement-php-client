@@ -55,8 +55,8 @@ abstract class AbstractTracking
     private $userLanguage;
 
     // java enabled
-    /** @var boolean */
-    private $javaEnabled;
+    /** @var boolean|string */
+    private $javaEnabled = null;
 
     // flash version
     /** @var String */
@@ -142,7 +142,7 @@ abstract class AbstractTracking
             'vp' => $this->getViewportSize(),
             'de' => $this->getDocumentEncoding(),
             'ul' => $this->getUserLanguage(),
-            'je' => ($this->getJavaEnabled()?'1':'0'),
+            'je' => $this->getJavaEnabled(),
             'fl' => $this->getFlashVersion(),
 
             // Content Information
@@ -165,7 +165,7 @@ abstract class AbstractTracking
         $package = $this->addCustomParameters($package);
 
         // remove all unused
-        $package = array_filter($package);
+        $package = array_filter($package, 'strlen');
 
         return $package;
     }
@@ -550,7 +550,7 @@ abstract class AbstractTracking
      */
     public function setJavaEnabled($javaEnabled)
     {
-        $this->javaEnabled = $javaEnabled;
+        $this->javaEnabled = (bool) $javaEnabled;
     }
 
     /**
@@ -558,7 +558,11 @@ abstract class AbstractTracking
      */
     public function getJavaEnabled()
     {
-        return $this->javaEnabled;
+        if( $this->javaEnabled === null ){
+            return null;
+        }
+
+        return $this->javaEnabled ? '1' : '0';
     }
 
     /**
