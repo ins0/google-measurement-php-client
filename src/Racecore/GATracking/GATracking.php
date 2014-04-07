@@ -280,6 +280,9 @@ class GATracking
         $eventPacket['v'] = $this->protocol; // protocol version
         $eventPacket['tid'] = $this->getAccountID(); // account id
         $eventPacket['cid'] = $this->getClientID(); // client id
+        
+        $eventPacket['uip'] = $_SERVER['REMOTE_ADDR']; // IP Override
+        $eventPacket['ua'] = $_SERVER['HTTP_USER_AGENT']; // UA Override
 
         $eventPacket = array_reverse($eventPacket);
 
