@@ -29,6 +29,9 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
 - Ecommerce
     - Ecommerce Transaction Tracking
     - Ecommerce Item Tracking
+-	Proxy
+		-	Client IP Address
+		-	Client User Agent    
 
 ## Quick start
 
