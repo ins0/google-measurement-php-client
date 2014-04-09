@@ -165,7 +165,7 @@ class GATracking
     public function __construct( $accountID = null, $proxy = false )
     {
         $this->setAccountID( $accountID );
-        $this->setProxy($proxy)
+        $this->setProxy($proxy);
 
         return $this;
     }
