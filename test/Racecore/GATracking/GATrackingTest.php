@@ -86,6 +86,13 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(array('foo', 'bar'), $last_response_stack );
     }
 
+		public function testProxycanSet()
+    {
+        $tracking = $this->tracking;
+        $tracking->setProxy(true);
 
+        $proxy = $tracking->getProxy();
+        $this->assertEquals(true, $proxy);
+    }
 }
  
