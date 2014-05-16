@@ -24,7 +24,7 @@ class PageTest extends \PHPUnit_Framework_TestCase {
         $page->setDocumentTitle('bar');
         $page->setDocumentHost('baz');
 
-        $packet = $page->getPackage();
+        $packet = $page->getPaket();
         $this->assertSame(
             array(
                 't'     =>  'pageview',

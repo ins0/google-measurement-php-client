@@ -10,7 +10,7 @@ namespace Racecore\GATracking\Tracking\Ecommerce;
 class TransactionTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Transaction
+     * @var Campaign
      */
     private $transaction;
 
@@ -29,9 +29,9 @@ class TransactionTest extends \PHPUnit_Framework_TestCase {
         $transaction->setShipping(12.34);
         $transaction->setTax(12.34);
         $transaction->setCurrency('EUR');
-        $transaction->setDocumentHost('www.domain.tld');
+        $transaction->setTransactionHost('www.domain.tld');
 
-        $packet = $transaction->getPackage();
+        $packet = $transaction->getPaket();
 
         $this->assertSame(
             array(
@@ -41,8 +41,8 @@ class TransactionTest extends \PHPUnit_Framework_TestCase {
                 'tr' => 123.45,
                 'ts' => 12.34,
                 'tt' => 12.34,
-                'cu' => 'EUR',
                 'dh' => 'www.domain.tld',
+                'cu' => 'EUR'
             ),
             $packet
         );

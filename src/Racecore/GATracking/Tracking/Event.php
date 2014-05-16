@@ -126,6 +126,18 @@ class Event extends AbstractTracking
      *
      * @return array
      * @throws \Racecore\GATracking\Exception\MissingTrackingParameterException
+     * @deprecated
+     */
+    public function getPaket()
+    {
+        return $this->createPackage();
+    }
+
+    /**
+     * Returns the Paket for Event Tracking
+     *
+     * @return array
+     * @throws \Racecore\GATracking\Exception\MissingTrackingParameterException
      */
     public function createPackage()
     {

@@ -10,7 +10,7 @@ namespace Racecore\GATracking\Tracking\Ecommerce;
 class ItemTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Item
+     * @var Campaign
      */
     private $item;
 
@@ -30,9 +30,9 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
         $item->setSku('product_sku');
         $item->setCategory('Category');
         $item->setCurrency('EUR');
-        $item->setDocumentHost('www.domain.tld');
+        $item->setTransactionHost('www.domain.tld');
 
-        $packet = $item->getPackage();
+        $packet = $item->getPaket();
 
         $this->assertSame(
             array(
@@ -43,8 +43,8 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
                 'iq' => 1,
                 'ic' => 'product_sku',
                 'iv' => 'Category',
-                'cu' => 'EUR',
                 'dh' => 'www.domain.tld',
+                'cu' => 'EUR'
             ),
             $packet
         );

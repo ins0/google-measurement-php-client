@@ -27,14 +27,14 @@ class EventTest extends \PHPUnit_Framework_TestCase {
         $event->setEventAction('Test Action');
         $event->setEventCategory('Test Category');
 
-        $packet = $event->getPackage();
+        $packet = $event->getPaket();
 
         $this->assertSame(
             array(
                 't' => 'event',
-                'ec' => 'Test Category',
-                'ea' => 'Test Action',
                 'an' => 'Test App',
+                'ec' => 'Test Category',
+                'ea' => 'Test Action'
             ),
             $packet
         );

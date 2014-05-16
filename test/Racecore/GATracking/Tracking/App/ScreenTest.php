@@ -27,14 +27,14 @@ class ScreenTest extends \PHPUnit_Framework_TestCase {
         $screen->setAppVersion('1.0');
         $screen->setContentDescription('Test Description');
 
-        $packet = $screen->getPackage();
+        $packet = $screen->getPaket();
 
         $this->assertSame(
             array(
                 't' => 'appview',
-                'cd' => 'Test Description',
                 'an' => 'Test App',
                 'av' => '1.0',
+                'cd' => 'Test Description'
             ),
             $packet
         );

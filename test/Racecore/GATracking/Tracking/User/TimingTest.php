@@ -33,7 +33,7 @@ class TimingTest extends \PHPUnit_Framework_TestCase {
         $timing->setBrowserTcpConnectTime(5);
         $timing->setBrowserServerResponseTime(6);
 
-        $packet = $timing->getPackage();
+        $packet = $timing->getPaket();
 
         $this->assertSame(
             array(
