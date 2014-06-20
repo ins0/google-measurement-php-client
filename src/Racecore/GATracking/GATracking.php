@@ -42,7 +42,7 @@ class GATracking
      *
      * @var string
      */
-    private $userID;
+    private $userID = null;
 
     /**
      * Protocol Version
@@ -339,7 +339,7 @@ class GATracking
         $eventPacket['tid'] = $this->getAccountID(); // account id
         $eventPacket['cid'] = $this->getClientID(); // client id
         
-        if(isset($this->getUserID()){
+        if($this->getUserID() != null){
         	$eventPacket['uid'] = $this->getUserID();
         }
         
