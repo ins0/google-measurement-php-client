@@ -94,5 +94,14 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
         $proxy = $tracking->getProxy();
         $this->assertEquals(true, $proxy);
     }
+    
+    public function testUserIDcanSet()
+    {
+        $tracking = $this->tracking;
+        $tracking->setUserID(1234);
+
+        $userID = $tracking->getUserID();
+        $this->assertEquals(1234, $userID);
+    }
 }
  

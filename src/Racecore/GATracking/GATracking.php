@@ -36,6 +36,13 @@ class GATracking
      * @var string
      */
     private $clientID;
+    
+    /**
+     * Current User ID
+     *
+     * @var string
+     */
+    private $userID;
 
     /**
      * Protocol Version
@@ -134,6 +141,28 @@ class GATracking
         }
 
         return $this->clientID;
+    }
+    
+    /**
+     * Set the current User ID
+     *
+     * @param $clientID
+     * @return $this
+     */
+    public function setUserID($userID)
+    {
+        $this->userID = $userID;
+        return $this;
+    }
+
+    /**
+     * Returns the current User ID
+     *
+     * @return string
+     */
+    public function getUserID()
+    {
+        return $this->userID;
     }
 
     /**
@@ -309,6 +338,10 @@ class GATracking
         $eventPacket['v'] = $this->protocol; // protocol version
         $eventPacket['tid'] = $this->getAccountID(); // account id
         $eventPacket['cid'] = $this->getClientID(); // client id
+        
+        if(isset($this->getUserID()){
+        	$eventPacket['uid'] = $this->getUserID();
+        }
         
         //Proxy Variables
         if($this->getProxy()){
