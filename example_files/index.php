@@ -17,6 +17,11 @@ $tracking->setProxy(true);
 $tracking->setClientID('35009a79-1a05-49d7-b876-2b884d0f825b');
 
 /**
+	*	User-ID tracking for when using User-ID feature of GA
+	*/
+$tracking->setUserID('11223344');
+
+/**
  * Campaign Tracking
  */
 $campain = new \Racecore\GATracking\Tracking\Campaign();
