@@ -4,14 +4,22 @@ require_once( dirname(__FILE__) . '/../src/Racecore/GATracking/Autoloader.php');
 Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
 
 // init tracking
-$tracking = new \Racecore\GATracking\GATracking('UA-XXXXXXXX-X');
+$tracking = new \Racecore\GATracking\GATracking('UA-XXXXXXXX-X',false);
 
 // optional when not setting the client id by constructor
 $tracking->setAccountID('UA-XXXXXXXX-X');
 
+// optional when not setting proxy variable by constructor
+$tracking->setProxy(true);
+
 // optional set custom client id
 // when not set the class will try to get the user client id
 $tracking->setClientID('35009a79-1a05-49d7-b876-2b884d0f825b');
+
+/**
+	*	User-ID tracking for when using User-ID feature of GA
+	*/
+$tracking->setUserID('11223344');
 
 /**
  * Campaign Tracking
@@ -70,7 +78,7 @@ $tracking->addTracking($page);
 /************ *************/
 
 /**
- * Page Tacking
+ * Event Tacking
  */
 $event = new \Racecore\GATracking\Tracking\Event();
 $event->setEventCategory('Test Category');

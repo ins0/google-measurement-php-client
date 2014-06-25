@@ -36,6 +36,13 @@ class GATracking
      * @var string
      */
     private $clientID;
+    
+    /**
+     * Current User ID
+     *
+     * @var string
+     */
+    private $userID = null;
 
     /**
      * Protocol Version
@@ -71,6 +78,33 @@ class GATracking
      * @var array
      */
     private $last_response_stack = array();
+    
+    /**
+     * Send Proxy Variables
+     *
+     * @var boolean
+     */
+    private $use_proxy;
+    
+    /**
+     * Sets the Use Proxy variable
+     *
+     * @param $proxy
+     */
+    public function setProxy($proxy)
+    {
+        $this->use_proxy = $proxy;
+    }
+    
+    /**
+     * Returns the Use Proxy variable
+     *
+     * @return boolean
+     */
+    public function getProxy()
+    {
+        return $this->use_proxy;
+    }
 
     /**
      * Sets the Analytics Account ID
@@ -108,6 +142,28 @@ class GATracking
 
         return $this->clientID;
     }
+    
+    /**
+     * Set the current User ID
+     *
+     * @param $clientID
+     * @return $this
+     */
+    public function setUserID($userID)
+    {
+        $this->userID = $userID;
+        return $this;
+    }
+
+    /**
+     * Returns the current User ID
+     *
+     * @return string
+     */
+    public function getUserID()
+    {
+        return $this->userID;
+    }
 
     /**
      * Return all registered Events
@@ -133,10 +189,12 @@ class GATracking
      * Constructor
      *
      * @param string $accountID
+     * @param boolean $proxy (default: false)
      */
-    public function __construct( $accountID = null )
+    public function __construct( $accountID = null, $proxy = false )
     {
         $this->setAccountID( $accountID );
+        $this->setProxy($proxy);
 
         return $this;
     }
@@ -280,6 +338,16 @@ class GATracking
         $eventPacket['v'] = $this->protocol; // protocol version
         $eventPacket['tid'] = $this->getAccountID(); // account id
         $eventPacket['cid'] = $this->getClientID(); // client id
+        
+        if($this->getUserID() != null){
+        	$eventPacket['uid'] = $this->getUserID();
+        }
+        
+        //Proxy Variables
+        if($this->getProxy()){
+        	$eventPacket['uip'] = $_SERVER['REMOTE_ADDR']; // IP Override
+        	$eventPacket['ua'] = $_SERVER['HTTP_USER_AGENT']; // UA Override
+      	}
 
         $eventPacket = array_reverse($eventPacket);
 

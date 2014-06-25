@@ -26,9 +26,13 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
     - App Screen Tracking
 - User
     - User Timing Tracking
+    - User ID Tracking
 - Ecommerce
     - Ecommerce Transaction Tracking
     - Ecommerce Item Tracking
+- Proxy
+    - Client IP Address
+    - Client User Agent
 
 ## Quick start
 
