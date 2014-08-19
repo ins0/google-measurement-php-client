@@ -1,5 +1,6 @@
 <?php
 namespace Racecore\GATracking\Tracking\Ecommerce;
+use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
  * Class ItemTest
@@ -7,7 +8,7 @@ namespace Racecore\GATracking\Tracking\Ecommerce;
  * @author      Enea Berti
  * @package     Racecore\GATracking\Tracking\Ecommerce
  */
-class ItemTest extends \PHPUnit_Framework_TestCase {
+class ItemTest extends AbstractGATrackingTest {
 
     /**
      * @var Campaign
@@ -34,7 +35,7 @@ class ItemTest extends \PHPUnit_Framework_TestCase {
 
         $packet = $item->getPaket();
 
-        $this->assertSame(
+        $this->assertArraySimilar(
             array(
                 't' => 'item',
                 'ti' => '1234',

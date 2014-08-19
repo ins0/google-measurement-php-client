@@ -1,5 +1,6 @@
 <?php
 namespace Racecore\GATracking\Tracking;
+use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
  * Class Event Test
@@ -7,7 +8,7 @@ namespace Racecore\GATracking\Tracking;
  * @author      Marco Rieger
  * @package     Racecore\GATracking\Tracking
  */
-class EventTest extends \PHPUnit_Framework_TestCase {
+class EventTest extends AbstractGATrackingTest {
 
     private $event;
 
@@ -26,7 +27,7 @@ class EventTest extends \PHPUnit_Framework_TestCase {
         $event->setEventValue('val');
 
         $packet = $event->getPaket();
-        $this->assertSame(
+        $this->assertArraySimilar(
             array(
                 't'     =>  'event',
                 'ec'    =>  'foo',

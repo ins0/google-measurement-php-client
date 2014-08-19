@@ -1,5 +1,6 @@
 <?php
 namespace Racecore\GATracking\Tracking;
+use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
  * Class ExceptionTest
@@ -7,7 +8,7 @@ namespace Racecore\GATracking\Tracking;
  * @author      Marco Rieger
  * @package       Racecore\GATracking\Tracking
  */
-class ExceptionTest extends \PHPUnit_Framework_TestCase {
+class ExceptionTest extends AbstractGATrackingTest {
 
     private $exception;
 
@@ -24,7 +25,7 @@ class ExceptionTest extends \PHPUnit_Framework_TestCase {
         $exception->setExceptionFatal(true);
 
         $packet = $exception->getPaket();
-        $this->assertSame(
+        $this->assertArraySimilar(
             array(
                 't'     =>  'exception',
                 'exd'    =>  'Test Description',

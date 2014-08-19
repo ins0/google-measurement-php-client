@@ -1,5 +1,6 @@
 <?php
 namespace Racecore\GATracking\Tracking\App;
+use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
  * Class ScreenTest
@@ -7,7 +8,7 @@ namespace Racecore\GATracking\Tracking\App;
  * @author      Marco Rieger
  * @package     Racecore\GATracking\Tracking\App
  */
-class ScreenTest extends \PHPUnit_Framework_TestCase {
+class ScreenTest extends AbstractGATrackingTest {
 
     /**
      * @var Screen
@@ -29,7 +30,7 @@ class ScreenTest extends \PHPUnit_Framework_TestCase {
 
         $packet = $screen->getPaket();
 
-        $this->assertSame(
+        $this->assertArraySimilar(
             array(
                 't' => 'appview',
                 'an' => 'Test App',

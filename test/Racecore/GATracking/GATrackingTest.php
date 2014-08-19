@@ -12,7 +12,7 @@ use Racecore\GATracking\Tracking\Campaign;
  * @author      Marco Rieger
  * @package       Racecore\GATracking
  */
-class GATrackingTest extends \PHPUnit_Framework_TestCase {
+class GATrackingTest extends AbstractGATrackingTest {
 
     /** @var  GATracking */
     private $tracking;

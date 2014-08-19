@@ -1,5 +1,6 @@
 <?php
 namespace Racecore\GATracking\Tracking;
+use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
  * Class PageviewTest
@@ -7,7 +8,7 @@ namespace Racecore\GATracking\Tracking;
  * @author      Marco Rieger
  * @package       Racecore\GATracking\Tracking
  */
-class SocialTest extends \PHPUnit_Framework_TestCase {
+class SocialTest extends AbstractGATrackingTest {
 
     private $social;
 
@@ -25,7 +26,7 @@ class SocialTest extends \PHPUnit_Framework_TestCase {
         $social->setSocialTarget('/test-target');
 
         $packet = $social->getPaket();
-        $this->assertSame(
+        $this->assertArraySimilar(
             array(
                 't'     =>  'social',
                 'sa'    =>  'Test Action',
