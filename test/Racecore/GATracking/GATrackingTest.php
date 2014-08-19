@@ -2,6 +2,7 @@
 namespace Racecore\GATracking;
 
 use Racecore\GATracking\Tracking\Ecommerce as Ecommerce;
+use Racecore\GATracking\Tracking\Exception;
 use Racecore\GATracking\Tracking\Page;
 use Racecore\GATracking\Tracking\Campaign;
 
@@ -11,7 +12,7 @@ use Racecore\GATracking\Tracking\Campaign;
  * @author      Marco Rieger
  * @package       Racecore\GATracking
  */
-class GATrackingTest extends \PHPUnit_Framework_TestCase {
+class GATrackingTest extends AbstractGATrackingTest {
 
     /** @var  GATracking */
     private $tracking;
@@ -26,22 +27,19 @@ class GATrackingTest extends \PHPUnit_Framework_TestCase {
         $tracking = $this->tracking;
 
         $eventPage = new Page();
-        $eventCampaign = new Campaign();
+        $eventException = new Exception();
         $eventTransaction = new Ecommerce\Transaction();
-        $eventItem = new Ecommerce\Item();
 
         $tracking->addTracking( $eventPage );
-        $tracking->addTracking( $eventCampaign );
+        $tracking->addTracking( $eventException );
         $tracking->addTracking( $eventTransaction );
-        $tracking->addTracking( $eventItem );
 
         $events = $tracking->getEvents();
-
-        $this->assertEquals( 4, count($events));
+        $this->assertEquals( 3, count($events));
         $this->assertEquals($eventPage, $events[0] );
-        $this->assertEquals($eventCampaign, $events[1] );
+        $this->assertEquals($eventException, $events[1] );
         $this->assertEquals($eventTransaction, $events[2] );
-        $this->assertEquals($eventItem, $events[3] );
+
     }
 
     public function testClientIDisGeneratedFromGoogleCookie(){

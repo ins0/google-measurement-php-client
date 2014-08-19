@@ -1,6 +1,5 @@
 <?php
 namespace Racecore\GATracking\Tracking\Ecommerce;
-use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
  * Class ItemTest
@@ -8,10 +7,10 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Enea Berti
  * @package     Racecore\GATracking\Tracking\Ecommerce
  */
-class ItemTest extends AbstractGATrackingTest {
+class ItemTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var Campaign
+     * @var Item
      */
     private $item;
 
@@ -31,11 +30,11 @@ class ItemTest extends AbstractGATrackingTest {
         $item->setSku('product_sku');
         $item->setCategory('Category');
         $item->setCurrency('EUR');
-        $item->setTransactionHost('www.domain.tld');
+        $item->setDocumentHost('www.domain.tld');
 
         $packet = $item->getPackage();
 
-        $this->assertArraySimilar(
+        $this->assertSame(
             array(
                 't' => 'item',
                 'ti' => '1234',
@@ -44,8 +43,8 @@ class ItemTest extends AbstractGATrackingTest {
                 'iq' => 1,
                 'ic' => 'product_sku',
                 'iv' => 'Category',
+                'cu' => 'EUR',
                 'dh' => 'www.domain.tld',
-                'cu' => 'EUR'
             ),
             $packet
         );

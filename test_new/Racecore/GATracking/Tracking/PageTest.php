@@ -1,6 +1,5 @@
 <?php
 namespace Racecore\GATracking\Tracking;
-use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
  * Class PageviewTest
@@ -8,7 +7,7 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Marco Rieger
  * @package       Racecore\GATracking\Tracking
  */
-class PageTest extends AbstractGATrackingTest {
+class PageTest extends \PHPUnit_Framework_TestCase {
 
     private $page;
 
@@ -26,7 +25,7 @@ class PageTest extends AbstractGATrackingTest {
         $page->setDocumentHost('baz');
 
         $packet = $page->getPackage();
-        $this->assertArraySimilar(
+        $this->assertSame(
             array(
                 't'     =>  'pageview',
                 'dh'    =>  'baz',

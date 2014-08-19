@@ -7,7 +7,7 @@ Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
 $tracking = new \Racecore\GATracking\GATracking('UA-XXXXXXXX-X',false);
 
 // optional when not setting the client id by constructor
-$tracking->setAccountID('UA-XXXXXXXX-X');
+$tracking->setAccountID('UA-XXXXXXXXX');
 
 // optional when not setting proxy variable by constructor
 $tracking->setProxy(true);
@@ -24,7 +24,7 @@ $tracking->setUserID('11223344');
 /**
  * Campaign Tracking
  */
-$campain = new \Racecore\GATracking\Tracking\Campaign();
+$campain = new \Racecore\GATracking\Tracking\Page();
 $campain->setDocumentPath('/test/path2');
 $campain->setDocumentTitle('Test Title');
 $campain->setCampaignName('Test Campaign Name');

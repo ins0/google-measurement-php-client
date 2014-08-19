@@ -1,6 +1,5 @@
 <?php
 namespace Racecore\GATracking\Tracking\User;
-use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
  * Class User Timing Test
@@ -8,7 +7,7 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Marco Rieger
  * @package     Racecore\GATracking\Tracking\User
  */
-class TimingTest extends AbstractGATrackingTest {
+class TimingTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @var Timing
@@ -34,9 +33,9 @@ class TimingTest extends AbstractGATrackingTest {
         $timing->setBrowserTcpConnectTime(5);
         $timing->setBrowserServerResponseTime(6);
 
-        $packet = $timing->getPaket();
+        $packet = $timing->getPackage();
 
-        $this->assertArraySimilar(
+        $this->assertSame(
             array(
                 't' => 'timing',
                 'utc' => 'Timing Category',
