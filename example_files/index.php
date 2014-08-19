@@ -7,7 +7,7 @@ Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
 $tracking = new \Racecore\GATracking\GATracking('UA-XXXXXXXX-X');
 
 // optional when not setting the client id by constructor
-$tracking->setAccountID('UA-47467616-4');
+$tracking->setAccountID('UA-XXXXXXXXX');
 
 // optional set custom client id
 // when not set the class will try to get the user client id
