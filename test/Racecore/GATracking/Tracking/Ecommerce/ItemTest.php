@@ -33,7 +33,7 @@ class ItemTest extends AbstractGATrackingTest {
         $item->setCurrency('EUR');
         $item->setTransactionHost('www.domain.tld');
 
-        $packet = $item->getPaket();
+        $packet = $item->getPackage();
 
         $this->assertArraySimilar(
             array(

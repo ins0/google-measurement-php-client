@@ -342,6 +342,20 @@ abstract class AbstractTracking
     }
 
     /**
+     * @deprecated Use setCampaignKeyword
+     * @param $campaignKeyword
+     */
+    public function setCampaignKeywords($campaignKeyword)
+    {
+        if( is_array($campaignKeyword) )
+        {
+            return $this->setCampaignKeyword(implode(',', $campaignKeyword));
+        }
+
+        $this->setCampaignKeyword($campaignKeyword);
+    }
+
+    /**
      * @return Array
      */
     public function getCampaignKeyword()

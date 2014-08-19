@@ -38,6 +38,18 @@ class GATracking
     private $clientID;
 
     /**
+     * User ID
+     */
+    private $userID;
+
+    /**
+     * Use Proxy
+     *
+     * @var bool
+     */
+    private $proxy = false;
+
+    /**
      * Protocol Version
      *
      * @var string
@@ -110,6 +122,22 @@ class GATracking
     }
 
     /**
+     * @param mixed $userID
+     */
+    public function setUserID($userID)
+    {
+        $this->userID = $userID;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserID()
+    {
+        return $this->userID;
+    }
+
+    /**
      * Return all registered Events
      *
      * @return array
@@ -130,15 +158,31 @@ class GATracking
     }
 
     /**
+     * @param boolean $proxy
+     */
+    public function setProxy($proxy)
+    {
+        $this->proxy = $proxy;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getProxy()
+    {
+        return $this->proxy;
+    }
+
+    /**
      * Constructor
      *
-     * @param string $accountID
+     * @param null $accountID
+     * @param bool $proxy
      */
-    public function __construct( $accountID = null )
+    public function __construct( $accountID = null, $proxy = false )
     {
         $this->setAccountID( $accountID );
-
-        return $this;
+        $this->setProxy( $proxy );
     }
 
     /**
@@ -280,6 +324,19 @@ class GATracking
         $eventPacket['v'] = $this->protocol; // protocol version
         $eventPacket['tid'] = $this->getAccountID(); // account id
         $eventPacket['cid'] = $this->getClientID(); // client id
+
+        // add userid
+        if($this->getUserID())
+        {
+            $eventPacket['uid'] = $this->getUserID();
+        }
+
+        // add proxy
+        if($this->getProxy() === true)
+        {
+            $eventPacket['uip'] = $_SERVER['REMOTE_ADDR']; // IP Override
+            $eventPacket['ua'] = $_SERVER['HTTP_USER_AGENT']; // UA Override
+        }
 
         $eventPacket = array_reverse($eventPacket);
 

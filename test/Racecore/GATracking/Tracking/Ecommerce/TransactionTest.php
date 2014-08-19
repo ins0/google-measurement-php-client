@@ -32,7 +32,7 @@ class TransactionTest extends AbstractGATrackingTest {
         $transaction->setCurrency('EUR');
         $transaction->setTransactionHost('www.domain.tld');
 
-        $packet = $transaction->getPaket();
+        $packet = $transaction->getPackage();
 
         $this->assertArraySimilar(
             array(

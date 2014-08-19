@@ -28,7 +28,7 @@ class ScreenTest extends AbstractGATrackingTest {
         $screen->setAppVersion('1.0');
         $screen->setContentDescription('Test Description');
 
-        $packet = $screen->getPaket();
+        $packet = $screen->getPackage();
 
         $this->assertArraySimilar(
             array(

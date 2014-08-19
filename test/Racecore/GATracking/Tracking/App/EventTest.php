@@ -28,7 +28,7 @@ class EventTest extends AbstractGATrackingTest {
         $event->setEventAction('Test Action');
         $event->setEventCategory('Test Category');
 
-        $packet = $event->getPaket();
+        $packet = $event->getPackage();
 
         $this->assertArraySimilar(
             array(
