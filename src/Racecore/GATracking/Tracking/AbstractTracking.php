@@ -26,6 +26,7 @@ abstract class AbstractTracking
     // campaign
     /** @var String */
     private $campaignName, $campaignSource, $campaignMedium, $campaignContent, $campaignID, $campaignKeyword;
+
     // adwords id
     /** @var String */
     private $adwordsID;
@@ -110,6 +111,10 @@ abstract class AbstractTracking
     /** @var Array */
     private $customMetric = array();
 
+    // productId
+    /** @var string */
+    private $productId;
+
     /**
      * Get the transfer Paket from current Event
      *
@@ -168,6 +173,10 @@ abstract class AbstractTracking
             // app tracking
             'an' => $this->getAppName(),
             'av' => $this->getAppVersion(),
+
+            // enhanced e-commerce
+
+
 
             // content experiments
             'xid' => $this->getExperimentID(),
@@ -656,4 +665,21 @@ abstract class AbstractTracking
     {
         return $this->viewportSize;
     }
+
+    /**
+     * @param string $productId
+     */
+    public function setProductId($productId)
+    {
+        $this->productId = $productId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductId()
+    {
+        return $this->productId;
+    }
+
 }

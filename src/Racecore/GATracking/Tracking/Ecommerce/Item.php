@@ -193,9 +193,10 @@ class Item extends AbstractTracking
     }
 
     /**
-     * Returns the Google Paket for Item Tracking
+     * Create the Package
      *
      * @return array
+     * @throws \Racecore\GATracking\Exception\MissingTrackingParameterException
      */
     public function createPackage()
     {
