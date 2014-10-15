@@ -39,7 +39,7 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
 ### Install via Composer
 In the `require` key of `composer.json` file add the following
 
-    "ins0/google-measurement-php-client": "dev-master"
+    "ins0/zf2-snippster": "dev-master"
 
 Run the Composer update command
 
