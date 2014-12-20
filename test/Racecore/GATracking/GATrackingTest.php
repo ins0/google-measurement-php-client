@@ -1,4 +1,5 @@
 <?php
+
 namespace Racecore\GATracking;
 
 use Racecore\GATracking\Tracking\Ecommerce as Ecommerce;
@@ -12,7 +13,8 @@ use Racecore\GATracking\Tracking\Campaign;
  * @author      Marco Rieger
  * @package       Racecore\GATracking
  */
-class GATrackingTest extends AbstractGATrackingTest {
+class GATrackingTest extends AbstractGATrackingTest
+{
 
     /** @var  GATracking */
     private $tracking;
@@ -30,20 +32,20 @@ class GATrackingTest extends AbstractGATrackingTest {
         $eventException = new Exception();
         $eventTransaction = new Ecommerce\Transaction();
 
-        $tracking->addTracking( $eventPage );
-        $tracking->addTracking( $eventException );
-        $tracking->addTracking( $eventTransaction );
+        $tracking->addTracking($eventPage);
+        $tracking->addTracking($eventException);
+        $tracking->addTracking($eventTransaction);
 
         $events = $tracking->getEvents();
-        $this->assertEquals( 3, count($events));
-        $this->assertEquals($eventPage, $events[0] );
-        $this->assertEquals($eventException, $events[1] );
-        $this->assertEquals($eventTransaction, $events[2] );
+        $this->assertEquals(3, count($events));
+        $this->assertEquals($eventPage, $events[0]);
+        $this->assertEquals($eventException, $events[1]);
+        $this->assertEquals($eventTransaction, $events[2]);
 
     }
 
-    public function testClientIDisGeneratedFromGoogleCookie(){
-
+    public function testClientIDisGeneratedFromGoogleCookie()
+    {
         $tracking = $this->tracking;
 
         $_COOKIE['_ga'] = 'GA1.3.123456789.1234567890';
@@ -52,8 +54,8 @@ class GATrackingTest extends AbstractGATrackingTest {
         $this->assertEquals('123456789.1234567890', $clientID);
     }
 
-    public function testCustomUuidClientIDfromGoogleCookie(){
-
+    public function testCustomUuidClientIDfromGoogleCookie()
+    {
         $tracking = $this->tracking;
 
         $_COOKIE['_ga'] = 'GA1.3.35009a79-1a05-49d7-b876-2b884d0f825b';
@@ -81,10 +83,10 @@ class GATrackingTest extends AbstractGATrackingTest {
 
         $tracking->addResponse('bar');
         $last_response_stack = $tracking->getLastResponseStack();
-        $this->assertEquals(array('foo', 'bar'), $last_response_stack );
+        $this->assertEquals(array('foo', 'bar'), $last_response_stack);
     }
 
-		public function testProxycanSet()
+    public function testProxycanSet()
     {
         $tracking = $this->tracking;
         $tracking->setProxy(true);
@@ -102,4 +104,3 @@ class GATrackingTest extends AbstractGATrackingTest {
         $this->assertEquals(1234, $userID);
     }
 }
- 

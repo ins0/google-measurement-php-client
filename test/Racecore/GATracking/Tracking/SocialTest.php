@@ -1,5 +1,7 @@
 <?php
+
 namespace Racecore\GATracking\Tracking;
+
 use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
@@ -8,7 +10,8 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Marco Rieger
  * @package       Racecore\GATracking\Tracking
  */
-class SocialTest extends AbstractGATrackingTest {
+class SocialTest extends AbstractGATrackingTest
+{
 
     private $social;
 
@@ -43,14 +46,13 @@ class SocialTest extends AbstractGATrackingTest {
         $social = $this->social;
 
         $social->setSocialAction('Test Action');
-        $this->assertEquals('Test Action', $social->getSocialAction() );
+        $this->assertEquals('Test Action', $social->getSocialAction());
 
         $social->setSocialNetwork('Test Network');
-        $this->assertEquals('Test Network', $social->getSocialNetwork() );
+        $this->assertEquals('Test Network', $social->getSocialNetwork());
 
         $social->setSocialTarget('/test-target');
-        $this->assertEquals('/test-target', $social->getSocialTarget() );
+        $this->assertEquals('/test-target', $social->getSocialTarget());
     }
 
 }
- 

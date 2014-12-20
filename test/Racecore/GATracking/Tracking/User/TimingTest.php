@@ -1,5 +1,7 @@
 <?php
+
 namespace Racecore\GATracking\Tracking\User;
+
 use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
@@ -8,8 +10,8 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Marco Rieger
  * @package     Racecore\GATracking\Tracking\User
  */
-class TimingTest extends AbstractGATrackingTest {
-
+class TimingTest extends AbstractGATrackingTest
+{
     /**
      * @var Timing
      */
@@ -54,4 +56,3 @@ class TimingTest extends AbstractGATrackingTest {
     }
 
 }
- 

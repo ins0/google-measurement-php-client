@@ -1,5 +1,7 @@
 <?php
+
 namespace Racecore\GATracking\Tracking;
+
 use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
@@ -8,8 +10,8 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Marco Rieger
  * @package       Racecore\GATracking\Tracking
  */
-class PageTest extends AbstractGATrackingTest {
-
+class PageTest extends AbstractGATrackingTest
+{
     private $page;
 
     public function setUp()
@@ -43,14 +45,13 @@ class PageTest extends AbstractGATrackingTest {
         $page = $this->page;
 
         $page->setDocumentHost('foo');
-        $this->assertEquals('foo', $page->getDocumentHost() );
+        $this->assertEquals('foo', $page->getDocumentHost());
 
         $page->setDocumentPath('bar');
-        $this->assertEquals('bar', $page->getDocumentPath() );
+        $this->assertEquals('bar', $page->getDocumentPath());
 
         $page->setDocumentTitle('baz');
-        $this->assertEquals('baz', $page->getDocumentTitle() );
+        $this->assertEquals('baz', $page->getDocumentTitle());
     }
 
 }
- 

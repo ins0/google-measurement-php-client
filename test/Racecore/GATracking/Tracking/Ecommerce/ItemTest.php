@@ -1,5 +1,7 @@
 <?php
+
 namespace Racecore\GATracking\Tracking\Ecommerce;
+
 use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
@@ -8,8 +10,8 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Enea Berti
  * @package     Racecore\GATracking\Tracking\Ecommerce
  */
-class ItemTest extends AbstractGATrackingTest {
-
+class ItemTest extends AbstractGATrackingTest
+{
     /**
      * @var Campaign
      */
@@ -52,4 +54,3 @@ class ItemTest extends AbstractGATrackingTest {
     }
 
 }
- 

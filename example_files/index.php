@@ -1,10 +1,10 @@
 <?php
-// autoloader
+/** Autoloader */
 require_once( dirname(__FILE__) . '/../src/Racecore/GATracking/Autoloader.php');
 Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
 
 // init tracking
-$tracking = new \Racecore\GATracking\GATracking('UA-XXXXXXXX-X',false);
+$tracking = new \Racecore\GATracking\GATracking('UA-XXXXXXXX-X', false);
 
 // optional when not setting the client id by constructor
 $tracking->setAccountID('UA-XXXXXXXXX');
@@ -17,8 +17,8 @@ $tracking->setProxy(true);
 $tracking->setClientID('35009a79-1a05-49d7-b876-2b884d0f825b');
 
 /**
-	*	User-ID tracking for when using User-ID feature of GA
-	*/
+ * User-ID tracking for when using User-ID feature of GA
+ */
 $tracking->setUserID('11223344');
 
 /**
@@ -152,12 +152,10 @@ $tracking->addTracking($exception);
 // [...] more tracking
 
 // Do the Job!
-Try {
+try {
     $tracking->send();
     echo 'success';
-
-} Catch (Exception $e) {
+} catch (Exception $e) {
     echo 'Error: ' . $e->getMessage() . '<br />' . "\r\n";
     echo 'Type: ' . get_class($e);
 }
-

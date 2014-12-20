@@ -1,5 +1,7 @@
 <?php
+
 namespace Racecore\GATracking\Tracking;
+
 use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
@@ -8,8 +10,8 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Marco Rieger
  * @package     Racecore\GATracking\Tracking
  */
-class EventTest extends AbstractGATrackingTest {
-
+class EventTest extends AbstractGATrackingTest
+{
     private $event;
 
     public function setUp()
@@ -45,17 +47,15 @@ class EventTest extends AbstractGATrackingTest {
         $event = $this->event;
 
         $event->setEventCategory('foo');
-        $this->assertEquals('foo', $event->getEventCategory() );
+        $this->assertEquals('foo', $event->getEventCategory());
 
         $event->setEventAction('bar');
-        $this->assertEquals('bar', $event->getEventAction() );
+        $this->assertEquals('bar', $event->getEventAction());
 
         $event->setEventLabel('baz');
-        $this->assertEquals('baz', $event->getEventLabel() );
+        $this->assertEquals('baz', $event->getEventLabel());
 
         $event->setEventValue('val');
-        $this->assertEquals('val', $event->getEventValue() );
+        $this->assertEquals('val', $event->getEventValue());
     }
-
 }
- 

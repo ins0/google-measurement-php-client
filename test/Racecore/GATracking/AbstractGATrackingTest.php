@@ -7,41 +7,26 @@ namespace Racecore\GATracking;
  * @author      Marco Rieger
  * @package       Racecore\GATracking
  */
-abstract class AbstractGATrackingTest extends \PHPUnit_Framework_TestCase {
-
-    /**
-    * Determine if two associative arrays are similar
-    *
-    * Both arrays must have the same indexes with identical values
-    * without respect to key ordering
-    *
-    * @param array $a
-    * @param array $b
-    * @return bool
-    */
-    function arrays_are_similar($a, $b) {
-        if (count(array_diff_assoc($a, $b))) {
+abstract class AbstractGATrackingTest extends \PHPUnit_Framework_TestCase
+{
+    protected function arraysAreSimilar($arrayOne, $arrayTwo)
+    {
+        if (count(array_diff_assoc($arrayOne, $arrayTwo))) {
             return false;
         }
-        foreach($a as $k => $v) {
-            if ($v !== $b[$k]) {
+        foreach ($arrayOne as $key => $val) {
+            if ($val !== $arrayTwo[$key]) {
                 return false;
             }
         }
         return true;
     }
 
-    /**
-     * Tests if two Arrays are Similar
-     *
-     * @param $a
-     * @param $b
-     * @return mixed
-     */
-    function assertArraySimilar($a, $b) {
+    protected function assertArraySimilar($arrayOne, $arrayTwo)
+    {
         return $this->assertEquals(
             true,
-            $this->arrays_are_similar($a, $b)
+            $this->arrays_are_similar($arrayOne, $arrayTwo)
         );
     }
 }

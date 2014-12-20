@@ -1,5 +1,7 @@
 <?php
+
 namespace Racecore\GATracking\Tracking;
+
 use Racecore\GATracking\AbstractGATrackingTest;
 
 /**
@@ -8,8 +10,8 @@ use Racecore\GATracking\AbstractGATrackingTest;
  * @author      Marco Rieger
  * @package       Racecore\GATracking\Tracking
  */
-class ExceptionTest extends AbstractGATrackingTest {
-
+class ExceptionTest extends AbstractGATrackingTest
+{
     private $exception;
 
     public function setUp()
@@ -41,12 +43,10 @@ class ExceptionTest extends AbstractGATrackingTest {
         $exception = $this->exception;
 
         $exception->setExceptionDescription('Test Description');
-        $this->assertEquals('Test Description', $exception->getExceptionDescription() );
+        $this->assertEquals('Test Description', $exception->getExceptionDescription());
 
         $exception->setExceptionFatal(true);
-        $this->assertEquals('1', $exception->getExceptionFatal() );
+        $this->assertEquals('1', $exception->getExceptionFatal());
 
     }
-
 }
- 

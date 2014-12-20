@@ -1,4 +1,5 @@
 <?php
+
 namespace Racecore\GATracking\Tracking;
 
 /**
@@ -25,7 +26,12 @@ abstract class AbstractTracking
 
     // campaign
     /** @var String */
-    private $campaignName, $campaignSource, $campaignMedium, $campaignContent, $campaignID, $campaignKeyword;
+    private $campaignName;
+    private $campaignSource;
+    private $campaignMedium;
+    private $campaignContent;
+    private $campaignID;
+    private $campaignKeyword;
 
     // adwords id
     /** @var String */
@@ -207,17 +213,15 @@ abstract class AbstractTracking
      * @param array $package
      * @return array
      */
-    private function addCustomParameters( Array $package )
+    private function addCustomParameters($package)
     {
         // add custom metric params
-        foreach( $this->customMetric as $id => $value )
-        {
+        foreach ($this->customMetric as $id => $value) {
             $package['cm' . (int) $id ] = $value;
         }
 
         // add custom dimension params
-        foreach( $this->customDimension as $id => $value )
-        {
+        foreach ($this->customDimension as $id => $value) {
             $package['cd' . (int) $id ] = $value;
         }
 
@@ -368,9 +372,8 @@ abstract class AbstractTracking
      */
     public function setCampaignKeywords($campaignKeyword)
     {
-        if( is_array($campaignKeyword) )
-        {
-            return $this->setCampaignKeyword(implode(',', $campaignKeyword));
+        if (is_array($campaignKeyword)) {
+            $campaignKeyword = implode(',', $campaignKeyword);
         }
 
         $this->setCampaignKeyword($campaignKeyword);
@@ -605,7 +608,7 @@ abstract class AbstractTracking
      */
     public function getJavaEnabled()
     {
-        if( $this->javaEnabled === null ){
+        if ($this->javaEnabled === null) {
             return null;
         }
 

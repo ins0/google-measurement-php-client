@@ -1,4 +1,5 @@
 <?php
+
 namespace Racecore\GATracking;
 
 use Racecore\GATracking\Exception\EndpointServerException;
@@ -179,10 +180,10 @@ class GATracking
      * @param null $accountID
      * @param bool $proxy
      */
-    public function __construct( $accountID = null, $proxy = false )
+    public function __construct($accountID = null, $proxy = false)
     {
-        $this->setAccountID( $accountID );
-        $this->setProxy( $proxy );
+        $this->setAccountID($accountID);
+        $this->setProxy($proxy);
     }
 
     /**
@@ -194,18 +195,13 @@ class GATracking
     {
         // collect user specific data
         if (isset($_COOKIE['_ga'])) {
-
             $gaCookie = explode('.', $_COOKIE['_ga']);
-            if( isset($gaCookie[2] ) )
-            {
+            if (isset($gaCookie[2])) {
                 // check if uuid
-                if( $this->checkUUID( $gaCookie[2] ) )
-                {
+                if ($this->checkUUID($gaCookie[2])) {
                     // uuid set in cookie
                     return $gaCookie[2];
-                }
-                elseif( isset($gaCookie[2]) && isset($gaCookie[3]) )
-                {
+                } elseif (isset($gaCookie[2]) && isset($gaCookie[3])) {
                     // google default client id
                     return $gaCookie[2] . '.' . $gaCookie[3];
                 }
@@ -222,9 +218,12 @@ class GATracking
      * @param $uuid
      * @return int
      */
-    private function checkUUID( $uuid )
+    final protected function checkUUID($uuid)
     {
-        return preg_match('#^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$#i', $uuid );
+        return preg_match(
+            '#^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$#i',
+            $uuid
+        );
     }
 
     /**
@@ -233,25 +232,26 @@ class GATracking
      * @author Andrew Moore http://www.php.net/manual/en/function.uniqid.php#94959
      * @return string
      */
-    private function generateUUID() {
-        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+    final protected function generateUUID()
+    {
+        return sprintf(
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
             // 32 bits for "time_low"
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
-
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
             // 16 bits for "time_mid"
-            mt_rand( 0, 0xffff ),
-
+            mt_rand(0, 0xffff),
             // 16 bits for "time_hi_and_version",
             // four most significant bits holds version number 4
-            mt_rand( 0, 0x0fff ) | 0x4000,
-
+            mt_rand(0, 0x0fff) | 0x4000,
             // 16 bits, 8 bits for "clk_seq_hi_res",
             // 8 bits for "clk_seq_low",
             // two most significant bits holds zero and one for variant DCE1.1
-            mt_rand( 0, 0x3fff ) | 0x8000,
-
+            mt_rand(0, 0x3fff) | 0x8000,
             // 48 bits for "node"
-            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff)
         );
     }
 
@@ -267,7 +267,6 @@ class GATracking
         $this->last_response_stack = array();
         $this->last_response = null;
 
-        /** @var AbstractTracking $event */
         foreach ($this->tracking_holder as $tracking) {
             $this->sendTracking($tracking);
         }
@@ -282,7 +281,7 @@ class GATracking
      * @param string $address
      * @return string
      */
-    function getClientIP($address = '')
+    protected function getClientIP($address = '')
     {
 
         if (!$address) {
@@ -295,8 +294,7 @@ class GATracking
 
         // Capture the first three octects of the IP address and replace the forth
         // with 0, e.g. 124.455.3.123 becomes 124.455.3.0
-        $regex = "/^([^.]+\.[^.]+\.[^.]+\.).*/";
-        if (preg_match($regex, $address, $matches)) {
+        if (preg_match("/^([^.]+\.[^.]+\.[^.]+\.).*/", $address, $matches)) {
             return $matches[1] . '0';
         }
 
@@ -310,13 +308,12 @@ class GATracking
      * @return string
      * @throws Exception\MissingConfigurationException
      */
-    private function buildPackage( AbstractTracking $event )
+    private function buildPackage(AbstractTracking $event)
     {
         // get packet
         $eventPacket = $event->getPackage();
 
-        if( ! $this->getAccountID() )
-        {
+        if (!$this->getAccountID()) {
             throw new MissingConfigurationException('Google Account ID is missing');
         }
 
@@ -326,14 +323,12 @@ class GATracking
         $eventPacket['cid'] = $this->getClientID(); // client id
 
         // add userid
-        if($this->getUserID())
-        {
+        if ($this->getUserID()) {
             $eventPacket['uid'] = $this->getUserID();
         }
 
         // add proxy
-        if($this->getProxy() === true)
-        {
+        if ($this->getProxy() === true) {
             $eventPacket['uip'] = $_SERVER['REMOTE_ADDR']; // IP Override
             $eventPacket['ua'] = $_SERVER['HTTP_USER_AGENT']; // UA Override
         }
@@ -363,12 +358,11 @@ class GATracking
      *
      * @param AbstractTracking $event
      * @return bool
-     * @throws Exception\EndpointServerException
      */
     public function sendTracking(AbstractTracking $event)
     {
         // get packet
-        $eventPacket = $this->buildPackage( $event );
+        $eventPacket = $this->buildPackage($event);
 
         // get endpoint
         $endpoint = parse_url($this->analytics_endpoint);
@@ -392,7 +386,7 @@ class GATracking
 
         $this->last_response = '';
 
-        // frwite data
+        // fwrite data
         fwrite($connection, $header);
         fwrite($connection, $eventPacket);
 
@@ -409,7 +403,7 @@ class GATracking
         $responseContainer[0] = explode("\r\n", $responseContainer[0]);
 
         // save last response
-        $this->addResponse( $responseContainer );
+        $this->addResponse($responseContainer);
 
         // connection close
         fclose($connection);
@@ -423,7 +417,7 @@ class GATracking
      * @param $response
      * @return bool
      */
-    public function addResponse( $response )
+    public function addResponse($response)
     {
         $this->last_response_stack[] = $response;
         $this->last_response = $response;
