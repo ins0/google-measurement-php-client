@@ -115,6 +115,9 @@ abstract class AbstractTracking
     /** @var string */
     private $productId;
 
+    // non interactive hit
+    private $nonInteractionHit = false;
+
     /**
      * Get the transfer Paket from current Event
      *
@@ -174,9 +177,8 @@ abstract class AbstractTracking
             'an' => $this->getAppName(),
             'av' => $this->getAppVersion(),
 
-            // enhanced e-commerce
-
-
+            // non interactive hit
+            'ti' => $this->nonInteractionHit,
 
             // content experiments
             'xid' => $this->getExperimentID(),
@@ -189,6 +191,16 @@ abstract class AbstractTracking
         $package = array_filter($package, 'strlen');
 
         return $package;
+    }
+
+    /**
+     * Mark the Hit as Non Interactive
+     *
+     * @param $bool
+     */
+    public function setAsNonInteractionHit($bool)
+    {
+        $this->nonInteractionHit = (bool) $bool;
     }
 
     /**
