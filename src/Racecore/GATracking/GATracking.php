@@ -371,10 +371,10 @@ class GATracking
         $port = ($endpoint['scheme'] == 'https' ? 443 : 80);
 
         // connect
-        $connection = @fsockopen($endpoint['scheme'] == 'https' ? 'ssl://' : $endpoint['host'], $port, $error, $errorstr, 10);
+        $connection = @fsockopen($endpoint['scheme'] == 'https' ? 'ssl://' : $endpoint['host'], $port, $error, $errorMessage, 10);
 
-        if (!$connection) {
-            throw new EndpointServerException('Analytics Host not reachable!');
+        if (!$connection || $error) {
+            throw new EndpointServerException('Analytics Host not reachable! Error:' . $errorMessage);
         }
 
         $header =   'POST ' . $endpoint['path'] . ' HTTP/1.1' . "\r\n" .
