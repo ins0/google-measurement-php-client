@@ -150,45 +150,45 @@ abstract class AbstractTracking
     {
         $package = array_merge($this->createPackage(), array(
             // campaign
-            'cn' => $this->getCampaignName(),
-            'cs' => $this->getCampaignSource(),
-            'cm' => $this->getCampaignMedium(),
-            'ck' => $this->getCampaignKeyword(),
-            'cc' => $this->getCampaignContent(),
-            'ci' => $this->getCampaignID(),
+            'cn' => $this->campaignName,
+            'cs' => $this->campaignSource,
+            'cm' => $this->campaignMedium,
+            'ck' => $this->campaignKeyword,
+            'cc' => $this->campaignContent,
+            'ci' => $this->campaignID,
 
             // other
-            'dr' => $this->getDocumentReferrer(),
-            'gclid' => $this->getAdwordsID(),
-            'dclid' => $this->getDisplayAdsID(),
+            'dr' => $this->documentReferrer,
+            'gclid' => $this->adwordsID,
+            'dclid' => $this->displayAdsID,
 
             // system info
-            'sr' => $this->getScreenResolution(),
-            'sd' => $this->getScreenColors(),
-            'vp' => $this->getViewportSize(),
-            'de' => $this->getDocumentEncoding(),
-            'ul' => $this->getUserLanguage(),
-            'je' => $this->getJavaEnabled(),
-            'fl' => $this->getFlashVersion(),
+            'sr' => $this->screenResolution,
+            'sd' => $this->screenColors,
+            'vp' => $this->viewportSize,
+            'de' => $this->documentEncoding,
+            'ul' => $this->userLanguage,
+            'je' => $this->javaEnabled,
+            'fl' => $this->flashVersion,
 
             // Content Information
-            'dl' => $this->getDocumentLocation(),
-            'dh' => $this->getDocumentHost(),
-            'dp' => $this->getDocumentPath(),
-            'dt' => $this->getDocumentTitle(),
-            'cd' => $this->getContentDescription(),
-            'linkid' => $this->getLinkID(),
+            'dl' => $this->documentLocation,
+            'dh' => $this->documentHost,
+            'dp' => $this->documentPath,
+            'dt' => $this->documentTitle,
+            'cd' => $this->contentDescription,
+            'linkid' => $this->linkID,
 
             // app tracking
-            'an' => $this->getAppName(),
-            'av' => $this->getAppVersion(),
+            'an' => $this->appName,
+            'av' => $this->appVersion,
 
             // non interactive hit
             'ni' => $this->nonInteractionHit,
 
             // content experiments
-            'xid' => $this->getExperimentID(),
-            'xvar' => $this->getExperimentVariant(),
+            'xid' => $this->experimentID,
+            'xvar' => $this->experimentVariant,
         ));
 
         $package = $this->addCustomParameters($package);
@@ -229,21 +229,21 @@ abstract class AbstractTracking
     }
 
     /**
-     * @param null $id
+     * @param null $identifier
      * @param $value
      */
-    public function setCustomDimension($id = null, $value)
+    public function setCustomDimension($value, $identifier = null)
     {
-        $this->customDimension[$id] = $value;
+        $this->customDimension[$identifier] = $value;
     }
 
     /**
-     * @param null $id
+     * @param null $identifier
      * @param $value
      */
-    public function setCustomMetric($id = null, $value)
+    public function setCustomMetric($value, $identifier = null)
     {
-        $this->customMetric[$id] = $value;
+        $this->customMetric[$identifier] = $value;
     }
 
     /**
@@ -255,27 +255,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getContentDescription()
-    {
-        return $this->contentDescription;
-    }
-
-    /**
      * @param String $linkID
      */
     public function setLinkID($linkID)
     {
         $this->linkID = $linkID;
-    }
-
-    /**
-     * @return String
-     */
-    public function getLinkID()
-    {
-        return $this->linkID;
     }
 
     /**
@@ -287,27 +271,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getAdwordsID()
-    {
-        return $this->adwordsID;
-    }
-
-    /**
      * @param String $appName
      */
     public function setAppName($appName)
     {
         $this->appName = $appName;
-    }
-
-    /**
-     * @return String
-     */
-    public function getAppName()
-    {
-        return $this->appName;
     }
 
     /**
@@ -319,14 +287,6 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getAppVersion()
-    {
-        return $this->appVersion;
-    }
-
-    /**
      * @param String $campaignContent
      */
     public function setCampaignContent($campaignContent)
@@ -335,27 +295,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getCampaignContent()
-    {
-        return $this->campaignContent;
-    }
-
-    /**
      * @param String $campaignID
      */
     public function setCampaignID($campaignID)
     {
         $this->campaignID = $campaignID;
-    }
-
-    /**
-     * @return String
-     */
-    public function getCampaignID()
-    {
-        return $this->campaignID;
     }
 
     /**
@@ -380,27 +324,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return Array
-     */
-    public function getCampaignKeyword()
-    {
-        return $this->campaignKeyword;
-    }
-
-    /**
      * @param String $campaignMedium
      */
     public function setCampaignMedium($campaignMedium)
     {
         $this->campaignMedium = $campaignMedium;
-    }
-
-    /**
-     * @return String
-     */
-    public function getCampaignMedium()
-    {
-        return $this->campaignMedium;
     }
 
     /**
@@ -412,27 +340,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getCampaignName()
-    {
-        return $this->campaignName;
-    }
-
-    /**
      * @param String $campaignSource
      */
     public function setCampaignSource($campaignSource)
     {
         $this->campaignSource = $campaignSource;
-    }
-
-    /**
-     * @return String
-     */
-    public function getCampaignSource()
-    {
-        return $this->campaignSource;
     }
 
     /**
@@ -444,27 +356,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getDisplayAdsID()
-    {
-        return $this->displayAdsID;
-    }
-
-    /**
      * @param String $documentEncoding
      */
     public function setDocumentEncoding($documentEncoding)
     {
         $this->documentEncoding = $documentEncoding;
-    }
-
-    /**
-     * @return String
-     */
-    public function getDocumentEncoding()
-    {
-        return $this->documentEncoding;
     }
 
     /**
@@ -476,27 +372,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getDocumentHost()
-    {
-        return $this->documentHost;
-    }
-
-    /**
      * @param String $documentLocation
      */
     public function setDocumentLocation($documentLocation)
     {
         $this->documentLocation = $documentLocation;
-    }
-
-    /**
-     * @return String
-     */
-    public function getDocumentLocation()
-    {
-        return $this->documentLocation;
     }
 
     /**
@@ -508,27 +388,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getDocumentPath()
-    {
-        return $this->documentPath;
-    }
-
-    /**
      * @param String $documentReferrer
      */
     public function setDocumentReferrer($documentReferrer)
     {
         $this->documentReferrer = $documentReferrer;
-    }
-
-    /**
-     * @return String
-     */
-    public function getDocumentReferrer()
-    {
-        return $this->documentReferrer;
     }
 
     /**
@@ -540,27 +404,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getDocumentTitle()
-    {
-        return $this->documentTitle;
-    }
-
-    /**
      * @param String $experimentID
      */
     public function setExperimentID($experimentID)
     {
         $this->experimentID = $experimentID;
-    }
-
-    /**
-     * @return String
-     */
-    public function getExperimentID()
-    {
-        return $this->experimentID;
     }
 
     /**
@@ -572,27 +420,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getExperimentVariant()
-    {
-        return $this->experimentVariant;
-    }
-
-    /**
      * @param String $flashVersion
      */
     public function setFlashVersion($flashVersion)
     {
         $this->flashVersion = $flashVersion;
-    }
-
-    /**
-     * @return String
-     */
-    public function getFlashVersion()
-    {
-        return $this->flashVersion;
     }
 
     /**
@@ -604,31 +436,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return boolean
-     */
-    public function getJavaEnabled()
-    {
-        if ($this->javaEnabled === null) {
-            return null;
-        }
-
-        return $this->javaEnabled ? '1' : '0';
-    }
-
-    /**
      * @param String $screenColors
      */
     public function setScreenColors($screenColors)
     {
         $this->screenColors = $screenColors;
-    }
-
-    /**
-     * @return String
-     */
-    public function getScreenColors()
-    {
-        return $this->screenColors;
     }
 
     /**
@@ -641,27 +453,11 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getScreenResolution()
-    {
-        return $this->screenResolution;
-    }
-
-    /**
      * @param String $userLanguage
      */
     public function setUserLanguage($userLanguage)
     {
         $this->userLanguage = $userLanguage;
-    }
-
-    /**
-     * @return String
-     */
-    public function getUserLanguage()
-    {
-        return $this->userLanguage;
     }
 
     /**
@@ -674,27 +470,10 @@ abstract class AbstractTracking
     }
 
     /**
-     * @return String
-     */
-    public function getViewportSize()
-    {
-        return $this->viewportSize;
-    }
-
-    /**
      * @param string $productId
      */
     public function setProductId($productId)
     {
         $this->productId = $productId;
     }
-
-    /**
-     * @return string
-     */
-    public function getProductId()
-    {
-        return $this->productId;
-    }
-
 }
