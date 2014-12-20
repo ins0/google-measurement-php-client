@@ -19,6 +19,11 @@
     "require": {
         "php": ">=5.3.3"
     },
+    "require-dev": {
+        "phpmd/phpmd": "~2.1",
+        "phpunit/phpunit": "4.0.*",
+        "squizlabs/php_codesniffer": "~2.0.0@RC"
+    },
     "autoload": {
         "psr-0": {
             "Racecore\\GATracking": "src/"
