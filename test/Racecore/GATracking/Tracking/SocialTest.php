@@ -28,7 +28,7 @@ class SocialTest extends AbstractGATrackingTest
         $social->setSocialNetwork('Test Network');
         $social->setSocialTarget('/test-target');
 
-        $packet = $social->getPaket();
+        $packet = $social->getPackage();
         $this->assertArraysAreSimilar(
             array(
                 't'     =>  'social',
@@ -39,20 +39,4 @@ class SocialTest extends AbstractGATrackingTest
             $packet
         );
     }
-
-    public function testGetterSetter()
-    {
-        /** @var Social $social */
-        $social = $this->social;
-
-        $social->setSocialAction('Test Action');
-        $this->assertEquals('Test Action', $social->getSocialAction());
-
-        $social->setSocialNetwork('Test Network');
-        $this->assertEquals('Test Network', $social->getSocialNetwork());
-
-        $social->setSocialTarget('/test-target');
-        $this->assertEquals('/test-target', $social->getSocialTarget());
-    }
-
 }

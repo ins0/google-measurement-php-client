@@ -28,7 +28,7 @@ class EventTest extends AbstractGATrackingTest
         $event->setEventLabel('baz');
         $event->setEventValue('val');
 
-        $packet = $event->getPaket();
+        $packet = $event->getPackage();
         $this->assertArraysAreSimilar(
             array(
                 't'     =>  'event',
@@ -39,23 +39,5 @@ class EventTest extends AbstractGATrackingTest
             ),
             $packet
         );
-    }
-
-    public function testGetterSetter()
-    {
-        /** @var Event $event */
-        $event = $this->event;
-
-        $event->setEventCategory('foo');
-        $this->assertEquals('foo', $event->getEventCategory());
-
-        $event->setEventAction('bar');
-        $this->assertEquals('bar', $event->getEventAction());
-
-        $event->setEventLabel('baz');
-        $this->assertEquals('baz', $event->getEventLabel());
-
-        $event->setEventValue('val');
-        $this->assertEquals('val', $event->getEventValue());
     }
 }

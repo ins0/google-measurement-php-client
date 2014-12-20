@@ -26,7 +26,7 @@ class ExceptionTest extends AbstractGATrackingTest
         $exception->setExceptionDescription('Test Description');
         $exception->setExceptionFatal(true);
 
-        $packet = $exception->getPaket();
+        $packet = $exception->getPackage();
         $this->assertArraysAreSimilar(
             array(
                 't'     =>  'exception',
@@ -35,18 +35,5 @@ class ExceptionTest extends AbstractGATrackingTest
             ),
             $packet
         );
-    }
-
-    public function testGetterSetter()
-    {
-        /** @var Exception $exception */
-        $exception = $this->exception;
-
-        $exception->setExceptionDescription('Test Description');
-        $this->assertEquals('Test Description', $exception->getExceptionDescription());
-
-        $exception->setExceptionFatal(true);
-        $this->assertEquals('1', $exception->getExceptionFatal());
-
     }
 }

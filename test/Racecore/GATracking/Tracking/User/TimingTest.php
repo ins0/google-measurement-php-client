@@ -36,7 +36,7 @@ class TimingTest extends AbstractGATrackingTest
         $timing->setBrowserTcpConnectTime(5);
         $timing->setBrowserServerResponseTime(6);
 
-        $packet = $timing->getPaket();
+        $packet = $timing->getPackage();
 
         $this->assertArraysAreSimilar(
             array(

@@ -38,20 +38,4 @@ class PageTest extends AbstractGATrackingTest
             $packet
         );
     }
-
-    public function testGetterSetter()
-    {
-        /** @var Page $page */
-        $page = $this->page;
-
-        $page->setDocumentHost('foo');
-        $this->assertEquals('foo', $page->getDocumentHost());
-
-        $page->setDocumentPath('bar');
-        $this->assertEquals('bar', $page->getDocumentPath());
-
-        $page->setDocumentTitle('baz');
-        $this->assertEquals('baz', $page->getDocumentTitle());
-    }
-
 }
