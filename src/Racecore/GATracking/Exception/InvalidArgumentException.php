@@ -1,6 +1,8 @@
 <?php
 
-namespace Racecore\GATracking;
+namespace Racecore\GATracking\Exception;
+
+use Racecore\GATracking\Exception;
 
 /**
  * Google Analytics Measurement PHP Class
@@ -16,8 +18,8 @@ namespace Racecore\GATracking;
  * @email   Rieger(at)racecore.de
  * @git     https://github.com/ins0
  * @url     http://www.racecore.de
- * @package Racecore\GATracking
+ * @package Racecore\GATracking\Exception
  */
-class Exception extends \Exception
+class InvalidArgumentException extends Exception
 {
 }
