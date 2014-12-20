@@ -22,11 +22,11 @@ abstract class AbstractGATrackingTest extends \PHPUnit_Framework_TestCase
         return true;
     }
 
-    protected function assertArraySimilar($arrayOne, $arrayTwo)
+    protected function assertArraysAreSimilar($arrayOne, $arrayTwo)
     {
         return $this->assertEquals(
             true,
-            $this->arrays_are_similar($arrayOne, $arrayTwo)
+            $this->arraysAreSimilar($arrayOne, $arrayTwo)
         );
     }
 }

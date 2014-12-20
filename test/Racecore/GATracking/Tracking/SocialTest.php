@@ -29,7 +29,7 @@ class SocialTest extends AbstractGATrackingTest
         $social->setSocialTarget('/test-target');
 
         $packet = $social->getPaket();
-        $this->assertArraySimilar(
+        $this->assertArraysAreSimilar(
             array(
                 't'     =>  'social',
                 'sa'    =>  'Test Action',

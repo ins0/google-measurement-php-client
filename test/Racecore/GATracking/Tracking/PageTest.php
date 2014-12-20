@@ -28,7 +28,7 @@ class PageTest extends AbstractGATrackingTest
         $page->setDocumentHost('baz');
 
         $packet = $page->getPackage();
-        $this->assertArraySimilar(
+        $this->assertArraysAreSimilar(
             array(
                 't'     =>  'pageview',
                 'dh'    =>  'baz',

@@ -37,7 +37,7 @@ class ItemTest extends AbstractGATrackingTest
 
         $packet = $item->getPackage();
 
-        $this->assertArraySimilar(
+        $this->assertArraysAreSimilar(
             array(
                 't' => 'item',
                 'ti' => '1234',

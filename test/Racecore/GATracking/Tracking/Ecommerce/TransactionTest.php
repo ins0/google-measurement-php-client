@@ -36,7 +36,7 @@ class TransactionTest extends AbstractGATrackingTest
 
         $packet = $transaction->getPackage();
 
-        $this->assertArraySimilar(
+        $this->assertArraysAreSimilar(
             array(
                 't' => 'transaction',
                 'ti' => '1234',

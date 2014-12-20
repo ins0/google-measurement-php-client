@@ -32,7 +32,7 @@ class ScreenTest extends AbstractGATrackingTest
 
         $packet = $screen->getPackage();
 
-        $this->assertArraySimilar(
+        $this->assertArraysAreSimilar(
             array(
                 't' => 'appview',
                 'an' => 'Test App',

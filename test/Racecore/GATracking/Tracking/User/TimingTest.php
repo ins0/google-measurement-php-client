@@ -38,7 +38,7 @@ class TimingTest extends AbstractGATrackingTest
 
         $packet = $timing->getPaket();
 
-        $this->assertArraySimilar(
+        $this->assertArraysAreSimilar(
             array(
                 't' => 'timing',
                 'utc' => 'Timing Category',

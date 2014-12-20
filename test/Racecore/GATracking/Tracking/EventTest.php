@@ -29,7 +29,7 @@ class EventTest extends AbstractGATrackingTest
         $event->setEventValue('val');
 
         $packet = $event->getPaket();
-        $this->assertArraySimilar(
+        $this->assertArraysAreSimilar(
             array(
                 't'     =>  'event',
                 'ec'    =>  'foo',
