@@ -132,18 +132,6 @@ abstract class AbstractTracking
     abstract public function createPackage();
 
     /**
-     * Returns the Paket for Event Tracking
-     *
-     * @return array
-     * @throws \Racecore\GATracking\Exception\MissingTrackingParameterException
-     * @deprecated
-     */
-    public function getPaket()
-    {
-        return $this->createPackage();
-    }
-
-    /**
      * @return array
      */
     public function getPackage()
