@@ -178,7 +178,7 @@ abstract class AbstractTracking
             'av' => $this->getAppVersion(),
 
             // non interactive hit
-            'ti' => $this->nonInteractionHit,
+            'ni' => $this->nonInteractionHit,
 
             // content experiments
             'xid' => $this->getExperimentID(),
