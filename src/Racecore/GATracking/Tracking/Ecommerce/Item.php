@@ -33,15 +33,6 @@ class Item extends AbstractTracking
     private $currency = '';
 
     /**
-     * @param $host
-     * @deprecated
-     */
-    public function setTransactionHost($host)
-    {
-        return $this->setDocumentHost($host);
-    }
-
-    /**
      * Set the Transaction ID
      *
      * @param $tid

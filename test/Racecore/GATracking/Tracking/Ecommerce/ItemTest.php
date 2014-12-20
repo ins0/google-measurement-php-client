@@ -33,7 +33,7 @@ class ItemTest extends AbstractGATrackingTest
         $item->setSku('product_sku');
         $item->setCategory('Category');
         $item->setCurrency('EUR');
-        $item->setTransactionHost('www.domain.tld');
+        $item->setDocumentHost('www.domain.tld');
 
         $packet = $item->getPackage();
 
