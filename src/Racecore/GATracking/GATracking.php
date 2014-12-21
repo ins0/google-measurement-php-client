@@ -81,6 +81,24 @@ class GATracking
     }
 
     /**
+     * Return Analytics Account ID
+     * @return null
+     */
+    public function getAnalyticsAccountUid()
+    {
+        return $this->analyticsAccountUid;
+    }
+
+    /**
+     * Set the Analytics Account ID
+     * @param null $analyticsAccountUid
+     */
+    public function setAnalyticsAccountUid($analyticsAccountUid)
+    {
+        $this->analyticsAccountUid = $analyticsAccountUid;
+    }
+
+    /**
      * Get the current Client Adapter
      * @return Client\AbstractClientAdapter
      */
@@ -195,7 +213,7 @@ class GATracking
      * @author Andrew Moore http://www.php.net/manual/en/function.uniqid.php#94959
      * @return string
      */
-    final protected function generateUuid()
+    final private function generateUuid()
     {
         return sprintf(
             '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
@@ -280,7 +298,7 @@ class GATracking
     }
 
     /**
-     * Create a Tracking Class Instance - eg. "Event" or "Ecomerce\Transaction"
+     * Create a Tracking Class Instance - eg. "Event" or "Ecommerce\Transaction"
      * @param $className
      * @return bool
      */
@@ -306,7 +324,9 @@ class GATracking
      */
     public function sendTracking(Tracking\AbstractTracking $tracking)
     {
-        $this->callEndpoint($tracking);
+        $responseCollection = $this->callEndpoint($tracking);
+        $responseCollection->rewind();
+        return $responseCollection->current();
     }
 
     /**
@@ -315,6 +335,6 @@ class GATracking
      */
     public function sendMultipleTracking($array)
     {
-        $this->callEndpoint($array);
+        return $this->callEndpoint($array);
     }
 }
