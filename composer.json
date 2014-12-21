@@ -28,5 +28,10 @@
         "psr-0": {
             "Racecore\\GATracking": "src/"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
     }
 }
