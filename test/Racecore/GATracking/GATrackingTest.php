@@ -30,5 +30,4 @@ class GATrackingTest extends AbstractGATrackingTest
     {
         $this->assertInstanceOf('Racecore\GATracking\GATracking', $this->instance);
     }
-
 }

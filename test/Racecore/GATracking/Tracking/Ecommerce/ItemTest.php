@@ -52,5 +52,4 @@ class ItemTest extends AbstractGATrackingTest
             $packet
         );
     }
-
 }

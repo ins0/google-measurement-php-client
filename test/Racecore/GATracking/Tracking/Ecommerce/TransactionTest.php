@@ -50,5 +50,4 @@ class TransactionTest extends AbstractGATrackingTest
             $packet
         );
     }
-
 }

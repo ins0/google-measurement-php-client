@@ -54,5 +54,4 @@ class TimingTest extends AbstractGATrackingTest
             $packet
         );
     }
-
 }

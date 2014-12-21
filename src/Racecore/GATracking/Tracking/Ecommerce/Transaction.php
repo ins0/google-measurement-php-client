@@ -189,5 +189,4 @@ class Transaction extends AbstractTracking
             'cu' => $this->getCurrency()
         );
     }
-
 }

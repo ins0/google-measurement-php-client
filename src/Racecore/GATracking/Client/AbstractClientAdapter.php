@@ -5,7 +5,6 @@ namespace Racecore\GATracking\Client;
 use Racecore\GATracking\Exception;
 use Racecore\GATracking\Request;
 
-
 class AbstractClientAdapter implements ClientAdapterInterface
 {
     private $options = array();

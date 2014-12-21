@@ -42,5 +42,4 @@ class EventTest extends AbstractGATrackingTest
             $packet
         );
     }
-
 }

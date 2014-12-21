@@ -42,5 +42,4 @@ class ScreenTest extends AbstractGATrackingTest
             $packet
         );
     }
-
 }
