@@ -6,16 +6,16 @@ use Racecore\GATracking\Tracking;
 
 class TrackingRequest
 {
-    private $payload;
-    private $responseHeader;
+    private $payload = array();
+    private $responseHeader = array();
 
-    public function __construct($payload)
+    public function __construct(array $payload = array())
     {
         $this->payload = $payload;
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getPayload()
     {
@@ -23,7 +23,7 @@ class TrackingRequest
     }
 
     /**
-     * @param mixed $payload
+     * @param array $payload
      */
     public function setPayload($payload)
     {
