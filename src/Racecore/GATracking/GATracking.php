@@ -2,6 +2,7 @@
 
 namespace Racecore\GATracking;
 
+use Racecore\GATracking\Request;
 use Racecore\GATracking\Client;
 use Racecore\GATracking\Exception;
 use Racecore\GATracking\Tracking;
@@ -24,14 +25,36 @@ use Racecore\GATracking\Tracking;
  */
 class GATracking
 {
+    /** @var null */
     private $analyticsAccountUid = null;
-    private $options = array();
 
-    /** @var AbstractClientAdapter */
+    /** @var array */
+    private $options = array(
+        'client_create_random_id' => true, // create a random client id when the class can't fetch the current cliend id or none is provided by "client_id"
+        'client_fallback_id' => 555, // fallback client id when cid was not found and random client id is off
+        'client_id' => null,    // override client id
+        'user_id' => null,  // determine current user id
+
+        // adapter options
+        'adapter' => array(
+            'use_ssl' => true // use ssl connection to google server
+        )
+
+        // use proxy
+        /**
+        'proxy' => array(
+            'ip' => '127.0.0.1', // override the proxy ip with this one
+            'user_agent' => 'override agent' // override the proxy user agent
+        ),
+        **/
+    );
+
+    /** @var Client\AbstractClientAdapter */
     private $clientAdapter = null;
 
+    /** @var string */
     private $apiProtocolVersion = '1';
-    private $apiEndpointUrl = 'www.google-analytics.com/collect';
+    private $apiEndpointUrl = 'http://www.google-analytics.com/collect';
 
     /**
      * @param $analyticsAccountUid
@@ -95,7 +118,7 @@ class GATracking
     }
 
     /**
-     * Return Class Options
+     * Return Options
      * @return array
      */
     public function getOptions()
@@ -104,7 +127,7 @@ class GATracking
     }
 
     /**
-     * Get Single Option
+     * Return Single Option
      * @param $key
      * @return null|mixed
      */
@@ -118,10 +141,88 @@ class GATracking
     }
 
     /**
+     * Return the Current Client Id
+     * @return string
+     */
+    private function fetchCurrentClientId()
+    {
+        $clientId = $this->getOption('client_id');
+        if ($clientId) {
+            return $clientId;
+        }
+
+        // collect user specific data
+        if (isset($_COOKIE['_ga'])) {
+            $gaCookie = explode('.', $_COOKIE['_ga']);
+            if (isset($gaCookie[2])) {
+                // check if uuid
+                if ($this->checkUuid($gaCookie[2])) {
+                    // uuid set in cookie
+                    return $gaCookie[2];
+                } elseif (isset($gaCookie[2]) && isset($gaCookie[3])) {
+                    // google old client id
+                    return $gaCookie[2] . '.' . $gaCookie[3];
+                }
+            }
+        }
+
+        // nothing found - fallback
+        $generateClientId = $this->getOption('create_random_client_id');
+        if ($generateClientId) {
+            return $this->generateUuid();
+        }
+
+        return $this->getOption('fallback_client_id');
+    }
+
+    /**
+     * Check if is a valid UUID v4
+     *
+     * @param $uuid
+     * @return int
+     */
+    final private function checkUuid($uuid)
+    {
+        return preg_match(
+            '#^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$#i',
+            $uuid
+        );
+    }
+
+    /**
+     * Generate UUID v4 function - needed to generate a CID when one isn't available
+     *
+     * @author Andrew Moore http://www.php.net/manual/en/function.uniqid.php#94959
+     * @return string
+     */
+    final protected function generateUuid()
+    {
+        return sprintf(
+            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            // 32 bits for "time_low"
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            // 16 bits for "time_mid"
+            mt_rand(0, 0xffff),
+            // 16 bits for "time_hi_and_version",
+            // four most significant bits holds version number 4
+            mt_rand(0, 0x0fff) | 0x4000,
+            // 16 bits, 8 bits for "clk_seq_hi_res",
+            // 8 bits for "clk_seq_low",
+            // two most significant bits holds zero and one for variant DCE1.1
+            mt_rand(0, 0x3fff) | 0x8000,
+            // 48 bits for "node"
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff)
+        );
+    }
+
+    /**
      * Build the Tracking Payload Data
      * @param Tracking\AbstractTracking $event
      * @return array
-     * @throws Exception\InvalidOptionException
+     * @throws Exception\MissingConfigurationException
      */
     protected function getTrackingPayloadData(Tracking\AbstractTracking $event)
     {
@@ -129,26 +230,91 @@ class GATracking
         $payloadData['v'] = $this->apiProtocolVersion; // protocol version
         $payloadData['tid'] = $this->analyticsAccountUid; // account id
         $payloadData['uid'] = $this->getOption('user_id');
-        $payloadData['cid'] = $this->getOption('client_id');
+        $payloadData['cid'] = $this->fetchCurrentClientId();
 
         $proxy = $this->getOption('proxy');
         if ($proxy) {
-            if (!isset($proxy['ip']) || !isset($proxy['user_agent'])) {
-                throw new Exception\InvalidOptionException('proxy options need "ip" and "user_agent" keys');
+            if (!isset($proxy['ip'])) {
+                throw new Exception\MissingConfigurationException('proxy options need "ip" key/value');
+            }
+
+            if (isset($proxy['user_agent'])) {
+                $payloadData['ua'] = $proxy['user_agent'];
             }
 
             $payloadData['uid'] = $proxy['ip'];
-            $payloadData['ua'] = $proxy['user_agent'];
         }
 
         return array_filter($payloadData);
     }
 
+    /**
+     * Call the client adapter
+     * @param $tracking
+     * @throws Exception\InvalidArgumentException
+     * @throws Exception\MissingConfigurationException
+     */
+    private function callEndpoint($tracking)
+    {
+        $trackingHolder = is_array($tracking) ? $tracking : array($tracking);
+        $trackingCollection = new Request\TrackingRequestCollection();
+
+        foreach ($trackingHolder as $tracking) {
+            if (!$tracking instanceof Tracking\AbstractTracking) {
+                continue;
+            }
+
+            $payloadData = $this->getTrackingPayloadData($tracking);
+
+            $trackingRequest = new Request\TrackingRequest($payloadData);
+            $trackingCollection->add($trackingRequest);
+        }
+
+        $adapterOptions = $this->getOption('adapter');
+        $clientAdapter = $this->clientAdapter;
+        $clientAdapter->setOptions($adapterOptions);
+
+        $response = $clientAdapter->send($this->apiEndpointUrl, $trackingCollection);
+
+        return $response;
+    }
+
+    /**
+     * Create a Tracking Class Instance - eg. "Event" or "Ecomerce\Transaction"
+     * @param $className
+     * @return bool
+     */
+    public function createTracking($className)
+    {
+        if (strstr(strtolower($className), 'abstracttracking')) {
+            return false;
+        }
+
+        $class = 'Racecore\GATracking\Tracking\\' . $className;
+
+        if (!class_exists($class)) {
+            require_once dirname(__FILE__) . '\Tracking\AbstractTracking.php';
+            require_once dirname(__FILE__) . '\Tracking\\' . $className . '.php';
+        }
+
+        return new $class;
+    }
+
+    /**
+     * Send single tracking request
+     * @param Tracking\AbstractTracking $tracking
+     */
     public function sendTracking(Tracking\AbstractTracking $tracking)
     {
-        $clientAdapter = $this->clientAdapter;
-        $payloadData = $this->getTrackingPayloadData($tracking);
+        $this->callEndpoint($tracking);
+    }
 
-        $clientAdapter->send($this->apiEndpointUrl, $payloadData);
+    /**
+     * Send multiple tracking request
+     * @param $array
+     */
+    public function sendMultipleTracking($array)
+    {
+        $this->callEndpoint($array);
     }
 }
