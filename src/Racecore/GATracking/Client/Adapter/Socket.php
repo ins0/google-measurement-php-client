@@ -18,7 +18,7 @@ class Socket extends Client\AbstractClientAdapter
     private function createConenction($endpoint)
     {
         // port
-        $port = $this->getOption('use_ssl') == true ? 443 : 80;
+        $port = $this->getOption('ssl') == true ? 443 : 80;
 
         // connect
         $connection = @fsockopen($port == 443 ? 'ssl://' . $endpoint['host'] : $endpoint['host'], $port, $error, $errorMessage, 10);

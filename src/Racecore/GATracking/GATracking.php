@@ -37,7 +37,7 @@ class GATracking
 
         // adapter options
         'adapter' => array(
-            'use_ssl' => true // use ssl connection to google server
+            'ssl' => true // use ssl connection to google server
         )
 
         // use proxy
@@ -332,6 +332,7 @@ class GATracking
     /**
      * Send multiple tracking request
      * @param $array
+     * @return Request\TrackingRequestCollection
      */
     public function sendMultipleTracking($array)
     {
