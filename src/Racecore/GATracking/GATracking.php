@@ -322,6 +322,7 @@ class GATracking
     /**
      * Send single tracking request
      * @param Tracking\AbstractTracking $tracking
+     * @return Tracking\AbstractTracking
      */
     public function sendTracking(Tracking\AbstractTracking $tracking)
     {
