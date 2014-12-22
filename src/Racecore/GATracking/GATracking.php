@@ -76,7 +76,9 @@ class GATracking
         $this->setClientAdapter($clientAdapter);
 
         if (!empty($options)) {
-            $this->setOptions($options);
+            $this->setOptions(
+                array_merge($this->options, $options)
+            );
         }
     }
 
@@ -271,6 +273,7 @@ class GATracking
      * @param $tracking
      * @throws Exception\InvalidArgumentException
      * @throws Exception\MissingConfigurationException
+     * @return Request\TrackingRequestCollection
      */
     private function callEndpoint($tracking)
     {
@@ -292,9 +295,7 @@ class GATracking
         $clientAdapter = $this->clientAdapter;
         $clientAdapter->setOptions($adapterOptions);
 
-        $response = $clientAdapter->send($this->apiEndpointUrl, $trackingCollection);
-
-        return $response;
+        return $clientAdapter->send($this->apiEndpointUrl, $trackingCollection);
     }
 
     /**
