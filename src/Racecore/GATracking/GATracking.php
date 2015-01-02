@@ -30,7 +30,7 @@ class GATracking
 
     /** @var array */
     private $options = array(
-        'client_create_random_id' => true, // create a random client id when the class can't fetch the current cliend id or none is provided by "client_id"
+        'client_create_random_id' => true, // create a random client id when the class can't fetch the current client id or none is provided by "client_id"
         'client_fallback_id' => 555, // fallback client id when cid was not found and random client id is off
         'client_id' => null,    // override client id
         'user_id' => null,  // determine current user id
@@ -138,6 +138,21 @@ class GATracking
     }
 
     /**
+     * Set single Option
+     * @param $key
+     * @param $value
+     */
+    public function setOption($key, $value)
+    {
+        if (isset($this->options[$key]) && is_array($this->options[$key]) && is_array($value)) {
+            $oldValues = $this->options[$key];
+            $value = array_merge($oldValues, $value);
+        }
+
+        $this->options[$key] = $value;
+    }
+
+    /**
      * Return Options
      * @return array
      */
@@ -161,10 +176,19 @@ class GATracking
     }
 
     /**
+     * Sets the used clientId
+     * @param $clientId
+     */
+    public function setClientId($clientId)
+    {
+        $this->setOption('client_id', $clientId);
+    }
+
+    /**
      * Return the Current Client Id
      * @return string
      */
-    private function fetchCurrentClientId()
+    public function getClientId()
     {
         $clientId = $this->getOption('client_id');
         if ($clientId) {
@@ -250,7 +274,7 @@ class GATracking
         $payloadData['v'] = $this->apiProtocolVersion; // protocol version
         $payloadData['tid'] = $this->analyticsAccountUid; // account id
         $payloadData['uid'] = $this->getOption('user_id');
-        $payloadData['cid'] = $this->fetchCurrentClientId();
+        $payloadData['cid'] = $this->getClientId();
 
         $proxy = $this->getOption('proxy');
         if ($proxy) {
