@@ -58,17 +58,22 @@ class GATrackingTest extends AbstractGATrackingTest
         $this->assertInstanceOf('Racecore\GATracking\Client\Adapter\Socket', $instance->getClientAdapter());
     }
 
-    public function testOptionsCanSetOverConstructor()
+    public function testOptionsAreMergedOverConstructor()
     {
         $options = array(
             'foo' => 'bar',
             'baz' => array(
-                'foobaz'
+                'foobaz' => 'foobar'
             )
         );
         $instance = new GATracking('foo', $options);
+        $newOptions = $instance->getOptions();
 
-        $this->assertSame($options, $instance->getOptions());
+        $this->assertArrayHasKey('foo', $newOptions);
+        $this->assertArrayHasKey('baz', $newOptions);
+        $this->assertArrayHasKey('foobaz', $newOptions['baz']);
+
+        $this->assertSame('bar', $newOptions['foo']);
     }
 
     public function testOptionsCanSetOverMethod()
