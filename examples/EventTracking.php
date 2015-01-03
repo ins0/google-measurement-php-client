@@ -18,7 +18,8 @@ $options = array(
 
     // adapter options
     'adapter' => array(
-        'ssl' => true // use ssl connection to google server
+        'async' => true, // requests to google are async - don't wait for google server response
+        'ssl' => false // use ssl connection to google server
     )
 
     #// use proxy

@@ -27,6 +27,10 @@ class Socket extends Client\AbstractClientAdapter
             throw new Exception\EndpointServerException('Analytics Host not reachable! Error:' . $errorMessage);
         }
 
+        if ($this->getOption('async')) {
+            stream_set_blocking($connection, 0);
+        }
+
         $this->connection = $connection;
     }
 
@@ -61,10 +65,14 @@ class Socket extends Client\AbstractClientAdapter
     /**
      * Read from the current connection
      * @param Request\TrackingRequest $request
-     * @return array
+     * @return array|false
      */
     private function readConnection(Request\TrackingRequest $request)
     {
+        if ($this->getOption('async')) {
+            return false;
+        }
+
         $payloadString = http_build_query($request->getPayload());
         $payloadLength = strlen($payloadString);
 
