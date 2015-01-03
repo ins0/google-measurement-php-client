@@ -29,6 +29,20 @@ class GATrackingTest extends AbstractGATrackingTest
         $this->assertInstanceOf('Racecore\GATracking\GATracking', $service);
     }
 
+    public function testInstanceThrowErrorWithNoAnalyticsId()
+    {
+        $this->setExpectedException('Racecore\GATracking\Exception\InvalidArgumentException');
+        new GATracking(null);
+    }
+
+    public function testTrackingEventsCanCreatedOverMethod()
+    {
+        $service = new GATracking('foo');
+        $tracking = $service->createTracking('Event');
+
+        $this->assertInstanceOf('Racecore\GATracking\Tracking\Event', $tracking);
+    }
+
     public function testAnalyticsAccountIdIsSet()
     {
         $service = new GATracking('fooId');
@@ -45,7 +59,7 @@ class GATrackingTest extends AbstractGATrackingTest
     public function testClientIdCanSet()
     {
         $service = new GATracking('foo');
-        $service->setOption('client_id', 'foo');
+        $service->setClientId('foo');
         $this->assertEquals('foo', $service->getClientId());
     }
 
@@ -112,6 +126,13 @@ class GATrackingTest extends AbstractGATrackingTest
         $this->assertArrayHasKey('foobaz', $newOptions['baz']);
 
         $this->assertEquals('bar', $newOptions['foo']);
+    }
+
+    public function testOptionsThrowsErrorOnInvalidArg()
+    {
+        $this->setExpectedException('Racecore\GATracking\Exception\InvalidArgumentException');
+        $service = new GATracking('foo');
+        $service->setOptions('foo');
     }
 
     public function testOptionsCanSetOverMethod()
