@@ -8,6 +8,14 @@ GATracking is a Server-Side PHP Client to communicate to Google Analytics over t
 
 https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide
 
+### Class Features
+
+- Array Configuration
+- Async / Multi Requests
+- SSL Support (not default - set over options)
+- Adapter Support (sockets)
+- Tests
+
 ### Tracking Features
 
 - Simple
