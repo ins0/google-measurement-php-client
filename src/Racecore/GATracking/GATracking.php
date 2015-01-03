@@ -71,6 +71,11 @@ class GATracking
 
         $this->analyticsAccountUid = $analyticsAccountUid;
 
+        if (!class_exists('Racecore\GATracking\Client\Adapter\Socket')) {
+            require_once( dirname(__FILE__) . '/Autoloader.php');
+            Autoloader::register(dirname(__FILE__).'/../../../src/');
+        }
+
         if (!$clientAdapter) {
             $clientAdapter = new Client\Adapter\Socket();
         }
@@ -85,6 +90,7 @@ class GATracking
 
     /**
      * Return Analytics Account ID
+     *
      * @return null
      */
     public function getAnalyticsAccountUid()
@@ -94,6 +100,7 @@ class GATracking
 
     /**
      * Set the Analytics Account ID
+     *
      * @param null $analyticsAccountUid
      */
     public function setAnalyticsAccountUid($analyticsAccountUid)
@@ -103,6 +110,7 @@ class GATracking
 
     /**
      * Get the current Client Adapter
+     *
      * @return Client\AbstractClientAdapter
      */
     public function getClientAdapter()
@@ -112,6 +120,7 @@ class GATracking
 
     /**
      * Set the current Client Adapter
+     *
      * @param Client\AbstractClientAdapter $adapter
      */
     public function setClientAdapter(Client\AbstractClientAdapter $adapter)
@@ -140,6 +149,7 @@ class GATracking
 
     /**
      * Set single Option
+     *
      * @param $key
      * @param $value
      */
@@ -155,6 +165,7 @@ class GATracking
 
     /**
      * Return Options
+     *
      * @return array
      */
     public function getOptions()
@@ -164,6 +175,7 @@ class GATracking
 
     /**
      * Return Single Option
+     *
      * @param $key
      * @return null|mixed
      */
@@ -178,6 +190,7 @@ class GATracking
 
     /**
      * Sets the used clientId
+     *
      * @param $clientId
      */
     public function setClientId($clientId)
@@ -187,6 +200,7 @@ class GATracking
 
     /**
      * Return the Current Client Id
+     *
      * @return string
      */
     public function getClientId()
@@ -265,6 +279,7 @@ class GATracking
 
     /**
      * Build the Tracking Payload Data
+     *
      * @param Tracking\AbstractTracking $event
      * @return array
      * @throws Exception\MissingConfigurationException
@@ -295,6 +310,7 @@ class GATracking
 
     /**
      * Call the client adapter
+     *
      * @param $tracking
      * @throws Exception\InvalidArgumentException
      * @throws Exception\MissingConfigurationException
@@ -325,8 +341,10 @@ class GATracking
 
     /**
      * Create a Tracking Class Instance - eg. "Event" or "Ecommerce\Transaction"
+     *
      * @param $className
-     * @return mixed
+     * @param null $options
+     * @return bool
      */
     public function createTracking($className, $options = null)
     {
@@ -335,21 +353,15 @@ class GATracking
         }
 
         $class = 'Racecore\GATracking\Tracking\\' . $className;
-
-        if (!class_exists($class)) {
-            require_once dirname(__FILE__) . '\Tracking\AbstractTracking.php';
-            require_once dirname(__FILE__) . '\Tracking\\' . $className . '.php';
-        }
-
         if ($options) {
             return new $class($options);
         }
-
         return new $class;
     }
 
     /**
      * Send single tracking request
+     *
      * @param Tracking\AbstractTracking $tracking
      * @return Tracking\AbstractTracking
      */
@@ -362,6 +374,7 @@ class GATracking
 
     /**
      * Send multiple tracking request
+     *
      * @param $array
      * @return Request\TrackingRequestCollection
      */
