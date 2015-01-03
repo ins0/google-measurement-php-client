@@ -13,61 +13,49 @@ use Racecore\GATracking\Request\TrackingRequestCollection;
  */
 class GATrackingTest extends AbstractGATrackingTest
 {
-
-    /** @var  GATracking */
-    private $instance;
-
-    public function setUp()
-    {
-        $this->instance = new GATracking('fooId');
-    }
-
-    public function getClientMock()
-    {
-        $class = $this->getMock('Racecore\GATracking\Client\Adapter\Socket');
-        return $class;
-    }
-
     public function testInstanceIsGenerated()
     {
-        $this->assertInstanceOf('Racecore\GATracking\GATracking', $this->instance);
+        $service = new GATracking('fooId');
+        $this->assertInstanceOf('Racecore\GATracking\GATracking', $service);
     }
 
     public function testAnalyticsAccountIdIsSet()
     {
-        $this->assertSame('fooId', $this->instance->getAnalyticsAccountUid());
+        $service = new GATracking('fooId');
+        $this->assertSame('fooId', $service->getAnalyticsAccountUid());
     }
 
     public function testAnalyticsAccountIdCanBeSet()
     {
-        $this->instance->setAnalyticsAccountUid('newFoo');
-        $this->assertSame('newFoo', $this->instance->getAnalyticsAccountUid());
+        $service = new GATracking('fooId');
+        $service->setAnalyticsAccountUid('newFoo');
+        $this->assertSame('newFoo', $service->getAnalyticsAccountUid());
     }
 
     public function testSetUpClientAdapterFromConstructor()
     {
+        $service = new GATracking('fooId');
         $this->assertInstanceOf(
             'Racecore\GATracking\Client\AbstractClientAdapter',
-            $this->instance->getClientAdapter()
+            $service->getClientAdapter()
         );
     }
 
     public function testDefaultClientAdapterIsSet()
     {
-        $instance = new GATracking('foo');
-        $this->assertInstanceOf('Racecore\GATracking\Client\Adapter\Socket', $instance->getClientAdapter());
+        $service = new GATracking('foo');
+        $this->assertInstanceOf('Racecore\GATracking\Client\Adapter\Socket', $service->getClientAdapter());
     }
 
     public function testOptionsAreMergedOverConstructor()
     {
-        $options = array(
+        $service = new GATracking('foo', array(
             'foo' => 'bar',
             'baz' => array(
                 'foobaz' => 'foobar'
             )
-        );
-        $instance = new GATracking('foo', $options);
-        $newOptions = $instance->getOptions();
+        ));
+        $newOptions = $service->getOptions();
 
         $this->assertArrayHasKey('foo', $newOptions);
         $this->assertArrayHasKey('baz', $newOptions);
@@ -78,30 +66,32 @@ class GATrackingTest extends AbstractGATrackingTest
 
     public function testOptionsCanSetOverMethod()
     {
+        $service = new GATracking('foo');
         $options = array(
             'foo' => 'bar',
             'baz' => array(
                 'foobaz'
             )
         );
-        $this->instance->setOptions($options);
+        $service->setOptions($options);
 
-        $this->assertSame($options, $this->instance->getOptions());
+        $this->assertSame($options, $service->getOptions());
     }
 
     public function testSingleOptionCanSetOverMethod()
     {
-        $this->instance->setOptions(array(
+        $service = new GATracking('foo');
+        $service->setOptions(array(
             'foo' => 'bar',
             'baz' => array(
                 'foobaz'
             )
         ));
 
-        $this->instance->setOption('foo', 'baz');
-        $this->instance->setOption('bar', 'baz');
+        $service->setOption('foo', 'baz');
+        $service->setOption('bar', 'baz');
 
-        $newOptions = $this->instance->getOptions();
+        $newOptions = $service->getOptions();
         $this->assertArraysAreSimilar($newOptions, array(
             'foo' => 'baz',
             'baz' => array(
@@ -113,17 +103,18 @@ class GATrackingTest extends AbstractGATrackingTest
 
     public function testSingleArreOptionCanSetAndMergedOverMethod()
     {
-        $this->instance->setOptions(array(
+        $service = new GATracking('foo');
+        $service->setOptions(array(
             'foo' => 'bar',
             'baz' => array(
                 'foobaz' => 'fail'
             )
         ));
-        $this->instance->setOption('baz', array('foo' => 'bar'));
-        $this->instance->setOption('baz', array('foobaz' => 'foobar'));
+        $service->setOption('baz', array('foo' => 'bar'));
+        $service->setOption('baz', array('foobaz' => 'foobar'));
 
 
-        $newOptions = $this->instance->getOptions();
+        $newOptions = $service->getOptions();
         $this->assertArraysAreSimilar($newOptions, array(
             'foo' => 'bar',
             'baz' => array(
@@ -135,17 +126,17 @@ class GATrackingTest extends AbstractGATrackingTest
 
     public function testOptionCanReveivedOverMethod()
     {
-        $options = array(
+        $service = new GATracking('foo');
+        $service->setOptions(array(
             'foo' => 'bar'
-        );
-        $this->instance->setOptions($options);
+        ));
 
-        $this->assertSame('bar', $this->instance->getOption('foo'));
+        $this->assertSame('bar', $service->getOption('foo'));
     }
 
     public function testSingleTracking()
     {
-        $instance = $this->instance;
+        $service = new GATracking('foo');
 
         $trackingRequest = new TrackingRequest();
         $trackingRequest->setPayload(array('foo' => 'bar'));
@@ -154,7 +145,7 @@ class GATrackingTest extends AbstractGATrackingTest
         $collection = new TrackingRequestCollection();
         $collection->add($trackingRequest);
 
-        $clientMock = $this->getClientMock();
+        $clientMock = $this->getMock('Racecore\GATracking\Client\Adapter\Socket');
         $clientMock->expects($this->once())
             ->method('send')
             ->will($this->returnValue($collection));
@@ -164,8 +155,8 @@ class GATrackingTest extends AbstractGATrackingTest
             ->method('getPackage')
             ->will($this->returnValue(array('test' => 'bar')));
 
-        $instance->setClientAdapter($clientMock);
-        $response = $instance->sendTracking($tracking);
+        $service->setClientAdapter($clientMock);
+        $response = $service->sendTracking($tracking);
 
         $responsePayload = $response->getPayload();
         $responseHeader = $response->getResponseHeader();
