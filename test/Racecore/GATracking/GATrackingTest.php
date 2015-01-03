@@ -89,6 +89,50 @@ class GATrackingTest extends AbstractGATrackingTest
         $this->assertSame($options, $this->instance->getOptions());
     }
 
+    public function testSingleOptionCanSetOverMethod()
+    {
+        $this->instance->setOptions(array(
+            'foo' => 'bar',
+            'baz' => array(
+                'foobaz'
+            )
+        ));
+
+        $this->instance->setOption('foo', 'baz');
+        $this->instance->setOption('bar', 'baz');
+
+        $newOptions = $this->instance->getOptions();
+        $this->assertArraysAreSimilar($newOptions, array(
+            'foo' => 'baz',
+            'baz' => array(
+                'foobaz'
+            ),
+            'bar' => 'baz'
+        ));
+    }
+
+    public function testSingleArreOptionCanSetAndMergedOverMethod()
+    {
+        $this->instance->setOptions(array(
+            'foo' => 'bar',
+            'baz' => array(
+                'foobaz' => 'fail'
+            )
+        ));
+        $this->instance->setOption('baz', array('foo' => 'bar'));
+        $this->instance->setOption('baz', array('foobaz' => 'foobar'));
+
+
+        $newOptions = $this->instance->getOptions();
+        $this->assertArraysAreSimilar($newOptions, array(
+            'foo' => 'bar',
+            'baz' => array(
+                'foobaz' => 'foobar',
+                'foo' => 'bar'
+            )
+        ));
+    }
+
     public function testOptionCanReveivedOverMethod()
     {
         $options = array(
