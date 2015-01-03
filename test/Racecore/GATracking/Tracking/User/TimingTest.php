@@ -12,19 +12,9 @@ use Racecore\GATracking\AbstractGATrackingTest;
  */
 class TimingTest extends AbstractGATrackingTest
 {
-    /**
-     * @var Timing
-     */
-    private $timing;
-
-    public function setUp()
-    {
-        $this->timing  = new Timing();
-    }
-
     public function testPaketEqualsSpecification()
     {
-        $timing = $this->timing;
+        $timing = new Timing();
 
         $timing->setTimingCategory('Timing Category');
         $timing->setTimingVariable('Timing Variable');
@@ -38,7 +28,7 @@ class TimingTest extends AbstractGATrackingTest
 
         $packet = $timing->getPackage();
 
-        $this->assertArraysAreSimilar(
+        $this->assertEquals(
             array(
                 't' => 'timing',
                 'utc' => 'Timing Category',

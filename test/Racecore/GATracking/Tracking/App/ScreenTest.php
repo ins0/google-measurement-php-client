@@ -12,19 +12,9 @@ use Racecore\GATracking\AbstractGATrackingTest;
  */
 class ScreenTest extends AbstractGATrackingTest
 {
-    /**
-     * @var Screen
-     */
-    private $screen;
-
-    public function setUp()
-    {
-        $this->screen  = new Screen();
-    }
-
     public function testPaketEqualsSpecification()
     {
-        $screen = $this->screen;
+        $screen = new Screen();
 
         $screen->setAppName('Test App');
         $screen->setAppVersion('1.0');
@@ -32,12 +22,12 @@ class ScreenTest extends AbstractGATrackingTest
 
         $packet = $screen->getPackage();
 
-        $this->assertArraysAreSimilar(
+        $this->assertEquals(
             array(
                 't' => 'appview',
+                'cd' => 'Test Description',
                 'an' => 'Test App',
                 'av' => '1.0',
-                'cd' => 'Test Description'
             ),
             $packet
         );

@@ -22,14 +22,14 @@ class GATrackingTest extends AbstractGATrackingTest
     public function testAnalyticsAccountIdIsSet()
     {
         $service = new GATracking('fooId');
-        $this->assertSame('fooId', $service->getAnalyticsAccountUid());
+        $this->assertEquals('fooId', $service->getAnalyticsAccountUid());
     }
 
     public function testAnalyticsAccountIdCanBeSet()
     {
         $service = new GATracking('fooId');
         $service->setAnalyticsAccountUid('newFoo');
-        $this->assertSame('newFoo', $service->getAnalyticsAccountUid());
+        $this->assertEquals('newFoo', $service->getAnalyticsAccountUid());
     }
 
     public function testSetUpClientAdapterFromConstructor()
@@ -61,7 +61,7 @@ class GATrackingTest extends AbstractGATrackingTest
         $this->assertArrayHasKey('baz', $newOptions);
         $this->assertArrayHasKey('foobaz', $newOptions['baz']);
 
-        $this->assertSame('bar', $newOptions['foo']);
+        $this->assertEquals('bar', $newOptions['foo']);
     }
 
     public function testOptionsCanSetOverMethod()
@@ -75,7 +75,7 @@ class GATrackingTest extends AbstractGATrackingTest
         );
         $service->setOptions($options);
 
-        $this->assertSame($options, $service->getOptions());
+        $this->assertEquals($options, $service->getOptions());
     }
 
     public function testSingleOptionCanSetOverMethod()
@@ -92,13 +92,13 @@ class GATrackingTest extends AbstractGATrackingTest
         $service->setOption('bar', 'baz');
 
         $newOptions = $service->getOptions();
-        $this->assertArraysAreSimilar($newOptions, array(
+        $this->assertEquals(array(
             'foo' => 'baz',
             'baz' => array(
                 'foobaz'
             ),
             'bar' => 'baz'
-        ));
+        ), $newOptions);
     }
 
     public function testSingleArreOptionCanSetAndMergedOverMethod()
@@ -115,13 +115,13 @@ class GATrackingTest extends AbstractGATrackingTest
 
 
         $newOptions = $service->getOptions();
-        $this->assertArraysAreSimilar($newOptions, array(
+        $this->assertEquals(array(
             'foo' => 'bar',
             'baz' => array(
                 'foobaz' => 'foobar',
                 'foo' => 'bar'
             )
-        ));
+        ), $newOptions);
     }
 
     public function testOptionCanReveivedOverMethod()
@@ -131,7 +131,7 @@ class GATrackingTest extends AbstractGATrackingTest
             'foo' => 'bar'
         ));
 
-        $this->assertSame('bar', $service->getOption('foo'));
+        $this->assertEquals('bar', $service->getOption('foo'));
     }
 
     public function testSingleTracking()
@@ -163,9 +163,9 @@ class GATrackingTest extends AbstractGATrackingTest
 
         $this->assertInstanceOf('Racecore\GATracking\Request\TrackingRequest', $response);
         $this->assertArrayHasKey('foo', $responsePayload);
-        $this->assertSame('bar', $responsePayload['foo']);
+        $this->assertEquals('bar', $responsePayload['foo']);
 
         $this->assertArrayHasKey('baz', $responseHeader);
-        $this->assertSame('fooBar', $responseHeader['baz']);
+        $this->assertEquals('fooBar', $responseHeader['baz']);
     }
 }

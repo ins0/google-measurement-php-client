@@ -12,23 +12,16 @@ use Racecore\GATracking\AbstractGATrackingTest;
  */
 class PageTest extends AbstractGATrackingTest
 {
-    private $page;
-
-    public function setUp()
-    {
-        $this->page  = new Page();
-    }
-
     public function testPaketEqualsSpecification()
     {
         /** @var Page $page */
-        $page = $this->page;
+        $page = new Page();
         $page->setDocumentPath('foo');
         $page->setDocumentTitle('bar');
         $page->setDocumentHost('baz');
 
         $packet = $page->getPackage();
-        $this->assertArraysAreSimilar(
+        $this->assertEquals(
             array(
                 't'     =>  'pageview',
                 'dh'    =>  'baz',

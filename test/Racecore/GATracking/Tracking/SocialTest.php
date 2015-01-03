@@ -12,24 +12,16 @@ use Racecore\GATracking\AbstractGATrackingTest;
  */
 class SocialTest extends AbstractGATrackingTest
 {
-
-    private $social;
-
-    public function setUp()
-    {
-        $this->social  = new Social();
-    }
-
     public function testPaketEqualsSpecification()
     {
         /** @var Social $social */
-        $social = $this->social;
+        $social = new Social();
         $social->setSocialAction('Test Action');
         $social->setSocialNetwork('Test Network');
         $social->setSocialTarget('/test-target');
 
         $packet = $social->getPackage();
-        $this->assertArraysAreSimilar(
+        $this->assertEquals(
             array(
                 't'     =>  'social',
                 'sa'    =>  'Test Action',

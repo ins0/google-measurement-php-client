@@ -12,19 +12,9 @@ use Racecore\GATracking\AbstractGATrackingTest;
  */
 class TransactionTest extends AbstractGATrackingTest
 {
-    /**
-     * @var Campaign
-     */
-    private $transaction;
-
-    public function setUp()
-    {
-        $this->transaction  = new Transaction();
-    }
-
     public function testPaketEqualsSpecification()
     {
-        $transaction = $this->transaction;
+        $transaction = new Transaction();
 
         $transaction->setID('1234');
         $transaction->setAffiliation('Affiliation name');
@@ -36,7 +26,7 @@ class TransactionTest extends AbstractGATrackingTest
 
         $packet = $transaction->getPackage();
 
-        $this->assertArraysAreSimilar(
+        $this->assertEquals(
             array(
                 't' => 'transaction',
                 'ti' => '1234',
@@ -44,8 +34,8 @@ class TransactionTest extends AbstractGATrackingTest
                 'tr' => 123.45,
                 'ts' => 12.34,
                 'tt' => 12.34,
+                'cu' => 'EUR',
                 'dh' => 'www.domain.tld',
-                'cu' => 'EUR'
             ),
             $packet
         );

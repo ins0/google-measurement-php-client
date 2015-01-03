@@ -12,22 +12,15 @@ use Racecore\GATracking\AbstractGATrackingTest;
  */
 class ExceptionTest extends AbstractGATrackingTest
 {
-    private $exception;
-
-    public function setUp()
-    {
-        $this->exception  = new Exception();
-    }
-
     public function testPaketEqualsSpecification()
     {
         /** @var Exception $exception */
-        $exception = $this->exception;
+        $exception = new Exception();
         $exception->setExceptionDescription('Test Description');
         $exception->setExceptionFatal(true);
 
         $packet = $exception->getPackage();
-        $this->assertArraysAreSimilar(
+        $this->assertEquals(
             array(
                 't'     =>  'exception',
                 'exd'    =>  'Test Description',

@@ -12,24 +12,17 @@ use Racecore\GATracking\AbstractGATrackingTest;
  */
 class EventTest extends AbstractGATrackingTest
 {
-    private $event;
-
-    public function setUp()
-    {
-        $this->event  = new Event();
-    }
-
     public function testPaketEqualsSpecification()
     {
         /** @var Event $event */
-        $event = $this->event;
+        $event = new Event();
         $event->setEventCategory('foo');
         $event->setEventAction('bar');
         $event->setEventLabel('baz');
         $event->setEventValue('val');
 
         $packet = $event->getPackage();
-        $this->assertArraysAreSimilar(
+        $this->assertEquals(
             array(
                 't'     =>  'event',
                 'ec'    =>  'foo',
