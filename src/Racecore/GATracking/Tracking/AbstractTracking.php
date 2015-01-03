@@ -2,6 +2,8 @@
 
 namespace Racecore\GATracking\Tracking;
 
+use Racecore\GATracking\Exception;
+
 /**
  * Google Analytics Measurement PHP Class
  * Licensed under the 3-clause BSD License.
@@ -124,6 +126,23 @@ abstract class AbstractTracking
     // non interactive hit
     private $nonInteractionHit = false;
 
+    private $customPayload = array();
+
+    /**
+     * Add Custom Tracking Payload Data send to Google
+     * @param $key
+     * @param $value
+     * @throws Exception\InvalidArgumentException
+     */
+    public function addCustomPayloadData($key, $value)
+    {
+        if (!is_string($value)) {
+            throw new Exception\InvalidArgumentException('Custom payload data value must be a string');
+        }
+
+        $this->customPayload[$key] = $value;
+    }
+
     /**
      * Get the transfer Paket from current Event
      *
@@ -180,6 +199,9 @@ abstract class AbstractTracking
         ));
 
         $package = $this->addCustomParameters($package);
+
+        // custom payload data
+        $package = array_merge($package, $this->customPayload);
 
         // remove all unused
         $package = array_filter($package, 'strlen');
