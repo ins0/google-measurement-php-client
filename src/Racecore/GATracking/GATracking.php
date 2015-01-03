@@ -326,9 +326,9 @@ class GATracking
     /**
      * Create a Tracking Class Instance - eg. "Event" or "Ecommerce\Transaction"
      * @param $className
-     * @return bool
+     * @return mixed
      */
-    public function createTracking($className)
+    public function createTracking($className, $options = null)
     {
         if (strstr(strtolower($className), 'abstracttracking')) {
             return false;
@@ -339,6 +339,10 @@ class GATracking
         if (!class_exists($class)) {
             require_once dirname(__FILE__) . '\Tracking\AbstractTracking.php';
             require_once dirname(__FILE__) . '\Tracking\\' . $className . '.php';
+        }
+
+        if ($options) {
+            return new $class($options);
         }
 
         return new $class;
