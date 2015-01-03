@@ -1,14 +1,9 @@
 <?php
-
-use Racecore\GATracking\Tracking;
-use Racecore\GATracking\Exception;
-
-/** Autoloader */
-require_once( dirname(__FILE__) . '/../src/Racecore/GATracking/Autoloader.php');
-Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
+require_once(dirname(__FILE__).'/../src/Racecore/GATracking/GATracking.php');
 
 /**
  * Setup the class
+ * optional
  */
 $options = array(
     'client_create_random_id' => true, // create a random client id when the class can't fetch the current cliend id or none is provided by "client_id"
@@ -35,15 +30,14 @@ $gatracking = new \Racecore\GATracking\GATracking('UA-XXXXXX-X', $options);
 /** @var Tracking/Event $event */
 $event = $gatracking->createTracking('Event');
 $event->setAsNonInteractionHit(true);
-$event->setEventCategory('testCat4');
-$event->setEventAction('actionTest4');
+$event->setEventCategory('ImageGallery');
+$event->setEventAction('displayImage1');
 
 /** @var Tracking/Event $event */
 $event2 = $gatracking->createTracking('Event');
-$event2->setAsNonInteractionHit(true);
-$event2->setEventCategory('testCat5');
-$event2->setEventAction('actionTest5');
+$event2->setEventCategory('Categorie');
+$event2->setEventAction('clickCat5');
 
-$gatracking->sendMultipleTracking(array(
+$response = $gatracking->sendMultipleTracking(array(
     $event, $event2
 ));

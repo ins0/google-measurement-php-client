@@ -1,11 +1,5 @@
 <?php
-
-use Racecore\GATracking\Tracking;
-use Racecore\GATracking\Exception;
-
-/** Autoloader */
-require_once( dirname(__FILE__) . '/../src/Racecore/GATracking/Autoloader.php');
-Racecore\GATracking\Autoloader::register(dirname(__FILE__).'/../src/');
+require_once(dirname(__FILE__).'/../src/Racecore/GATracking/GATracking.php');
 
 /**
  * Setup the class
@@ -39,4 +33,4 @@ $event = $gatracking->createTracking('Factory', array(
     'dt' => 'Example Title'
 ));
 
-$gatracking->sendTracking($event);
+$response = $gatracking->sendTracking($event);
