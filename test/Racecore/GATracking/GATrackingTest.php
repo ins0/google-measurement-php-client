@@ -13,6 +13,16 @@ use Racecore\GATracking\Request\TrackingRequestCollection;
  */
 class GATrackingTest extends AbstractGATrackingTest
 {
+    public function setUp()
+    {
+        $_COOKIE = array();
+    }
+
+    public function setDown()
+    {
+        $_COOKIE = null;
+    }
+
     public function testInstanceIsGenerated()
     {
         $service = new GATracking('fooId');
@@ -30,6 +40,46 @@ class GATrackingTest extends AbstractGATrackingTest
         $service = new GATracking('fooId');
         $service->setAnalyticsAccountUid('newFoo');
         $this->assertEquals('newFoo', $service->getAnalyticsAccountUid());
+    }
+
+    public function testClientIdCanSet()
+    {
+        $service = new GATracking('foo');
+        $service->setOption('client_id', 'foo');
+        $this->assertEquals('foo', $service->getClientId());
+    }
+
+    public function testClientIdCanSetOverCookieOldUuid()
+    {
+        $service = new GATracking('foo');
+        $_COOKIE['_ga'] = 'foo.bar.baz.quux';
+
+        $this->assertEquals('baz.quux', $service->getClientId());
+    }
+
+    public function testClientIdCanSetOverCookieNewUuid()
+    {
+        $service = new GATracking('foo');
+        $_COOKIE['_ga'] = 'foo.bar.f9f0b1fe-8d57-4adb-babc-787fd873613c';
+
+        $this->assertEquals('f9f0b1fe-8d57-4adb-babc-787fd873613c', $service->getClientId());
+    }
+
+    public function testClientIdGetGenerated()
+    {
+        $service = new GATracking('foo');
+        $service->setOption('client_create_random_id', true);
+
+        $this->assertNotNull($service->getClientId());
+    }
+
+    public function testClientIdFallback()
+    {
+        $service = new GATracking('foo');
+        $service->setOption('client_create_random_id', false);
+        $service->setOption('client_fallback_id', 'foo');
+
+        $this->assertEquals('foo', $service->getClientId());
     }
 
     public function testSetUpClientAdapterFromConstructor()
