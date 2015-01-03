@@ -211,12 +211,12 @@ class GATracking
         }
 
         // nothing found - fallback
-        $generateClientId = $this->getOption('create_random_client_id');
+        $generateClientId = $this->getOption('client_create_random_id');
         if ($generateClientId) {
             return $this->generateUuid();
         }
 
-        return $this->getOption('fallback_client_id');
+        return $this->getOption('client_fallback_id');
     }
 
     /**
