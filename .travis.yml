@@ -8,7 +8,8 @@ php:
   - 5.5
 
 install:
-  - composer install --prefer-source
+  - composer self-update
+  - composer update --prefer-source
 
 script:
   - ./vendor/bin/phpcs --standard=./phpcs.xml -np --report=summary .
