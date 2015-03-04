@@ -73,19 +73,13 @@ class Socket extends Client\AbstractClientAdapter
             return false;
         }
 
-        $payloadString = http_build_query($request->getPayload());
-        $payloadLength = strlen($payloadString);
-
         // response
         $response = '';
 
         // receive response
-        $read = 0;
-        do {
-            $buf = fread($this->connection, $payloadLength - $read);
-            $read += strlen($buf);
-            $response .= $buf;
-        } while ($read < $payloadLength);
+        while (!feof($this->connection)) {
+            $response .= fread($this->connection, 8192);
+        }
 
         // response
         $responseContainer = explode("\r\n\r\n", $response, 2);
