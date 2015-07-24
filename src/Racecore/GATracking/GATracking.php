@@ -302,7 +302,7 @@ class GATracking
                 $payloadData['ua'] = $proxy['user_agent'];
             }
 
-            $payloadData['uid'] = $proxy['ip'];
+            $payloadData['uip'] = $proxy['ip'];
         }
 
         return array_filter($payloadData);
