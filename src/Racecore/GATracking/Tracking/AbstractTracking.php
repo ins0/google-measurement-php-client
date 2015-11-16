@@ -217,22 +217,15 @@ abstract class AbstractTracking
 
     /**
      * Set the Tracking Processing Time to pass the qt param within this tracking request
+     * ATTENTION!: Values greater than four hours may lead to hits not being processed.
+     *
      * https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#qt
      *
-     * @param integer $timestamp Timestamp when the Hit occurred
+     * @param $milliseconds
      */
-    public function setProcessingTime($timestamp)
+    public function setQueueTime($milliseconds)
     {
-        $timeDiff = time() - $timestamp;
-
-        if ($timeDiff > 0) {
-            // Google Hint: Values greater than four hours may lead to hits not being processed.
-            if ((($timeDiff / 60) / 60) >= 4) {
-                trigger_error('Queue Times greater than four hours may lead to hits not being processed!', E_USER_NOTICE);
-            }
-
-            $this->queueTime = ($timeDiff * 1000);
-        }
+        $this->queueTime = $milliseconds;
     }
 
     /**
