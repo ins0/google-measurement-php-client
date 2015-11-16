@@ -41,7 +41,7 @@ class TrackingTest extends AbstractGATrackingTest
 
     public function testTrackingProcessingTimeThrowsNoticeWhenOver4Hours()
     {
-        $this->setExpectedException(\PHPUnit_Framework_Error_Notice::class, 'Queue Time greater then 4 hours. Values greater than four hours may lead to hits not being processed!');
+        $this->setExpectedException('PHPUnit_Framework_Error_Notice', 'Queue Time greater than 4 hours. Values greater than four hours may lead to hits not being processed!');
 
         $timeProcessed = new \DateTime();
         $timeProcessed->modify('-4 hours');
