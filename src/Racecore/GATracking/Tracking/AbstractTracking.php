@@ -128,6 +128,9 @@ abstract class AbstractTracking
 
     private $customPayload = array();
 
+    // event queue time difference
+    private $queueTime;
+
     /**
      * Add Custom Tracking Payload Data send to Google
      * @param $key
@@ -196,6 +199,9 @@ abstract class AbstractTracking
             // content experiments
             'xid' => $this->experimentID,
             'xvar' => $this->experimentVariant,
+
+            // optional
+            'qt' => $this->queueTime,
         ));
 
         $package = $this->addCustomParameters($package);
@@ -207,6 +213,19 @@ abstract class AbstractTracking
         $package = array_filter($package, 'strlen');
 
         return $package;
+    }
+
+    /**
+     * Set the Tracking Processing Time to pass the qt param within this tracking request
+     * ATTENTION!: Values greater than four hours may lead to hits not being processed.
+     *
+     * https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#qt
+     *
+     * @param $milliseconds
+     */
+    public function setQueueTime($milliseconds)
+    {
+        $this->queueTime = $milliseconds;
     }
 
     /**
