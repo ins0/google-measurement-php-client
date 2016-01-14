@@ -81,7 +81,7 @@ class Socket extends Client\AbstractClientAdapter
             $out = @socket_read($this->connection, self::READ_BUFFER);
             $response .= $out;
 
-            if(!$out || strlen($out) < self::READ_BUFFER) {
+            if (!$out || strlen($out) < self::READ_BUFFER) {
                 break;
             }
         } while (true);
