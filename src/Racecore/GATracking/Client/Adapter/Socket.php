@@ -8,6 +8,9 @@ use Racecore\GATracking\Request;
 
 class Socket extends Client\AbstractClientAdapter
 {
+    const READ_TIMEOUT = 3;
+    const READ_BUFFER = 8192;
+
     private $connection = null;
 
     /**
@@ -20,9 +23,13 @@ class Socket extends Client\AbstractClientAdapter
         // port
         $port = $this->getOption('ssl') == true ? 443 : 80;
 
-
         $connection = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
         socket_connect($connection, $endpoint['host'], $port);
+        socket_set_option($connection, SOL_SOCKET, SO_RCVTIMEO, array('sec' => self::READ_TIMEOUT, 'usec' => 0));
+
+        if ($this->getOption('async')) {
+            socket_set_nonblock($connection);
+        }
 
         if (!$connection) {
             throw new Exception\EndpointServerException('Analytics Host not reachable! Error:');
@@ -66,21 +73,18 @@ class Socket extends Client\AbstractClientAdapter
      */
     private function readConnection(Request\TrackingRequest $request)
     {
-        if ($this->getOption('async')) {
-            return false;
-        }
-
         // response
         $response = '';
 
         // receive response
-        while ($out = socket_read($this->connection, 2048)) {
+        do {
+            $out = @socket_read($this->connection, self::READ_BUFFER);
             $response .= $out;
 
-            if (strlen($out) < 2048) {
+            if(!$out || strlen($out) < self::READ_BUFFER) {
                 break;
             }
-        }
+        } while (true);
 
         // response
         $responseContainer = explode("\r\n\r\n", $response, 2);
