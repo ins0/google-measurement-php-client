@@ -20,15 +20,12 @@ class Socket extends Client\AbstractClientAdapter
         // port
         $port = $this->getOption('ssl') == true ? 443 : 80;
 
-        // connect
-        $connection = @fsockopen($port == 443 ? 'ssl://' . $endpoint['host'] : $endpoint['host'], $port, $error, $errorMessage, 10);
 
-        if (!$connection || $error) {
-            throw new Exception\EndpointServerException('Analytics Host not reachable! Error:' . $errorMessage);
-        }
+        $connection = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        socket_connect($connection, $endpoint['host'], $port);
 
-        if ($this->getOption('async')) {
-            stream_set_blocking($connection, 0);
+        if (!$connection) {
+            throw new Exception\EndpointServerException('Analytics Host not reachable! Error:');
         }
 
         $this->connection = $connection;
@@ -55,7 +52,7 @@ class Socket extends Client\AbstractClientAdapter
             ($lastData ? 'Connection: Close' . "\r\n" : '') . "\r\n";
 
         // fwrite + check if fwrite was ok
-        if (!fwrite($this->connection, $header) || !fwrite($this->connection, $payloadString)) {
+        if (!socket_write($this->connection, $header) || !socket_write($this->connection, $payloadString)) {
             throw new Exception\EndpointServerException('Server closed connection unexpectedly');
         }
 
@@ -77,8 +74,12 @@ class Socket extends Client\AbstractClientAdapter
         $response = '';
 
         // receive response
-        while (!feof($this->connection)) {
-            $response .= fread($this->connection, 8192);
+        while ($out = socket_read($this->connection, 2048)) {
+            $response .= $out;
+
+            if (strlen($out) < 2048) {
+                break;
+            }
         }
 
         // response
@@ -110,9 +111,8 @@ class Socket extends Client\AbstractClientAdapter
 
             $request->setResponseHeader($responseHeader);
         }
-
         // connection close
-        fclose($this->connection);
+        socket_close($this->connection);
 
         return $requestCollection;
     }
