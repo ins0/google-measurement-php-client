@@ -43,14 +43,12 @@ https://developers.google.com/analytics/devguides/collection/protocol/v1/devguid
 ## Quick start
 
 ### Install via Composer
-In the `require` key of `composer.json` file add the following
 
-    "ins0/google-measurement-php-client": "dev-master"
+Run the following Composer command to install this:
 
-Run the Composer update command
-
-    $ composer update
-
+```bash
+$ composer require  "ins0/google-measurement-php-client": "dev-master"
+```
 
 #Requirements#
 
