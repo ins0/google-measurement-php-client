@@ -8,6 +8,9 @@ use Racecore\GATracking\Request;
 
 class Socket extends Client\AbstractClientAdapter
 {
+    const READ_TIMEOUT = 3;
+    const READ_BUFFER = 8192;
+
     private $connection = null;
 
     /**
@@ -20,15 +23,16 @@ class Socket extends Client\AbstractClientAdapter
         // port
         $port = $this->getOption('ssl') == true ? 443 : 80;
 
-        // connect
-        $connection = @fsockopen($port == 443 ? 'ssl://' . $endpoint['host'] : $endpoint['host'], $port, $error, $errorMessage, 10);
-
-        if (!$connection || $error) {
-            throw new Exception\EndpointServerException('Analytics Host not reachable! Error:' . $errorMessage);
-        }
+        $connection = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        socket_connect($connection, $endpoint['host'], $port);
+        socket_set_option($connection, SOL_SOCKET, SO_RCVTIMEO, array('sec' => self::READ_TIMEOUT, 'usec' => 0));
 
         if ($this->getOption('async')) {
-            stream_set_blocking($connection, 0);
+            socket_set_nonblock($connection);
+        }
+
+        if (!$connection) {
+            throw new Exception\EndpointServerException('Analytics Host not reachable! Error:');
         }
 
         $this->connection = $connection;
@@ -55,7 +59,7 @@ class Socket extends Client\AbstractClientAdapter
             ($lastData ? 'Connection: Close' . "\r\n" : '') . "\r\n";
 
         // fwrite + check if fwrite was ok
-        if (!fwrite($this->connection, $header) || !fwrite($this->connection, $payloadString)) {
+        if (!socket_write($this->connection, $header) || !socket_write($this->connection, $payloadString)) {
             throw new Exception\EndpointServerException('Server closed connection unexpectedly');
         }
 
@@ -69,17 +73,18 @@ class Socket extends Client\AbstractClientAdapter
      */
     private function readConnection(Request\TrackingRequest $request)
     {
-        if ($this->getOption('async')) {
-            return false;
-        }
-
         // response
         $response = '';
 
         // receive response
-        while (!feof($this->connection)) {
-            $response .= fread($this->connection, 8192);
-        }
+        do {
+            $out = @socket_read($this->connection, self::READ_BUFFER);
+            $response .= $out;
+
+            if (!$out || strlen($out) < self::READ_BUFFER) {
+                break;
+            }
+        } while (true);
 
         // response
         $responseContainer = explode("\r\n\r\n", $response, 2);
@@ -110,9 +115,8 @@ class Socket extends Client\AbstractClientAdapter
 
             $request->setResponseHeader($responseHeader);
         }
-
         // connection close
-        fclose($this->connection);
+        socket_close($this->connection);
 
         return $requestCollection;
     }
