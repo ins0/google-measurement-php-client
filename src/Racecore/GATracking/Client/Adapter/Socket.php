@@ -28,7 +28,7 @@ class Socket extends Client\AbstractClientAdapter
             $errormsg = socket_strerror($errorcode);
             throw new Exception\EndpointServerException('Analytics Socket failure! Error: ' . $errormsg);
         }
-	
+
         if (!socket_connect($connection, $endpoint['host'], $port)) {
             $errorcode = socket_last_error();
             $errormsg = socket_strerror($errorcode);
