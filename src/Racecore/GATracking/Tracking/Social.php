@@ -106,15 +106,15 @@ class Social extends AbstractTracking
     public function createPackage()
     {
         if (!$this->getSocialAction()) {
-            throw new MissingTrackingParameterException('social action musst be set');
+            throw new MissingTrackingParameterException('social action must be set');
         }
 
         if (!$this->getSocialNetwork()) {
-            throw new MissingTrackingParameterException('social network musst be set');
+            throw new MissingTrackingParameterException('social network must be set');
         }
 
         if (!$this->getSocialTarget()) {
-            throw new MissingTrackingParameterException('social target musst be set');
+            throw new MissingTrackingParameterException('social target must be set');
         }
 
         return array(
