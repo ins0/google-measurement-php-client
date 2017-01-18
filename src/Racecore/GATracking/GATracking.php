@@ -39,7 +39,9 @@ class GATracking
         'adapter' => array(
             'async' => true, // requests to google are async - don't wait for google server response
             'ssl' => false // use ssl connection to google server
-        )
+        ),
+
+        'queue_time' => null, // If there is any queue time to be sent with the payload (https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#qt)
 
         // use proxy
         /**
@@ -291,6 +293,7 @@ class GATracking
         $payloadData['tid'] = $this->analyticsAccountUid; // account id
         $payloadData['uid'] = $this->getOption('user_id');
         $payloadData['cid'] = $this->getClientId();
+        $payloadData['qt'] = $this->getOption('queue_time');
 
         $proxy = $this->getOption('proxy');
         if ($proxy) {
