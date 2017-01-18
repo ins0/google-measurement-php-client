@@ -131,11 +131,11 @@ class Event extends AbstractTracking
     public function createPackage()
     {
         if (!$this->getEventCategory()) {
-            throw new MissingTrackingParameterException('event category musst be set');
+            throw new MissingTrackingParameterException('event category must be set');
         }
 
         if (!$this->getEventAction()) {
-            throw new MissingTrackingParameterException('event action musst be set');
+            throw new MissingTrackingParameterException('event action must be set');
         }
 
         return array(
