@@ -29,6 +29,13 @@
             "Racecore\\GATracking": "src/"
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packagist.org"
+        },
+        { "packagist": false }
+    ],
     "extra": {
         "branch-alias": {
             "dev-master": "2.1.x-dev"
