@@ -280,9 +280,12 @@ class GATracking
     /**
      * Return the client's IP address.
      *
+     * Returns the IP address if found, an empty string if not. The
+     * output is santized via FILTER_VALIDATE_IP.
+     *
      * The algorithm uses the HTTP_CLIENT_IP and HTTP_X_FORWARDED_FOR
      * globals to infer the IP address; if they are not available (as
-     * it is the case in most cases), it suse the REMOTE_ADDR global.
+     * it is the case in most cases), it uses the REMOTE_ADDR global.
      *
      * Do not use this function to grant access or privileges to
      * IP addresses, because the HTTP_CLIENT_IP and
@@ -291,9 +294,6 @@ class GATracking
      * On the other hand, the REMOTE_ADDR global is very difficult
      * to spoof. However, when the client is beyond a proxy, it isn't
      * necessarily the correct IP.
-     *
-     * Returns the IP address if found, false if not. The output is
-     * santized via FILTER_VALIDATE_IP.
      *
      * See here for more details: http://stackoverflow.com/questions/
      * 3003145/how-to-get-the-client-ip-address-in-php
@@ -305,18 +305,23 @@ class GATracking
     final private function getClientIp ()
     {
 
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        if (isset($_SERVER['HTTP_CLIENT_IP']) && !empty($_SERVER['HTTP_CLIENT_IP'])) {
 
             $ip = $_SERVER['HTTP_CLIENT_IP'];
 
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
 
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 
-        } else {
+        } elseif (isset($_SERVER['REMOTE_ADDR']) && !empty($_SERVER['REMOTE_ADDR'])) {
 
             $ip = $_SERVER['REMOTE_ADDR'];
 
+        }
+        else {
+            
+            return '';
+            
         }
 
         return filter_var($ip, FILTER_VALIDATE_IP);
