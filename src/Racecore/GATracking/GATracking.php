@@ -278,6 +278,57 @@ class GATracking
     }
 
     /**
+     * Return the client's IP address.
+     *
+     * Returns the IP address if found, an empty string if not. The
+     * output is santized via FILTER_VALIDATE_IP.
+     *
+     * The algorithm uses the HTTP_CLIENT_IP and HTTP_X_FORWARDED_FOR
+     * globals to infer the IP address; if they are not available (as
+     * it is the case in most cases), it uses the REMOTE_ADDR global.
+     *
+     * Do not use this function to grant access or privileges to
+     * IP addresses, because the HTTP_CLIENT_IP and
+     * HTTP_X_FORWARDED_FOR globals can be easily spoofed.
+     *
+     * On the other hand, the REMOTE_ADDR global is very difficult
+     * to spoof. However, when the client is beyond a proxy, it isn't
+     * necessarily the correct IP.
+     *
+     * See here for more details: http://stackoverflow.com/questions/
+     * 3003145/how-to-get-the-client-ip-address-in-php
+     *
+     * Created by Guido W. Pettinari on 05.09.2016.
+     * Latest version here:
+     * https://gist.github.com/coccoinomane/4c420776dc16d80ea772aff06d3e1ef4
+     */
+    final private function getClientIp ()
+    {
+
+        if (isset($_SERVER['HTTP_CLIENT_IP']) && !empty($_SERVER['HTTP_CLIENT_IP'])) {
+
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+
+        } elseif (isset($_SERVER['REMOTE_ADDR']) && !empty($_SERVER['REMOTE_ADDR'])) {
+
+            $ip = $_SERVER['REMOTE_ADDR'];
+
+        }
+        else {
+            
+            return '';
+            
+        }
+
+        return filter_var($ip, FILTER_VALIDATE_IP);
+
+    }
+
+    /**
      * Build the Tracking Payload Data
      *
      * @param Tracking\AbstractTracking $event
@@ -291,6 +342,7 @@ class GATracking
         $payloadData['tid'] = $this->analyticsAccountUid; // account id
         $payloadData['uid'] = $this->getOption('user_id');
         $payloadData['cid'] = $this->getClientId();
+        $payloadData['uip'] = $this->getClientIp(); // client IP, will be anonymized
 
         $proxy = $this->getOption('proxy');
         if ($proxy) {
